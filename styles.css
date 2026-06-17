@@ -1,0 +1,419 @@
+/* Soft Hours — About 2 (desktop)
+   Faithful port of the Paper artboard.
+   Display = PP Watch (Jost fallback), labels = Test Pitch (Inter fallback),
+   body = Courier New. PP Watch / Test Pitch resolve locally if installed. */
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&display=swap');
+
+@font-face {
+  font-family: "PP Watch";
+  src: url("assets/fonts/PPWatch-Extralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --cream: #F2EBDD;
+  --ink: #26241A;
+  --muted: #9C9081;
+  --hairline: rgba(38, 36, 26, 0.12);
+  --footer-bg: #26241A;
+  --footer-label: #C9BFAC;
+  --footer-link: #F2EBDD;
+  --footer-divider: #4A3F33;
+
+  --display: "PP Watch", "Jost", system-ui, sans-serif;
+  --label: "Courier New", Courier, monospace;
+  --mono: "Courier New", Courier, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  width: 1440px;
+  margin: 0 auto;
+  background: var(--cream);
+}
+
+img { display: block; }
+
+/* ---------- Nav ---------- */
+.nav {
+  display: flex;
+  align-items: center;
+  padding: 30px 40px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--hairline);
+}
+.nav-side { flex: 1 0 0; display: flex; align-items: center; }
+.nav-right { justify-content: flex-end; gap: 28px; }
+.wordmark-nav {
+  width: 200px;
+  height: 26px;
+  background: url('assets/nav-wordmark.svg') left center / contain no-repeat;
+  filter: brightness(0);
+}
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav a, .nav-links a {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ---------- Section 1 · Hero ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  height: 85vh;
+  overflow: clip;
+}
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.hero-circle {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  background: url('assets/circle.png') center / cover;
+}
+.hero-title {
+  position: relative;
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 78px;
+  line-height: 82px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* ---------- Section 2 · Intro ---------- */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 130px 40px;
+}
+.eyebrow-link {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.intro-body {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+  text-align: center;
+  max-width: 640px;
+  white-space: pre-wrap;
+}
+
+/* ---------- Section 3 · Bedspread (full bleed) ---------- */
+.bedspread {
+  position: relative;
+  width: 1440px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  background: url('assets/bedspread.jpg') 50% 46% / cover;
+}
+.bedspread-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(38,36,26,0.20) 0%, rgba(38,36,26,0.12) 45%, rgba(38,36,26,0.28) 100%);
+}
+.bedspread-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.label-row { display: flex; align-items: center; gap: 16px; }
+.label-row .line { width: 34px; height: 1px; background: var(--cream); }
+.label {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.bedspread-title {
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 60px;
+  line-height: 64px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--cream);
+}
+
+/* ---------- Section 4 · Founder ---------- */
+.founder {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 76px;
+  padding: 130px 40px;
+}
+.founder-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 58px;
+  width: 640px;
+  flex-shrink: 0;
+}
+.founder-title {
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 54px;
+  line-height: 58px;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.founder-body {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+  max-width: 640px;
+  white-space: pre-wrap;
+}
+.founder-image {
+  flex: 1;
+  align-self: stretch;
+  min-height: 700px;
+  background: url('assets/founder.jpg') 50% 40% / cover;
+}
+
+/* ---------- Section 5 · Made with Patience ---------- */
+.patience {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  padding: 100px 40px 130px;
+}
+.patience-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+.patience-title {
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 54px;
+  line-height: 58px;
+  letter-spacing: -0.018em;
+  text-align: center;
+  color: var(--ink);
+}
+.patience-body {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+  text-align: center;
+  max-width: 640px;
+}
+.maker-grid { display: flex; gap: 20px; width: 100%; }
+.maker { display: flex; flex-direction: column; gap: 24px; flex: 1; }
+.maker-image { width: 100%; height: 600px; overflow: clip; }
+.maker-image.brick  { background: url('assets/brick.jpg') 50% 30% / cover; }
+.maker-image.fabric { background: url('assets/fabric.jpg') 50% 35% / cover; }
+.maker-image.office { background: url('assets/office.jpg') 50% 22% / cover; }
+.maker-text { display: flex; flex-direction: column; gap: 12px; }
+.maker-caption {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.maker-name {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.maker-body {
+  font-family: var(--mono);
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--ink);
+}
+
+/* ---------- Section 6 · Best Sellers ---------- */
+.bestsellers {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  padding: 120px 40px;
+}
+.bestsellers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--hairline);
+}
+.bestsellers-title {
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 60px;
+  line-height: 64px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.bestsellers-link {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--ink);
+}
+.product-grid { display: flex; gap: 28px; }
+.product { display: flex; flex-direction: column; flex: 1; gap: 20px; }
+.product-image { width: 100%; height: 412px; overflow: clip; }
+.product-image.p1 { background: url('assets/product1.jpg') 50% 30% / cover; }
+.product-image.p2 { background: url('assets/product2.jpg') 50% 26% / cover; }
+.product-image.p3 { background: url('assets/product3.png') 50% 22% / cover; }
+.product-image.p4 { background: url('assets/product4.jpg') 50% 24% / cover; }
+.product-info { display: flex; flex-direction: column; gap: 12px; }
+.product-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.product-name-block { display: flex; flex-direction: column; gap: 6px; }
+.product-name {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--ink);
+}
+.product-sub {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--muted);
+}
+.product-price {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.dots { display: flex; align-items: center; gap: 8px; }
+.dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(38, 36, 26, 0.25);
+  flex-shrink: 0;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--footer-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 77px;
+  padding: 96px 40px 48px;
+}
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.footer-cols { display: flex; justify-content: space-between; width: 100%; }
+.footer-col { display: flex; flex-direction: column; gap: 18px; }
+.footer-col h4 {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--footer-label);
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--footer-link);
+  text-decoration: none;
+}
+.footer-wordmark-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+.footer-wordmark {
+  width: 1316px;
+  height: 157px;
+  background: url('assets/footer-wordmark.svg') 50% / contain no-repeat;
+  filter: brightness(1.05);
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--footer-divider);
+}
+.footer-bottom span,
+.footer-meta span {
+  font-family: var(--label);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--footer-label);
+}
+.footer-meta { display: flex; align-items: center; gap: 24px; }
+.footer-meta .divider { width: 1px; height: 10px; background: var(--footer-divider); }
