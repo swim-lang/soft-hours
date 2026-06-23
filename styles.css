@@ -428,9 +428,8 @@ img { display: block; }
 }
 .footer-wordmark {
   width: 100%;
-  max-width: 1316px;
-  height: 157px;
-  background: url('assets/footer-wordmark.svg') 50% / contain no-repeat;
+  aspect-ratio: 410.68 / 49.06;
+  background: url('assets/footer-wordmark.svg') 50% / 100% 100% no-repeat;
   filter: brightness(1.05);
 }
 .footer-bottom {
