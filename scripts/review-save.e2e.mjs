@@ -103,8 +103,8 @@ try {
   await page.locator(".review-toolbar").waitFor();
   await page.locator('[data-review-id="home-intro"]').click({ position: { x: 40, y: 40 } });
   await page.locator("[data-review-draft]").fill(uniqueComment);
-  await page.getByRole("button", { name: "Save to Supabase" }).click();
-  await page.getByText("Comment saved to Supabase.").waitFor();
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await page.getByText("Comment saved.").waitFor();
   await page.getByText(uniqueComment).waitFor();
 
   await page.reload({ waitUntil: "networkidle" });

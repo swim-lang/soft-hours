@@ -25,7 +25,7 @@
     activeTarget: null,
     panelOpen: false,
     notice: "",
-    syncWarning: HAS_REVIEW_SUPABASE ? "" : "Supabase review database is not configured. Comments cannot be saved yet.",
+    syncWarning: HAS_REVIEW_SUPABASE ? "" : "The review database is not configured. Comments cannot be saved yet.",
   };
 
   const reviewLayer = document.createElement("div");
@@ -136,7 +136,7 @@
 
   const loadComments = async () => {
     if (!HAS_REVIEW_SUPABASE) {
-      state.syncWarning = "Supabase review database is not configured. Comments cannot be saved yet.";
+      state.syncWarning = "The review database is not configured. Comments cannot be saved yet.";
       render();
       return;
     }
@@ -149,7 +149,7 @@
       render();
     } catch (error) {
       console.warn("Could not load Soft Hours review comments.", error);
-      state.syncWarning = "Could not connect to the Supabase review database.";
+      state.syncWarning = "Could not connect to the review database.";
       render();
     }
   };
@@ -181,7 +181,7 @@
 
   const resolveComment = async (id) => {
     if (!HAS_REVIEW_SUPABASE) {
-      showNotice("Supabase is required to resolve comments.");
+      showNotice("The review database is required to resolve comments.");
       return;
     }
 
@@ -198,7 +198,7 @@
       render();
     } catch (error) {
       console.warn("Could not resolve Soft Hours review comment.", error);
-      showNotice("Could not resolve in Supabase.");
+      showNotice("Could not resolve this comment.");
     }
   };
 
@@ -212,8 +212,8 @@
     }
 
     if (!HAS_REVIEW_SUPABASE) {
-      state.syncWarning = "Supabase review database is not configured. This comment was not saved.";
-      showNotice("Supabase is required to save comments.");
+      state.syncWarning = "The review database is not configured. This comment was not saved.";
+      showNotice("The review database is required to save comments.");
       return;
     }
 
@@ -239,11 +239,11 @@
       state.panelOpen = true;
       state.syncWarning = "";
       markCommentedSections();
-      showNotice("Comment saved to Supabase.");
+      showNotice("Comment saved.");
       render();
     } catch (error) {
       console.warn("Could not save Soft Hours review comment.", error);
-      state.syncWarning = "Could not save to the Supabase review database.";
+      state.syncWarning = "Could not save to the review database.";
       showNotice("Comment was not saved.");
       render();
     }
@@ -274,7 +274,7 @@
       <div class="review-mode-card">
         <span>Soft Hours private review</span>
         <h2 id="reviewChoiceTitle">Open the site for review.</h2>
-        <p>Preview normally or switch into comment mode to leave section-level notes. Comments are only marked saved after Supabase accepts them.</p>
+        <p>Preview normally or switch into comment mode to leave section-level notes. Comments are only marked saved after the review system accepts them.</p>
         <div class="review-mode-actions">
           <button type="button" data-review-mode="browse">Preview website</button>
           <button type="button" data-review-mode="comment">Leave revisions</button>
@@ -292,7 +292,7 @@
       ${state.syncWarning ? `<small>${escapeHtml(state.syncWarning)}</small>` : ""}
       <div class="review-popover-actions">
         <button type="button" data-review-cancel>Cancel</button>
-        <button type="submit">Save to Supabase</button>
+        <button type="submit">Save</button>
       </div>
     </form>
   ` : "";
