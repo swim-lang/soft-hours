@@ -14,9 +14,10 @@
     return;
   }
 
-  const initialMode = params.get("review") === "comment"
-    ? "comment"
-    : window.sessionStorage.getItem(REVIEW_MODE_KEY) || (reviewRequested ? "browse" : "");
+  const reviewParam = params.get("review");
+  const requestedMode = ["browse", "comment", "view"].includes(reviewParam) ? reviewParam : "";
+  const savedMode = reviewPath ? "" : window.sessionStorage.getItem(REVIEW_MODE_KEY) || "";
+  const initialMode = requestedMode || savedMode;
 
   const state = {
     mode: initialMode,

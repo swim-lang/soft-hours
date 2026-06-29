@@ -83,6 +83,21 @@ try {
   assert.match(reviewResponse.headers.get("x-robots-tag") || "", /noindex/, "/review is noindexed");
 
   browser = await chromium.launch();
+  const choicePage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  await choicePage.goto(baseUrl, { waitUntil: "networkidle" });
+  await choicePage.evaluate(() => window.sessionStorage.setItem("soft-hours-review-mode", "browse"));
+  await choicePage.goto(`${baseUrl}/review`, { waitUntil: "networkidle" });
+  await choicePage.getByRole("button", { name: "Leave revisions" }).waitFor();
+  await choicePage.getByRole("button", { name: "Leave revisions" }).click();
+  assert.equal(
+    await choicePage.evaluate(() => document.documentElement.dataset.reviewMode),
+    "comment",
+    "/review Leave revisions enters comment mode",
+  );
+  await choicePage.locator('[data-review-id="home-intro"]').click({ position: { x: 40, y: 40 } });
+  await choicePage.locator("[data-review-draft]").waitFor();
+  await choicePage.close();
+
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await page.goto(`${baseUrl}/review?review=comment`, { waitUntil: "networkidle" });
   await page.locator(".review-toolbar").waitFor();
