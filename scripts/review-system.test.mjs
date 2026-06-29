@@ -37,6 +37,8 @@ assert.doesNotMatch(reviewScript, /saved locally|localStorage|REVIEW_COMMENTS_KE
 const css = readFileSync("styles.css", "utf8");
 assert.match(css, /\.review-layer/, "review layer CSS exists");
 assert.match(css, /html\[data-review-mode="comment"\] \[data-review-id\]/, "comment mode highlights review targets");
+assert.match(css, /--review-font:\s*Helvetica,\s*Arial,\s*sans-serif/, "review layer defines a Helvetica font stack");
+assert.match(css, /\.review-popover textarea[\s\S]*font:\s*15px\/22px var\(--review-font\)/, "review textarea uses the Helvetica review font");
 
 const migrationPath = "supabase/migrations/20260625_soft_hours_review_comments.sql";
 assert.ok(existsSync(migrationPath), "Supabase migration exists");

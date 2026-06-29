@@ -26,6 +26,7 @@
   --display: "PP Watch", "Jost", system-ui, sans-serif;
   --label: "Courier New", Courier, monospace;
   --mono: "Courier New", Courier, monospace;
+  --review-font: Helvetica, Arial, sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -776,7 +777,7 @@ img { display: block; }
 .review-layer {
   position: relative;
   z-index: 9000;
-  font-family: var(--label);
+  font-family: var(--review-font);
   color: var(--ink);
 }
 
@@ -806,7 +807,7 @@ img { display: block; }
 .review-panel-meta,
 .review-popover-meta {
   display: block;
-  font-family: var(--label);
+  font-family: var(--review-font);
   font-size: 11px;
   line-height: 14px;
   letter-spacing: 0.14em;
@@ -815,9 +816,9 @@ img { display: block; }
 
 .review-mode-card h2 {
   margin: 18px 0;
-  font-family: var(--display);
+  font-family: var(--review-font);
   font-size: clamp(40px, 8vw, 72px);
-  font-weight: 200;
+  font-weight: 400;
   line-height: 0.95;
   letter-spacing: 0;
 }
@@ -829,7 +830,7 @@ img { display: block; }
 .review-popover small,
 .review-warning {
   margin: 0;
-  font-family: var(--mono);
+  font-family: var(--review-font);
   font-size: 15px;
   line-height: 22px;
   letter-spacing: 0;
@@ -950,7 +951,7 @@ html[data-review-mode="comment"] [data-review-id]:hover {
   background: var(--cream);
   color: var(--ink);
   padding: 10px;
-  font: 15px/22px var(--mono);
+  font: 15px/22px var(--review-font);
 }
 
 .review-popover-actions,
@@ -1015,7 +1016,7 @@ html[data-review-mode="comment"] [data-review-id]:hover {
   background: var(--ink);
   color: var(--cream);
   padding: 12px 14px;
-  font-family: var(--label);
+  font-family: var(--review-font);
   font-size: 11px;
   line-height: 14px;
   letter-spacing: 0.14em;
