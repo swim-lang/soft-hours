@@ -1,2 +1,6 @@
 .DS_Store
 serve.py
+node_modules/
+public/
+.vercel/
+supabase/.temp/

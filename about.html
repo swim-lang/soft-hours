@@ -16,7 +16,7 @@
   <div class="page">
 
     <!-- Nav -->
-    <header class="nav">
+    <header class="nav" data-review-id="about-nav">
       <div class="nav-side nav-left"><a href="index.html" class="wordmark-nav" aria-label="Soft Hours"></a></div>
       <nav class="nav-links">
         <a href="shop.html">Shop</a>
@@ -32,7 +32,7 @@
     </header>
 
     <!-- Section 1 · Hero -->
-    <section class="hero">
+    <section class="hero" data-review-id="about-hero">
       <div class="hero-inner">
         <div class="hero-circle" aria-hidden="true">
           <div class="clock-face"></div>
@@ -44,7 +44,7 @@
     </section>
 
     <!-- Section 2 · Intro -->
-    <section class="intro">
+    <section class="intro" data-review-id="about-intro">
       <p class="eyebrow-link">WHERE WE'RE COMING FROM</p>
       <p class="intro-body">Soft Hours is built around a single idea: what you wear when you enter and exit the day should be treated with care, intention, and patience.
 
@@ -52,7 +52,7 @@ These are not pieces for sleep alone; they are part of how you enter and leave t
     </section>
 
     <!-- Section 3 · Bedspread (full bleed) -->
-    <section class="bedspread">
+    <section class="bedspread" data-review-id="about-bedspread">
       <div class="bedspread-overlay"></div>
       <div class="bedspread-content">
         <div class="label-row">
@@ -65,7 +65,7 @@ These are not pieces for sleep alone; they are part of how you enter and leave t
     </section>
 
     <!-- Section 4 · Founder -->
-    <section class="founder">
+    <section class="founder" data-review-id="about-founder">
       <div class="founder-text">
         <h2 class="founder-title">OUR FOUNDER</h2>
         <p class="founder-body">Soft Hours started with a frustration that we just couldn't shake. Our founder, Marion Voldan, had spent several years in the apparel industry surrounded by beautiful cloth made into clothes for going out. Pieces meant for home were always an afterthought: thin, disposable, made down to a cheap price that refelcted the lack of quality.
@@ -76,7 +76,7 @@ The hours at the edges of the day are some of our most honest, so she set out to
     </section>
 
     <!-- Section 5 · Made with Patience -->
-    <section class="patience">
+    <section class="patience" data-review-id="about-patience">
       <div class="patience-header">
         <h2 class="patience-title">MADE WITH PATIENCE</h2>
         <p class="patience-body">A piece can only feel considered if it's made that way. From the mill that supplies our cloth to the atelier that cuts and finishes it, every part of Soft Hours is chosen for care over speed — including the studio that shaped the brand itself.</p>
@@ -110,7 +110,7 @@ The hours at the edges of the day are some of our most honest, so she set out to
     </section>
 
     <!-- Section 6 · Best Sellers -->
-    <section class="bestsellers">
+    <section class="bestsellers" data-review-id="about-bestsellers">
       <div class="bestsellers-header">
         <h2 class="bestsellers-title">BEST SELLING PYJAMAS</h2>
       </div>
@@ -183,7 +183,7 @@ The hours at the edges of the day are some of our most honest, so she set out to
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" data-review-id="site-footer">
       <div class="footer-top">
         <div class="footer-cols">
           <div class="footer-col">
@@ -262,5 +262,7 @@ The hours at the edges of the day are some of our most honest, so she set out to
       els.forEach(function (el) { io.observe(el); });
     })();
   </script>
+  <script src="review-config.js"></script>
+  <script src="review.js?v=20260625" defer></script>
 </body>
 </html>
