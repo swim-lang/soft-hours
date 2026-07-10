@@ -77,6 +77,9 @@ img { display: block; }
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
+/* Burger + overlay are mobile-only */
+.nav-burger { display: none; }
+.mobile-menu { display: none; }
 
 /* ---------- Section 1 · Hero ---------- */
 .hero {
@@ -778,22 +781,81 @@ img { display: block; }
 
   html { -webkit-text-size-adjust: 100%; }
 
-  /* ---------- Nav — wordmark + bag on top, links row beneath ---------- */
-  .nav { flex-wrap: wrap; row-gap: 16px; padding: 22px 20px; }
+  /* ---------- Nav — wordmark + bag + burger; links live in the overlay ---------- */
+  .nav { padding: 22px 20px; }
   .nav-side.nav-left { flex: 1 1 auto; }
   .wordmark-nav { width: 150px; height: 20px; }
+  .nav-links { display: none; }
   .nav-right { flex: 0 0 auto; gap: 18px; }
-  .nav-right a:nth-child(-n+2) { display: none; } /* Search + Account live in the bag/account flow on mobile */
-  .nav-links {
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 20px;
-    overflow-x: auto;
-    scrollbar-width: none;
+  .nav-right a:nth-child(-n+2) { display: none; } /* Search + Account live in the menu */
+  .nav a { padding: 4px 0; white-space: nowrap; font-size: 13px; }
+
+  .nav-burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 7px;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav a, .nav-links a { padding: 4px 0; white-space: nowrap; font-size: 13px; }
+  .nav-burger span { display: block; width: 24px; height: 1px; background: var(--ink); }
+  .nav--hero .nav-burger span { background: var(--cream); }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--cream);
+    padding: 22px 20px 48px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .mobile-menu.is-open { opacity: 1; pointer-events: auto; }
+  .menu-open { overflow: hidden; }
+  .mobile-menu-head { display: flex; justify-content: flex-end; }
+  .mobile-menu-close {
+    font-family: var(--label);
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: none;
+    border: none;
+    padding: 11px 0;
+    cursor: pointer;
+  }
+  .mobile-menu-links { display: flex; flex-direction: column; gap: 28px; margin-top: 64px; }
+  .mobile-menu-links a {
+    font-family: var(--display);
+    font-weight: 200;
+    /* "COLLECTION I" must fit one line on a 320px screen */
+    font-size: clamp(28px, 9vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .mobile-menu-meta { display: flex; gap: 26px; margin-top: auto; }
+  .mobile-menu-meta a {
+    font-family: var(--label);
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
 
   /* ---------- Footer ---------- */
   .footer { gap: 56px; padding: 64px 24px 32px; }

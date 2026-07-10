@@ -29,7 +29,25 @@
         <a href="#">Account</a>
         <a href="#">Bag (0)</a>
       </div>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
     </header>
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-head">
+    <button class="mobile-menu-close" aria-label="Close menu">Close</button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="shop.html">Shop</a>
+    <a href="shop.html">Collection I</a>
+    <a href="#">Journal</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="mobile-menu-meta">
+    <a href="#">Search</a>
+    <a href="#">Account</a>
+    <a href="#">Bag (0)</a>
+  </div>
+</div>
+
 
     <!-- Section 1 · Hero -->
     <section class="hero">
@@ -262,5 +280,6 @@ The hours at the edges of the day are some of our most honest, so she set out to
       els.forEach(function (el) { io.observe(el); });
     })();
   </script>
+  <script src="nav.js"></script>
 </body>
 </html>
