@@ -769,3 +769,160 @@ img { display: block; }
 .js-reveal .pdp-feature-row .pdp-feature:nth-child(1) { transition-delay: 0.2s; }
 .js-reveal .pdp-feature-row .pdp-feature:nth-child(2) { transition-delay: 0.35s; }
 .js-reveal .pdp-feature-row .pdp-feature:nth-child(3) { transition-delay: 0.5s; }
+
+/* ========================================================
+   Mobile — single layer below 900px.
+   Desktop rendering above 900px is untouched.
+   ======================================================== */
+@media (max-width: 900px) {
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  /* ---------- Nav — wordmark + bag on top, links row beneath ---------- */
+  .nav { flex-wrap: wrap; row-gap: 16px; padding: 22px 20px; }
+  .nav-side.nav-left { flex: 1 1 auto; }
+  .wordmark-nav { width: 150px; height: 20px; }
+  .nav-right { flex: 0 0 auto; gap: 18px; }
+  .nav-right a:nth-child(-n+2) { display: none; } /* Search + Account live in the bag/account flow on mobile */
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav a, .nav-links a { padding: 4px 0; white-space: nowrap; font-size: 13px; }
+
+  /* ---------- Footer ---------- */
+  .footer { gap: 56px; padding: 64px 24px 32px; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px 24px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .footer-meta { gap: 14px; }
+  .footer-bottom span, .footer-meta span { font-size: 14px; white-space: nowrap; }
+
+  /* ========================================================
+     Home
+     ======================================================== */
+  .home-hero { height: 82vh; min-height: 560px; }
+  .home-hero-content { padding: 0 24px; gap: 28px; }
+  .home-hero-title { font-size: clamp(38px, 11vw, 52px); line-height: 1.08; }
+  .home-hero-sub { font-size: 17px; line-height: 21px; max-width: 340px; }
+  .home-hero-cta { padding: 16px 28px; }
+
+  .home-intro { padding: 96px 24px; }
+  .home-intro-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; margin-bottom: 28px; }
+
+  .home-duo { flex-direction: column; gap: 16px; padding: 0 20px 16px; }
+  .home-duo-img { height: 440px; }
+
+  .home-edit { height: 480px; padding: 0 24px; }
+  .home-edit-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+
+  .home-arrivals { gap: 64px; padding: 88px 20px 0; }
+  /* rows become swipeable strips */
+  .home-arrivals-row { overflow-x: auto; gap: 14px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px; }
+  .home-arrivals-row::-webkit-scrollbar { display: none; }
+  .home-arrival { flex: 0 0 74%; scroll-snap-align: start; }
+  .home-arrival-img { height: 360px; }
+  /* cards inside a swipe strip must not wait for scroll-reveal */
+  .js-reveal .home-arrival { opacity: 1; transform: none; filter: none; }
+
+  .home-firsthour { padding: 96px 24px; }
+  .home-firsthour-inner { gap: 44px; }
+  .home-firsthour-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+  .home-firsthour-emblem { width: 88px; height: 88px; }
+
+  .home-journal { gap: 56px; padding: 96px 20px; }
+  .home-journal-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+  .home-triptych { flex-direction: column; gap: 48px; }
+  .home-world-img { height: 430px; }
+
+  .home-email { gap: 36px; padding: 96px 24px; }
+  .home-email-mark { width: 88px; height: 88px; }
+  .home-email-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+  .home-email-form { width: 100%; margin-top: 20px; }
+  .home-email-field { width: 100%; }
+  .home-email-note { font-size: 14px; line-height: 18px; }
+
+  /* ========================================================
+     Shop
+     ======================================================== */
+  .shop-head { padding: 56px 24px 40px; }
+  .shop-title { font-size: clamp(42px, 12vw, 60px); line-height: 1.08; }
+  .shop-intro { margin-top: 22px; font-size: 16px; }
+
+  .shop-filter { margin: 0 20px; padding: 0 0 18px; flex-wrap: wrap; gap: 20px; }
+  .shop-cats { width: 100%; gap: 24px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .shop-cats::-webkit-scrollbar { display: none; }
+  .shop-cats a { white-space: nowrap; }
+  .shop-controls { width: 100%; justify-content: space-between; }
+
+  .shop-grid { gap: 56px; padding: 40px 20px 88px; }
+  .shop-row { flex-direction: column; gap: 56px; }
+  .shop-card-img { height: 440px; }
+
+  /* ========================================================
+     Product
+     ======================================================== */
+  .pdp-hero { flex-direction: column; align-items: stretch; gap: 40px; padding: 28px 20px 72px; }
+  .pdp-gallery { width: 100%; }
+  .pdp-main-img { height: auto; aspect-ratio: 3 / 4; }
+  .pdp-thumbs { height: auto; gap: 10px; }
+  .pdp-thumb { height: 96px; }
+  .pdp-info { width: 100%; }
+  .pdp-title { font-size: clamp(32px, 9vw, 40px); line-height: 1.1; }
+  .pdp-sizes { gap: 8px; }
+  .pdp-size-opt { flex: 1 1 0; }
+
+  .pdp-related { gap: 40px; padding: 72px 20px 88px; }
+  .pdp-related-head { padding-bottom: 28px; }
+  .pdp-related-grid { overflow-x: auto; gap: 14px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px; }
+  .pdp-related-grid::-webkit-scrollbar { display: none; }
+  .pdp-related-grid .shop-card { flex: 0 0 74%; scroll-snap-align: start; }
+  .pdp-related-grid .shop-card-img { height: 400px; }
+  .js-reveal .pdp-related-grid .shop-card { opacity: 1; transform: none; filter: none; }
+
+  .pdp-making { padding: 88px 24px 32px; }
+  /* "UNCONSIDERED" must fit on one line at 375px */
+  .pdp-making-title { font-size: clamp(26px, 8vw, 44px); line-height: 1.12; }
+  .pdp-making .pdp-feature-row { margin-top: 56px; }
+  .pdp-feature-row { flex-direction: column; }
+  .pdp-feature { padding-top: 28px; }
+  .pdp-feature:not(:last-child) { padding-right: 0; padding-bottom: 28px; }
+  .pdp-feature:not(:first-child) { padding-left: 0; border-left: none; border-top: 1px solid rgba(30, 24, 19, 0.18); }
+  .pdp-service { padding: 0 24px; }
+  .pdp-service .pdp-feature-row { padding-top: 40px; padding-bottom: 96px; }
+
+  .pdp-banner { height: 480px; padding: 0 24px; }
+  .pdp-banner-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+
+  /* ========================================================
+     About
+     ======================================================== */
+  .hero { height: 72vh; min-height: 480px; padding: 48px 24px; }
+  .hero-title { font-size: clamp(40px, 11vw, 56px); line-height: 1.08; }
+
+  .intro { padding: 88px 24px; gap: 28px; }
+
+  .bedspread { height: 480px; padding: 0 24px; }
+  .bedspread-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
+
+  .founder { flex-direction: column; gap: 48px; padding: 88px 24px; }
+  .founder-text { width: 100%; gap: 36px; }
+  .founder-title { font-size: clamp(32px, 9vw, 44px); line-height: 1.1; }
+  .founder-image { width: 100%; min-height: 460px; }
+
+  .patience { gap: 64px; padding: 72px 24px 96px; }
+  .patience-header { gap: 32px; }
+  .patience-title { font-size: clamp(32px, 9vw, 44px); line-height: 1.1; }
+  .maker-grid { flex-direction: column; gap: 48px; }
+  .maker-image { height: 440px; }
+
+  .bestsellers { gap: 40px; padding: 72px 20px 88px; }
+  .bestsellers-header { padding-bottom: 8px; }
+  .product-grid { flex-wrap: wrap; gap: 32px 14px; }
+  .product { flex: 1 1 42%; }
+  .product-image { height: 250px; }
+}
