@@ -921,9 +921,17 @@ img { display: block; }
   .shop-cats a { white-space: nowrap; }
   .shop-controls { width: 100%; justify-content: space-between; }
 
-  .shop-grid { gap: 56px; padding: 40px 20px 88px; }
-  .shop-row { flex-direction: column; gap: 56px; }
-  .shop-card-img { height: 440px; }
+  /* two-column product grid; rows dissolve so all six cards share one grid */
+  .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 14px; padding: 40px 20px 88px; }
+  .shop-row { display: contents; }
+  .shop-card { gap: 14px; }
+  .shop-card-img { height: 240px; }
+  .shop-card-info { gap: 10px; }
+  .shop-card-name { font-size: 14px; line-height: 18px; }
+  .shop-card-sub { font-size: 12px; line-height: 16px; }
+  .shop-card-price { font-size: 13px; }
+  .shop-card-no { font-size: 10px; }
+  .shop-card-tag { font-size: 8px; letter-spacing: 0.3em; top: 12px; right: 12px; }
 
   /* ========================================================
      Product
