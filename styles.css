@@ -973,6 +973,8 @@ img { display: block; }
      ======================================================== */
   .hero { height: 72vh; min-height: 480px; padding: 48px 24px; }
   .hero-title { font-size: clamp(40px, 11vw, 56px); line-height: 1.08; }
+  /* size the clock by viewport width so it stays inside the page */
+  .hero-circle { height: auto; width: min(88vw, 440px); }
 
   .intro { padding: 88px 24px; gap: 28px; }
 
