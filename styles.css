@@ -821,13 +821,13 @@ img { display: block; }
   .home-edit-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.12; }
 
   .home-arrivals { gap: 64px; padding: 88px 20px 0; }
-  /* rows become swipeable strips */
-  .home-arrivals-row { overflow-x: auto; gap: 14px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px; }
-  .home-arrivals-row::-webkit-scrollbar { display: none; }
-  .home-arrival { flex: 0 0 74%; scroll-snap-align: start; }
-  .home-arrival-img { height: 360px; }
-  /* cards inside a swipe strip must not wait for scroll-reveal */
-  .js-reveal .home-arrival { opacity: 1; transform: none; filter: none; }
+  /* rows become a two-column grid */
+  .home-arrivals-row { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 14px; }
+  .home-arrivals-rows { gap: 36px; }
+  .home-arrival { gap: 14px; }
+  .home-arrival-img { height: 240px; }
+  .home-arrival-name { font-size: 14px; line-height: 18px; }
+  .home-arrival-price { font-size: 13px; }
 
   .home-firsthour { padding: 96px 24px; }
   .home-firsthour-inner { gap: 44px; }
