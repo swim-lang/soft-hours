@@ -165,6 +165,7 @@
         status.dataset.state = 'error';
       }
       root.querySelector('[data-size]')?.focus();
+      root.querySelector('.pdp-size')?.classList.add('needs-selection');
       return;
     }
     if (button.dataset.forceError === 'true') {
@@ -300,12 +301,12 @@
     var navRight = document.querySelector('.nav-right');
     var mobileMenu = document.querySelector('.mobile-menu');
     if (navLinks) navLinks.innerHTML = '<a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a>';
-    if (navRight) navRight.innerHTML = '<button class="nav-action" type="button" data-open-search>Search</button><a class="nav-action" href="account.html">Account</a><button class="nav-action" type="button" data-open-cart data-cart-label>Cart (0)</button>';
+    if (navRight) navRight.innerHTML = '<button class="nav-action" type="button" data-open-cart data-cart-label>Cart (0)</button>';
     if (mobileMenu) {
       mobileMenu.innerHTML = [
         '<div class="mobile-menu-head"><span>SOFT HOURS</span><button class="mobile-menu-close" type="button" aria-label="Close menu">Close ×</button></div>',
         '<nav class="mobile-menu-links"><a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="gift-card.html">Gift Card</a><a href="support.html#contact">Contact</a></nav>',
-        '<div class="mobile-menu-meta"><button type="button" data-open-search>Search</button><a href="account.html">Account</a><button type="button" data-open-cart data-cart-label>Cart (0)</button></div>'
+        '<div class="mobile-menu-meta"><button type="button" data-open-cart data-cart-label>Cart (0)</button></div>'
       ].join('');
     }
     document.querySelectorAll('.nav-links a, .mobile-menu-links a').forEach(function (link) {
@@ -315,9 +316,9 @@
     var footer = document.querySelector('.footer');
     if (footer) footer.innerHTML = [
       '<div class="footer-top"><div class="footer-cols">',
-      '  <div class="footer-col"><h4>Shop</h4><ul><li><a href="shop.html">Collection I</a></li><li><a href="gift-card.html">Gift Card</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div>',
+      '  <div class="footer-col"><h4>Shop</h4><ul><li><a href="shop.html">Collection I</a></li><li><a href="gift-card.html">Gift Card</a></li><li><a href="size-guide.html">Size Guide</a></li><li><button type="button" data-open-search>Search</button></li></ul></div>',
       '  <div class="footer-col"><h4>Soft Hours</h4><ul><li><a href="about.html">About</a></li><li><a href="journal.html">Journal</a></li><li><a href="index.html#newsletter">Newsletter</a></li><li><a href="support.html#contact">Contact</a></li></ul></div>',
-      '  <div class="footer-col"><h4>Help</h4><ul><li><a href="support.html#faq">FAQ</a></li><li><a href="support.html#delivery">Delivery &amp; Returns</a></li><li><a href="support.html#privacy">Privacy</a></li><li><a href="support.html#terms">Terms</a></li></ul></div>',
+      '  <div class="footer-col"><h4>Help</h4><ul><li><a href="account.html">Account</a></li><li><a href="support.html#faq">FAQ</a></li><li><a href="support.html#delivery">Delivery &amp; Returns</a></li><li><a href="support.html#privacy">Privacy</a></li><li><a href="support.html#terms">Terms</a></li></ul></div>',
       '  <div class="footer-col"><h4>Follow</h4><ul><li><a href="https://www.instagram.com/softhours/" target="_blank" rel="noreferrer">Instagram · @softhours</a></li></ul></div>',
       '</div></div>',
       '<div class="footer-wordmark-band"><div class="footer-wordmark" role="img" aria-label="Soft Hours"></div></div>',
@@ -350,7 +351,7 @@
       add.dataset.name = product.name;
       add.dataset.price = product.price;
       add.dataset.image = product.main;
-      add.textContent = 'Add to Cart — ' + money(product.price);
+      add.textContent = 'Select a size — ' + money(product.price);
       if (state === 'sold-out') {
         add.removeAttribute('data-add-to-cart');
         add.setAttribute('data-notify-me', '');
@@ -479,6 +480,12 @@
       var productStatus = choice.closest('[data-product]').querySelector('[data-product-status]');
       if (productStatus) productStatus.textContent = '';
       if (attribute === 'data-colour') updateGalleryForColour(choice.closest('[data-product]'), choice.dataset.colour);
+      if (attribute === 'data-size') {
+        var productRoot = choice.closest('[data-product]');
+        var addButton = productRoot.querySelector('[data-add-to-cart]');
+        if (addButton) addButton.textContent = 'Add to Cart — ' + money(addButton.dataset.price || 230);
+        productRoot.querySelector('.pdp-size')?.classList.remove('needs-selection');
+      }
       return;
     }
 

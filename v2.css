@@ -22,8 +22,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .mobile-menu.is-open { visibility: visible; }
 .mobile-menu button { border: 0; background: transparent; color: inherit; cursor: pointer; }
 .mobile-menu-meta button { font: 13px/17px var(--label); letter-spacing: .08em; text-transform: uppercase; }
-.footer a { transition: opacity .2s ease; }
-.footer a:hover { opacity: .62; }
+.footer a, .footer button { transition: opacity .2s ease; }
+.footer a:hover, .footer button:hover { opacity: .62; }
+.footer button { padding: 0; border: 0; background: transparent; color: var(--footer-link); font: inherit; text-align: left; cursor: pointer; }
+.footer-col button { font: 400 16px/20px var(--label); }
 .footer-bottom a { color: inherit; text-decoration: none; }
 .text-button { padding: 0; border: 0; background: transparent; font: 14px/18px var(--label); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .prototype-button { min-height: 54px; padding: 16px 24px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 15px/20px var(--label); letter-spacing: .03em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
@@ -178,6 +180,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .product-v2 .pdp-size-opt { padding: 14px 0; background: transparent; font-size: 15px; cursor: pointer; }
 .product-v2 .pdp-size-opt:hover { background: rgba(38,36,26,.06); }
 .product-v2 .pdp-size-opt[aria-pressed="true"] { border-color: var(--ink); background: rgba(38,36,26,.04); }
+.product-v2 .pdp-size.needs-selection .pdp-size-head { color: #854B3C; }
+.product-v2 .pdp-size.needs-selection .pdp-sizes { box-shadow: 0 0 0 1px #854B3C; }
 .product-v2 .pdp-add { width: 100%; border: 0; font-size: 15px; line-height: 20px; cursor: pointer; }
 .product-v2 .prototype-status[data-state="error"] { color: #854B3C; }
 .product-v2 .prototype-status[data-state="loading"] { color: #5A4F44; }
@@ -215,6 +219,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .product-v2 .pdp-related .shop-card-price { font-size: 15px; }
 .product-v2 .product-editorial { min-height: 660px; padding: 80px 40px; display: flex; align-items: flex-end; background: linear-gradient(rgba(38,36,26,.12),rgba(38,36,26,.42)),url('assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg') 50% 42%/cover; color: var(--cream); }
 .product-v2 .product-editorial h2 { max-width: 920px; font: 200 62px/66px var(--display); letter-spacing: -.02em; }
+
+/* Homepage: one complete, early collection module and provisional proof direction. */
+.home-arrivals { gap: 64px; padding-bottom: 120px; }
+.home-arrivals-head { flex-direction: column; align-items: center; gap: 18px; }
+.home-arrivals-head p { max-width: 560px; font: 15px/23px var(--mono); text-align: center; color: #5A4F44; }
+.home-arrivals-row { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 20px; }
+.home-arrival { min-width: 0; }
+.home-arrival-img { height: auto; aspect-ratio: 4/5.4; background-position: 50%; }
+.home-proof { display: grid; grid-template-columns: minmax(0,1.06fr) minmax(480px,.94fr); min-height: 760px; background: #E9E1D3; }
+.home-proof-image { min-height: 760px; background: url('assets/fabric.jpg') 50% 38%/cover; }
+.home-proof-copy { padding: 92px 72px; display: flex; flex-direction: column; justify-content: center; }
+.home-proof-status { margin-bottom: 34px; font: 12px/18px var(--label); letter-spacing: .08em; text-transform: uppercase; color: #854B3C; }
+.home-proof-copy h2 { font: 200 58px/62px var(--display); letter-spacing: -.02em; }
+.home-proof-intro { max-width: 560px; margin-top: 28px; font: 16px/25px var(--mono); color: #5A4F44; }
+.home-proof-list { margin-top: 50px; border-top: 1px solid rgba(38,36,26,.3); }
+.home-proof-list div { padding: 22px 0; display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 28px; border-bottom: 1px solid rgba(38,36,26,.3); }
+.home-proof-list dt { font: 13px/18px var(--label); letter-spacing: .05em; text-transform: uppercase; }
+.home-proof-list dd { margin: 0; font: 14px/22px var(--mono); color: #5A4F44; }
 
 /* About keeps the coded clock and approved layout, with the homepage's readable scale. */
 .about-v2 .intro-body,
@@ -344,9 +366,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .account-form-wrap .prototype-button { width: 100%; margin-top: 20px; }
 .account-form-wrap small { display: block; margin-top: 16px; font: 12px/18px var(--mono); color: #5A4F44; text-transform: uppercase; }
 
+@media (min-width: 761px) and (max-width: 1100px) {
+  .home-arrivals-row { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .home-proof { grid-template-columns: 1fr 1fr; }
+  .home-proof-copy { padding: 72px 42px; }
+}
+
 @media (max-width: 760px) {
   .nav-action { font-size: 13px; line-height: 17px; }
-  .nav-right .nav-action:nth-child(-n+2) { display: none; }
   .site-drawer { width: 100%; }
   .drawer-head { height: 68px; padding: 0 16px; }
   .drawer-head h2, .drawer-head button { font-size: 14px; }
@@ -409,6 +436,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .product-v2 .pdp-related { padding: 76px 20px 90px; }
   .product-v2 .pdp-related-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px 14px; }
   .product-v2 .pdp-related-grid .shop-card:last-child { display: none; }
+  .home-arrivals { gap: 48px; padding-bottom: 88px; }
+  .home-arrivals-row { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px 14px; }
+  .home-proof { grid-template-columns: 1fr; min-height: 0; }
+  .home-proof-image { min-height: 520px; }
+  .home-proof-copy { padding: 72px 20px 84px; }
+  .home-proof-copy h2 { font-size: 46px; line-height: 50px; }
+  .home-proof-list div { grid-template-columns: 1fr; gap: 10px; }
   .product-v2 .product-editorial { min-height: 480px; padding: 54px 20px; }
   .product-v2 .product-editorial h2 { font-size: 42px; line-height: 46px; }
   .editorial-head { padding: 72px 20px 58px; }

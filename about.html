@@ -99,79 +99,6 @@ The hours at the edges of the day are some of our most honest, so she set out to
       </div>
     </section>
 
-    <!-- Section 6 · Best Sellers -->
-    <section class="bestsellers">
-      <div class="bestsellers-header">
-        <h2 class="bestsellers-title">COLLECTION I</h2>
-      </div>
-      <div class="product-grid">
-        <article class="product">
-          <div class="product-image p1" role="img" aria-label="Top"></div>
-          <div class="product-info">
-            <div class="product-row">
-              <div class="product-name-block">
-                <h3 class="product-name">Top</h3>
-              </div>
-              <span class="product-price">EUR 195</span>
-            </div>
-            <div class="dots">
-              <span style="background:#2F4A3B"></span>
-              <span style="background:#5A2A37"></span>
-              <span style="background:#E3D8C2"></span>
-            </div>
-          </div>
-        </article>
-        <article class="product">
-          <div class="product-image p2" role="img" aria-label="Shorts"></div>
-          <div class="product-info">
-            <div class="product-row">
-              <div class="product-name-block">
-                <h3 class="product-name">Shorts</h3>
-              </div>
-              <span class="product-price">EUR 195</span>
-            </div>
-            <div class="dots">
-              <span style="background:#5A2A37"></span>
-              <span style="background:#9AA388"></span>
-              <span style="background:#3A352E"></span>
-            </div>
-          </div>
-        </article>
-        <article class="product">
-          <div class="product-image p3" role="img" aria-label="Shirt"></div>
-          <div class="product-info">
-            <div class="product-row">
-              <div class="product-name-block">
-                <h3 class="product-name">Shirt</h3>
-              </div>
-              <span class="product-price">EUR 230</span>
-            </div>
-            <div class="dots">
-              <span style="background:#E3D8C2"></span>
-              <span style="background:#2C3340"></span>
-              <span style="background:#9AA388"></span>
-            </div>
-          </div>
-        </article>
-        <article class="product">
-          <div class="product-image p4" role="img" aria-label="Trousers"></div>
-          <div class="product-info">
-            <div class="product-row">
-              <div class="product-name-block">
-                <h3 class="product-name">Trousers</h3>
-              </div>
-              <span class="product-price">EUR 245</span>
-            </div>
-            <div class="dots">
-              <span style="background:#E8DCC0"></span>
-              <span style="background:#D6B7A6"></span>
-              <span style="background:#6B6B66"></span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer"></footer>
 
@@ -180,7 +107,7 @@ The hours at the edges of the day are some of our most honest, so she set out to
     (function () {
       var root = document.documentElement;
       if (!root.classList.contains('js-reveal')) return;
-      var SELECTOR = '.hero-title, .eyebrow-link, .intro-body, .label, .bedspread-title, .founder-title, .founder-body, .patience-title, .patience-body, .maker-caption, .maker-name, .maker-body, .bestsellers-title, .nav-links a, .nav-right a, .product';
+      var SELECTOR = '.hero-title, .eyebrow-link, .intro-body, .label, .bedspread-title, .founder-title, .founder-body, .patience-title, .patience-body, .maker-caption, .maker-name, .maker-body, .nav-links a, .nav-right a';
       var els = document.querySelectorAll(SELECTOR);
       if (!('IntersectionObserver' in window)) {
         els.forEach(function (el) { el.classList.add('is-visible'); });
