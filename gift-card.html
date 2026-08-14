@@ -16,20 +16,22 @@
       <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
     </header>
     <div class="mobile-menu" id="mobile-menu"></div>
-    <main class="utility-v2">
-      <div class="utility-v2__inner">
-        <header><p class="page-eyebrow">A Soft Hours gift</p><h1>TIME, WELL GIVEN</h1><p>A digital gift card for Collection I. Shopify’s native gift-card delivery will be connected during staging.</p></header>
-        <div class="utility-grid">
-          <div class="gift-card-visual"><div><strong>SOFT HOURS</strong><span>For the first hour and the last</span><span data-gift-card-preview>EUR 200</span></div></div>
-          <form class="utility-form" data-gift-card-form>
-            <div><label>Amount</label><div class="amount-options"><button type="button" data-amount="100" aria-pressed="false">EUR 100</button><button type="button" data-amount="200" aria-pressed="true">EUR 200</button><button type="button" data-amount="300" aria-pressed="false">EUR 300</button><button type="button" data-amount="500" aria-pressed="false">EUR 500</button></div></div>
-            <div><label for="gift-recipient">Recipient email</label><input id="gift-recipient" type="email" required placeholder="recipient@example.com" /></div>
-            <div><label for="gift-message">Message</label><textarea id="gift-message" rows="4" placeholder="A note for the recipient"></textarea></div>
-            <button class="prototype-button prototype-button--dark" type="submit">Add Gift Card to Cart</button>
-            <p class="prototype-status" data-form-status aria-live="polite"></p>
-          </form>
+    <main class="gift-page-v2">
+      <div class="gift-page-image"><img src="assets/paper/01KV63T6G65ZWKXMFAPFXTPT4H.png" alt="Soft Hours gift card atmosphere" /></div>
+      <form class="gift-page-info" data-gift-card-form>
+        <p class="page-eyebrow">A quiet gift, delivered by email</p>
+        <h1>SOFT HOURS GIFT CARD</h1>
+        <p class="gift-page-price" data-gift-card-preview>EUR 50</p>
+        <p class="gift-page-copy">A digital gift card for Collection I. Sent by email with instructions for redemption at checkout.</p>
+        <div class="gift-amount"><span>Amount</span><div class="amount-options"><button type="button" data-amount="50" aria-pressed="true">EUR 50</button><button type="button" data-amount="100" aria-pressed="false">EUR 100</button><button type="button" data-amount="200" aria-pressed="false">EUR 200</button><button type="button" data-amount="300" aria-pressed="false">EUR 300</button></div></div>
+        <button class="prototype-button prototype-button--dark" type="submit">Add to Cart</button>
+        <p class="prototype-status" data-form-status aria-live="polite"></p>
+        <p class="gift-page-note">Currency and available values follow the customer’s Shopify market. Recipient scheduling is optional and should use native gift-card data where supported.</p>
+        <div class="gift-accordions">
+          <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="gift-delivery"><span>Delivery</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="gift-delivery" hidden>Digital delivery timing and recipient options will follow Shopify’s native gift-card configuration.</div></div>
+          <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="gift-terms"><span>Terms</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="gift-terms" hidden>Final gift-card terms, expiry rules, and market-specific requirements remain pending.</div></div>
         </div>
-      </div>
+      </form>
     </main>
     <footer class="footer"></footer>
   </div>

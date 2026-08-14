@@ -58,8 +58,14 @@
             </div>
           </div>
 
+          <p class="pdp-sold-out" data-sold-out-label hidden>Sold out</p>
           <button type="button" class="pdp-add" data-add-to-cart data-slug="shirt" data-name="Shirt" data-price="230" data-image="assets/v2/product-shirt-main.jpg">Add to Cart — EUR 230</button>
           <p class="prototype-status" data-product-status aria-live="polite"></p>
+          <form class="pdp-notify" data-notify-form hidden>
+            <label for="notify-email">Email address</label>
+            <div><input id="notify-email" type="email" required placeholder="your.name@example.com"><button type="submit">Submit</button></div>
+            <p class="prototype-status" data-form-status aria-live="polite"></p>
+          </form>
           <p class="pdp-ship-note">Delivery and returns details to be confirmed.</p>
 
           <div class="pdp-accordion">
@@ -86,9 +92,9 @@
       <section class="pdp-related" data-reveal>
         <div class="pdp-related-head"><h2 class="pdp-related-title">Complete Collection I</h2><a href="shop.html" class="pdp-view-all">View all →</a></div>
         <div class="pdp-related-grid">
-          <article class="shop-card"><a href="product.html?piece=top" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV6816HE9450H72167DYES51.png);background-position:50% 32%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Top</h3><span class="shop-card-price">EUR 195</span></div></div></a></article>
-          <article class="shop-card"><a href="product.html?piece=trousers" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg);background-position:50% 24%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Trousers</h3><span class="shop-card-price">EUR 245</span></div></div></a></article>
-          <article class="shop-card"><a href="product.html?piece=slip-dress" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg);background-position:22% 55%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Slip Dress</h3><span class="shop-card-price">EUR 290</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=top" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV6816HE9450H72167DYES51.png);background-position:50% 32%;--hover-image:url(assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Top</h3><span class="shop-card-price">EUR 195</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=trousers" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg);background-position:50% 24%;--hover-image:url(assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Trousers</h3><span class="shop-card-price">EUR 245</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=slip-dress" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg);background-position:22% 55%;--hover-image:url(assets/paper/1EGC81TPPFQHCGCEZ8AM9AFN3H.png);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Slip Dress</h3><span class="shop-card-price">EUR 290</span></div></div></a></article>
         </div>
       </section>
 

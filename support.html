@@ -16,19 +16,29 @@
       <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
     </header>
     <div class="mobile-menu" id="mobile-menu"></div>
-    <main class="utility-v2">
-      <div class="utility-v2__inner">
-        <header><p class="page-eyebrow">Customer care</p><h1>HOW MAY WE HELP?</h1><p>Support, delivery, and policy information for the Soft Hours launch. Unresolved operational details remain clearly marked.</p></header>
-        <div class="support-layout">
-          <nav class="support-nav" aria-label="Help sections"><a href="#contact">Contact</a><a href="#faq">FAQ</a><a href="#delivery">Delivery & Returns</a><a href="#privacy">Privacy</a><a href="#terms">Terms</a></nav>
-          <div class="support-sections">
-            <section id="contact"><h2>Contact</h2><p>Send a note and the Soft Hours team will respond as soon as customer support is connected.</p><form class="utility-form support-form" data-contact-form><div><label for="contact-name">Name</label><input id="contact-name" required /></div><div><label for="contact-email">Email</label><input id="contact-email" type="email" required /></div><div><label for="contact-message">How can we help?</label><textarea id="contact-message" rows="5" required></textarea></div><button class="prototype-button prototype-button--dark" type="submit">Send message</button><p class="prototype-status" data-form-status aria-live="polite"></p></form></section>
-            <section id="faq"><h2>FAQ</h2><ul><li>Final product names, sizing, fabric composition, and care guidance are still being confirmed.</li><li>Regional EUR, CHF, and GBP pricing is tentative until Shopify Markets is configured.</li><li>Sold-out and Notify me behavior will be connected to live inventory during staging.</li></ul></section>
-            <section id="delivery"><h2>Delivery & Returns</h2><p>Dispatch timing, fulfillment origin, shipping, duties, taxes, and customs treatment are not yet final. The preferred direction is customer-facing pricing that includes shipping and taxes.</p><p>The intended returns direction is 30 days for a full refund or exchange, with free returns and customs handled, for unworn, unwashed, tagged items in their original box. This is not yet an operational promise.</p></section>
-            <section id="privacy"><h2>Privacy</h2><p>Final privacy language will be generated and reviewed as part of Shopify staging. This prototype stores Cart selections only in this browser and does not submit personal information.</p></section>
-            <section id="terms"><h2>Terms</h2><p>Terms of sale, legal entity details, customer-support information, and market-specific obligations require approval before launch.</p></section>
+    <main class="support-page-v2">
+      <header class="support-page-head">
+        <p class="page-eyebrow">Support</p>
+        <h1>HOW CAN WE HELP?</h1>
+        <nav class="support-tabs" aria-label="Help sections" role="tablist"><a href="#faq" role="tab" data-support-tab="faq">FAQ</a><a href="#contact" role="tab" data-support-tab="contact">Contact</a><a href="#delivery" role="tab" data-support-tab="delivery">Delivery &amp; Returns</a><a href="#privacy" role="tab" data-support-tab="privacy">Privacy</a><a href="#terms" role="tab" data-support-tab="terms">Terms</a></nav>
+      </header>
+      <div class="support-page-content">
+        <section class="support-panel" data-support-panel="faq">
+          <h2>FREQUENTLY ASKED QUESTIONS</h2>
+          <div class="support-faq">
+            <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="faq-sizes"><span>What sizes will Collection I include?</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="faq-sizes" hidden>Development sizing is currently XS–XL, while the first run may be simplified to S/M/L. This remains pending.</div></div>
+            <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="faq-fabric"><span>What is the fabric composition?</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="faq-fabric" hidden>A double-satin silk/modal blend is being sampled. The final composition is not yet approved.</div></div>
+            <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="faq-care"><span>How should I care for my Soft Hours piece?</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="faq-care" hidden>The intended direction is machine washable on a gentle cycle. Final care instructions remain pending.</div></div>
+            <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="faq-dispatch"><span>When will my order be dispatched?</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="faq-dispatch" hidden>Dispatch timing and fulfillment origin still need operational confirmation.</div></div>
+            <div class="pdp-acc-row"><button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="faq-returns"><span>How do returns and exchanges work?</span><span data-accordion-icon>+</span></button><div class="pdp-acc-content" id="faq-returns" hidden>The intended direction is 30 days for refund or exchange with free returns, subject to final operational approval.</div></div>
           </div>
-        </div>
+          <p class="support-placeholder">Questions are structural placeholders. Answers must remain editable until fabric, care, dispatch, shipping, tax, customs, and returns are operationally confirmed.</p>
+        </section>
+        <section class="support-panel" data-support-panel="contact" hidden><h2>CONTACT</h2><p>Contact form and support email details remain pending.</p><form class="utility-form support-form" data-contact-form><div><label for="contact-name">Name</label><input id="contact-name" required /></div><div><label for="contact-email">Email</label><input id="contact-email" type="email" required /></div><div><label for="contact-message">How can we help?</label><textarea id="contact-message" rows="5" required></textarea></div><button class="prototype-button prototype-button--dark" type="submit">Send message</button><p class="prototype-status" data-form-status aria-live="polite"></p></form></section>
+        <section class="support-panel support-reading" data-support-panel="delivery" hidden><p class="page-eyebrow">Delivery &amp; Returns</p><h2>DELIVERY &amp; RETURNS</h2><p>Dispatch timing, fulfillment origin, shipping, duties, taxes, and customs treatment are not yet final. The preferred direction is customer-facing pricing that includes shipping and taxes.</p><p>The intended returns direction is 30 days for a full refund or exchange, with free returns and customs handled, for unworn, unwashed, tagged items in their original box. This is not yet an operational promise.</p></section>
+        <section class="support-panel support-reading" data-support-panel="privacy" hidden><p class="page-eyebrow">Policy template · Updated pending</p><h2>PRIVACY</h2><p>Final privacy language will be generated and reviewed as part of Shopify staging. This prototype stores Cart selections only in this browser and does not submit personal information.</p></section>
+        <section class="support-panel support-reading" data-support-panel="terms" hidden><p class="page-eyebrow">Policy template · Updated pending</p><h2>TERMS</h2><p>Terms of sale, legal entity details, customer-support information, and market-specific obligations require approval before launch.</p></section>
+        <aside class="support-aside"><p>Still need help?</p><h2>WE’RE HERE.</h2><p>Contact form and support email details remain pending.</p><a href="#contact" data-support-tab="contact">Contact us</a><small>The same shell supports Contact, Delivery &amp; Returns, Privacy, and Terms. Policy pages use a narrow reading column, date stamp, and editable Shopify page content.</small></aside>
       </div>
     </main>
     <footer class="footer"></footer>
