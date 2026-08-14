@@ -71,7 +71,25 @@
       '    <div class="site-search-input"><input id="site-search" type="search" autocomplete="off" placeholder="TYPE TO SEARCH" data-search-input><button type="button" data-clear-search>Clear</button></div>',
       '  </div>',
       '  <div class="search-results" data-search-results><div class="search-prompt"><p>Begin typing to search Collection I, Journal, and support.</p></div></div>',
-      '</section>'
+      '</section>',
+      '<aside class="site-drawer size-guide-drawer" data-panel="size-guide" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="size-guide-title">',
+      '  <div class="drawer-head"><h2 id="size-guide-title">Size Guide</h2><button type="button" data-close-panel>Close ×</button></div>',
+      '  <div class="size-guide-drawer-body">',
+      '    <p class="drawer-eyebrow">Fit &amp; Measurements</p>',
+      '    <h3>FIND YOUR SIZE</h3>',
+      '    <p class="size-guide-intro">Use body measurements as a starting point. Product-specific garment measurements and fit notes will be added after final sampling.</p>',
+      '    <div class="size-guide-visual"><img src="assets/fit-measurement-guide.svg" alt="Illustrative body measurement guide showing bust, waist, hip, and garment length positions"></div>',
+      '    <p class="size-guide-status">Visual preview only · Final size range and garment measurements pending approval</p>',
+      '    <div class="size-guide-sample" aria-label="Illustrative body measurements in centimetres">',
+      '      <div><span>Size</span><strong>XS</strong><strong>S</strong><strong>M</strong><strong>L</strong><strong>XL</strong></div>',
+      '      <div><span>Bust</span><span>82</span><span>86</span><span>90</span><span>96</span><span>102</span></div>',
+      '      <div><span>Waist</span><span>64</span><span>68</span><span>72</span><span>78</span><span>84</span></div>',
+      '      <div><span>Hip</span><span>90</span><span>94</span><span>98</span><span>104</span><span>110</span></div>',
+      '    </div>',
+      '    <div class="size-guide-how"><h4>How to measure</h4><ol><li><strong>01 · Bust</strong><span>Measure around the fullest part.</span></li><li><strong>02 · Waist</strong><span>Measure around the natural waist.</span></li><li><strong>03 · Hip</strong><span>Measure around the fullest part of the hips.</span></li></ol></div>',
+      '    <p class="size-guide-help">Still deciding? <a href="support.html#contact">Contact us</a>.</p>',
+      '  </div>',
+      '</aside>'
     ].join('');
     while (container.firstChild) document.body.appendChild(container.firstChild);
   }
@@ -300,12 +318,12 @@
     var navLinks = document.querySelector('.nav-links');
     var navRight = document.querySelector('.nav-right');
     var mobileMenu = document.querySelector('.mobile-menu');
-    if (navLinks) navLinks.innerHTML = '<a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a>';
+    if (navLinks) navLinks.innerHTML = '<a href="shop.html">Shop</a><a href="journal.html">Journal</a><a href="about.html">About</a>';
     if (navRight) navRight.innerHTML = '<button class="nav-action" type="button" data-open-cart data-cart-label>Cart (0)</button>';
     if (mobileMenu) {
       mobileMenu.innerHTML = [
         '<div class="mobile-menu-head"><span>SOFT HOURS</span><button class="mobile-menu-close" type="button" aria-label="Close menu">Close ×</button></div>',
-        '<nav class="mobile-menu-links"><a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="gift-card.html">Gift Card</a><a href="support.html#contact">Contact</a></nav>',
+        '<nav class="mobile-menu-links"><a href="shop.html">Shop</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="gift-card.html">Gift Card</a><a href="support.html#contact">Contact</a></nav>',
         '<div class="mobile-menu-meta"><button type="button" data-open-cart data-cart-label>Cart (0)</button></div>'
       ].join('');
     }
@@ -428,8 +446,10 @@
   document.addEventListener('click', function (event) {
     var cartTrigger = event.target.closest('[data-open-cart], .js-cart-link');
     var searchTrigger = event.target.closest('[data-open-search], .js-search-link');
+    var sizeGuideTrigger = event.target.closest('[data-open-size-guide]');
     if (cartTrigger) { event.preventDefault(); openCart(cartTrigger); return; }
     if (searchTrigger) { event.preventDefault(); setPanel('search', true, searchTrigger); return; }
+    if (sizeGuideTrigger) { event.preventDefault(); setPanel('size-guide', true, sizeGuideTrigger); return; }
     if (event.target.closest('[data-close-panel]') || event.target.matches('[data-panel-overlay]')) { setPanel('', false); return; }
 
     var clearSearch = event.target.closest('[data-clear-search]');
@@ -568,6 +588,18 @@
   });
 
   document.addEventListener('keydown', function (event) {
+    if (event.key === 'Tab' && document.documentElement.classList.contains('panel-open')) {
+      var openPanel = document.querySelector('[data-panel][aria-hidden="false"]');
+      var focusable = openPanel ? Array.from(openPanel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(function (element) {
+        return element.getClientRects().length > 0;
+      }) : [];
+      if (focusable.length) {
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    }
     if (event.key === 'Escape') {
       setPanel('', false);
       document.querySelector('.mobile-menu')?.classList.remove('is-open');
