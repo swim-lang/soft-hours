@@ -6,11 +6,11 @@
   var lastTrigger = null;
   var searchIndex = [
     { title: 'Collection I', type: 'Collection', url: 'shop.html', keywords: 'silk modal still life' },
-    { title: 'Top', type: 'Product', url: 'product.html?piece=top', price: 195, image: 'assets/paper/01KV6816HE9450H72167DYES51.png', keywords: 'silk modal green bone bordeaux forest ink' },
-    { title: 'Shorts', type: 'Product', url: 'product.html?piece=shorts', price: 195, image: 'assets/paper/01KV681D1WG30XPDZFP0QJ9CEB.jpg', keywords: 'silk modal green bone bordeaux forest ink' },
-    { title: 'Shirt', type: 'Product', url: 'product.html?piece=shirt', price: 230, image: 'assets/paper/01KV68456NW8SJZP5R6X551XAH.png', keywords: 'silk modal button down green bone bordeaux forest ink' },
-    { title: 'Trousers', type: 'Product', url: 'product.html?piece=trousers', price: 245, image: 'assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg', keywords: 'silk modal pants green bone bordeaux forest ink' },
-    { title: 'Slip Dress', type: 'Product', url: 'product.html?piece=slip-dress', price: 290, image: 'assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg', keywords: 'silk modal sleep dress green bone bordeaux forest ink' },
+    { title: 'Top', type: 'Product', url: 'product.html?piece=top', price: 195, image: 'assets/paper/01KV6816HE9450H72167DYES51.png', hover: 'assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg', keywords: 'silk modal green bone bordeaux forest ink' },
+    { title: 'Shorts', type: 'Product', url: 'product.html?piece=shorts', price: 195, image: 'assets/paper/01KV680CPDKSC4FCTPKY900JK6.png', hover: 'assets/paper/01KV67Y135HYV9811QS1KQV6J7.png', keywords: 'silk modal green bone bordeaux forest ink' },
+    { title: 'Shirt', type: 'Product', url: 'product.html?piece=shirt', price: 230, image: 'assets/paper/01KV68456NW8SJZP5R6X551XAH.png', hover: 'assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png', keywords: 'silk modal button down green bone bordeaux forest ink' },
+    { title: 'Trousers', type: 'Product', url: 'product.html?piece=trousers', price: 245, image: 'assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg', hover: 'assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg', keywords: 'silk modal pants green bone bordeaux forest ink' },
+    { title: 'Slip Dress', type: 'Product', url: 'product.html?piece=slip-dress', price: 290, image: 'assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg', hover: 'assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg', keywords: 'silk modal sleep dress green bone bordeaux forest ink' },
     { title: 'About Soft Hours', type: 'Page', url: 'about.html' },
     { title: 'Journal', type: 'Journal', url: 'journal.html' },
     { title: 'Gift Card', type: 'Product', url: 'gift-card.html' },
@@ -18,11 +18,17 @@
     { title: 'Delivery & Returns', type: 'Help', url: 'support.html#delivery' }
   ];
   var productCatalog = {
-    'top': { name: 'Top', price: 195, description: 'A softly structured layer for slow mornings, early calls, and the hours that belong only to you.', main: 'assets/paper/01KV6816HE9450H72167DYES51.png', images: ['assets/paper/01KV6816HE9450H72167DYES51.png','assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg','assets/v2/product-shirt-01.png'] },
-    'shorts': { name: 'Shorts', price: 195, description: 'An easy short with a fluid line, made for first light and unhurried evenings.', main: 'assets/paper/01KV681D1WG30XPDZFP0QJ9CEB.jpg', images: ['assets/paper/01KV681D1WG30XPDZFP0QJ9CEB.jpg','assets/paper/1E8E60JMH7M1YYDYZ445N3ZE6N.jpg','assets/v2/product-shirt-02.png'] },
-    'shirt': { name: 'Shirt', price: 230, description: 'A fluid layer for the first hour, the final hour, and the quieter moments between.', main: 'assets/v2/product-shirt-main.jpg', images: ['assets/v2/product-shirt-01.png','assets/v2/product-shirt-02.png','assets/v2/product-shirt-03.png'] },
-    'trousers': { name: 'Trousers', price: 245, description: 'An easy full-length trouser designed to move from private hours into the rest of the day.', main: 'assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg', images: ['assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg','assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg','assets/v2/product-shirt-03.png'] },
-    'slip-dress': { name: 'Slip Dress', price: 290, description: 'A long, fluid silhouette for evenings in, mornings out, and every soft interval between.', main: 'assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg', images: ['assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg','assets/paper/1EGC81TPPFQHCGCEZ8AM9AFN3H.png','assets/v2/product-shirt-01.png'] }
+    'top': { name: 'Top', price: 195, description: 'A softly structured layer for slow mornings, early calls, and the hours that belong only to you.', main: 'assets/paper/01KV6816HE9450H72167DYES51.png', images: ['assets/paper/01KV6816HE9450H72167DYES51.png','assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg','assets/paper/01KV684H0VDRG3GVFXEF0EHZYG.jpg'] },
+    'shorts': { name: 'Shorts', price: 195, description: 'An easy short with a fluid line, made for first light and unhurried evenings.', main: 'assets/paper/01KV680CPDKSC4FCTPKY900JK6.png', images: ['assets/paper/01KV680CPDKSC4FCTPKY900JK6.png','assets/paper/01KV67Y135HYV9811QS1KQV6J7.png','assets/paper/01KV67X8G6N4NHY4A69QGRBE2V.jpg'] },
+    'shirt': { name: 'Shirt', price: 230, description: 'A fluid layer for the first hour, the final hour, and the quieter moments between.', main: 'assets/paper/01KV68456NW8SJZP5R6X551XAH.png', images: ['assets/paper/01KV68456NW8SJZP5R6X551XAH.png','assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png','assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg'] },
+    'trousers': { name: 'Trousers', price: 245, description: 'An easy full-length trouser designed to move from private hours into the rest of the day.', main: 'assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg', images: ['assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg','assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg','assets/paper/01KV6816HE9450H72167DYES51.png'] },
+    'slip-dress': { name: 'Slip Dress', price: 290, description: 'A long, fluid silhouette for evenings in, mornings out, and every soft interval between.', main: 'assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg', images: ['assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg','assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg','assets/paper/01KV684H0VDRG3GVFXEF0EHZYG.jpg'] }
+  };
+  var colourPreviewCatalog = {
+    'Bone': ['assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg','assets/paper/01KV684H0VDRG3GVFXEF0EHZYG.jpg','assets/paper/01KV68456NW8SJZP5R6X551XAH.png'],
+    'Bordeaux': ['assets/paper/01KV680CPDKSC4FCTPKY900JK6.png','assets/paper/01KV67Y135HYV9811QS1KQV6J7.png','assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png'],
+    'Forest': ['assets/paper/01KV6816HE9450H72167DYES51.png','assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg','assets/paper/01KV6G8W6PF4QRGG7B0V629Q18.png'],
+    'Ink': ['assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg','assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg','assets/paper/01KV8M6QDDQ6C7P21WFFWKVW6D.jpg']
   };
 
   function money(value) {
@@ -116,11 +122,12 @@
 
     items.innerHTML = cart.map(function (item, index) {
       var itemUrl = item.slug === 'gift-card' ? 'gift-card.html' : 'product.html?piece=' + encodeURIComponent(item.slug);
+      var hoverImage = productCatalog[item.slug]?.images?.[1] || item.image;
       var firstLabel = item.slug === 'gift-card' ? 'Delivery' : 'Colour';
       var secondLabel = item.slug === 'gift-card' ? 'Value' : 'Size';
       return [
         '<article class="cart-line" data-cart-line="' + index + '">',
-        '  <a class="cart-line-image" href="' + itemUrl + '"><img src="' + escapeHtml(item.image) + '" alt=""></a>',
+        '  <a class="cart-line-image" href="' + itemUrl + '"><img src="' + escapeHtml(item.image) + '" alt=""><img class="cart-line-image-hover" src="' + escapeHtml(hoverImage) + '" alt=""></a>',
         '  <div class="cart-line-main">',
         '    <div class="cart-line-top"><a href="' + itemUrl + '">' + escapeHtml(item.name) + '</a><span>' + money(item.price * item.quantity) + '</span></div>',
         '    <dl><div><dt>' + firstLabel + '</dt><dd>' + escapeHtml(item.colour) + '</dd></div><div><dt>' + secondLabel + '</dt><dd>' + escapeHtml(item.size) + '</dd></div></dl>',
@@ -138,7 +145,7 @@
       '<div class="cart-subtotal"><span>Subtotal</span><strong>' + money(subtotal) + '</strong></div>',
       '<p class="cart-note">Delivery, duties, and taxes are confirmed at checkout. Final operating details are pending.</p>',
       '<div class="express-label"><span>Express checkout</span></div>',
-      '<div class="express-options"><button class="apple-pay" type="button" data-checkout-demo="Apple Pay"><span aria-hidden="true">●</span> Pay</button><button class="shop-pay" type="button" data-checkout-demo="Shop Pay">Shop Pay</button></div>',
+      '<div class="express-options"><button class="apple-pay" type="button" data-checkout-demo="Apple Pay" aria-label="Apple Pay"><span class="apple-pay-fallback" aria-hidden="true">Pay</span></button><button class="shop-pay" type="button" data-checkout-demo="Buy with Shop" aria-label="Buy with Shop"><img src="https://cdn.shopify.com/shopifycloud/help-center/manual/shop-pay-installments/buy-with-shop-color.png" alt="" aria-hidden="true"></button></div>',
       '<div class="cart-or"><span>or</span></div>',
       '<button type="button" class="prototype-button prototype-button--dark" data-checkout-demo="Checkout">Checkout</button>',
       '<button type="button" class="text-button cart-continue" data-close-panel>Continue shopping</button>',
@@ -235,7 +242,7 @@
         '<div class="search-result-meta"><span>' + productMatches.length + ' results</span><span>Press Enter to view all</span></div>',
         '<div class="search-result-grid">',
         productMatches.map(function (item) {
-          return '<a class="search-result-card" href="' + item.url + '"><span class="search-result-image"><img src="' + item.image + '" alt=""></span><span class="search-result-line"><strong>' + item.title + '</strong><span>' + money(item.price) + '</span></span></a>';
+          return '<a class="search-result-card" href="' + item.url + '"><span class="search-result-image"><img src="' + item.image + '" alt=""><img class="search-result-hover" src="' + item.hover + '" alt=""></span><span class="search-result-line"><strong>' + item.title + '</strong><span>' + money(item.price) + '</span></span></a>';
         }).join(''),
         '</div>'
       ].join('');
@@ -297,10 +304,13 @@
     if (mobileMenu) {
       mobileMenu.innerHTML = [
         '<div class="mobile-menu-head"><span>SOFT HOURS</span><button class="mobile-menu-close" type="button" aria-label="Close menu">Close ×</button></div>',
-        '<nav class="mobile-menu-links"><a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a></nav>',
+        '<nav class="mobile-menu-links"><a href="shop.html">Collection I</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="gift-card.html">Gift Card</a><a href="support.html#contact">Contact</a></nav>',
         '<div class="mobile-menu-meta"><button type="button" data-open-search>Search</button><a href="account.html">Account</a><button type="button" data-open-cart data-cart-label>Cart (0)</button></div>'
       ].join('');
     }
+    document.querySelectorAll('.nav-links a, .mobile-menu-links a').forEach(function (link) {
+      if (new URL(link.href, window.location.href).pathname === window.location.pathname) link.setAttribute('aria-current', 'page');
+    });
 
     var footer = document.querySelector('.footer');
     if (footer) footer.innerHTML = [
@@ -349,6 +359,30 @@
       }
       if (state === 'error') add.dataset.forceError = 'true';
     }
+  }
+
+  function updateGalleryForColour(root, colour) {
+    var images = colourPreviewCatalog[colour];
+    if (!images) return;
+    var main = root.querySelector('[data-gallery-main]');
+    var thumbs = root.querySelectorAll('[data-gallery-thumb]');
+    var add = root.querySelector('[data-add-to-cart]');
+    var note = root.querySelector('[data-colour-gallery-status]');
+    thumbs.forEach(function (thumb, index) {
+      var source = images[index] || images[0];
+      thumb.dataset.galleryThumb = source;
+      thumb.style.backgroundImage = 'url("' + source + '")';
+      thumb.classList.toggle('active', index === 0);
+    });
+    if (main) {
+      main.classList.add('is-changing');
+      window.setTimeout(function () {
+        main.style.backgroundImage = 'url("' + images[0] + '")';
+        main.classList.remove('is-changing');
+      }, 110);
+    }
+    if (add) add.dataset.image = images[0];
+    if (note) note.textContent = 'Showing the ' + colour + ' imagery preview.';
   }
 
   function setSupportPanel(name) {
@@ -444,6 +478,7 @@
       if (label) label.textContent = choice.getAttribute(attribute);
       var productStatus = choice.closest('[data-product]').querySelector('[data-product-status]');
       if (productStatus) productStatus.textContent = '';
+      if (attribute === 'data-colour') updateGalleryForColour(choice.closest('[data-product]'), choice.dataset.colour);
       return;
     }
 

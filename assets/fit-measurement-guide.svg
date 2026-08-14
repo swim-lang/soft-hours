@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 760" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative fit and measurement guide</title>
+  <desc id="desc">A minimal body silhouette marked with bust, waist, hip, and garment length measurement positions.</desc>
+  <rect width="640" height="760" fill="#E9E1D3"/>
+  <g fill="none" stroke="#2A2620" stroke-width="2">
+    <circle cx="320" cy="102" r="48"/>
+    <path d="M277 154c-21 20-36 57-40 104-4 45 9 85 27 116-4 53-18 122-27 176-7 42-5 90 9 148M363 154c21 20 36 57 40 104 4 45-9 85-27 116 4 53 18 122 27 176 7 42 5 90-9 148M277 154c15 18 28 27 43 27s28-9 43-27M264 374c20 22 37 32 56 32s36-10 56-32M320 406v291"/>
+    <path d="M248 218h144M256 302h128M264 383h112" stroke-dasharray="8 7"/>
+    <path d="M421 154v544M411 164l10-10 10 10M411 688l10 10 10-10"/>
+  </g>
+  <g fill="#2A2620" font-family="Helvetica Neue,Arial,sans-serif" font-size="17" letter-spacing="2">
+    <text x="94" y="225">01 · BUST</text>
+    <text x="94" y="309">02 · WAIST</text>
+    <text x="94" y="390">03 · HIP</text>
+    <text x="444" y="431" transform="rotate(90 444 431)">04 · LENGTH</text>
+  </g>
+  <text x="34" y="720" fill="#675D52" font-family="Courier New,monospace" font-size="14" letter-spacing="1.5">ILLUSTRATIVE PLACEMENT · FINAL GARMENT DATA PENDING</text>
+</svg>

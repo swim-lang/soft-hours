@@ -7,7 +7,6 @@
   <title>Soft Hours — Collection I</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="v2.css">
-  <script>if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-reveal');</script>
 </head>
 <body>
   <div class="page product-v2" data-product>
@@ -22,11 +21,11 @@
     <main class="page-main">
       <section class="pdp-hero">
         <div class="pdp-gallery" data-gallery data-reveal>
-          <div class="pdp-main-img" data-gallery-main style="background-image:url(assets/v2/product-shirt-main.jpg);"></div>
+          <div class="pdp-main-img" data-gallery-main style="background-image:url(assets/paper/01KV68456NW8SJZP5R6X551XAH.png);"></div>
           <div class="pdp-thumbs" aria-label="Product gallery">
-            <button class="pdp-thumb active" type="button" data-gallery-thumb="assets/v2/product-shirt-01.png" aria-label="View first product image" style="background-image:url(assets/v2/product-shirt-01.png);background-position:50% 32%;"></button>
-            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/v2/product-shirt-02.png" aria-label="View second product image" style="background-image:url(assets/v2/product-shirt-02.png);background-position:50% 30%;"></button>
-            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/v2/product-shirt-03.png" aria-label="View third product image" style="background-image:url(assets/v2/product-shirt-03.png);background-position:50% 40%;"></button>
+            <button class="pdp-thumb active" type="button" data-gallery-thumb="assets/paper/01KV68456NW8SJZP5R6X551XAH.png" aria-label="View first product image" style="background-image:url(assets/paper/01KV68456NW8SJZP5R6X551XAH.png);background-position:50% 32%;"></button>
+            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png" aria-label="View second product image" style="background-image:url(assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png);background-position:50% 30%;"></button>
+            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg" aria-label="View third product image" style="background-image:url(assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg);background-position:50% 40%;"></button>
           </div>
         </div>
 
@@ -45,6 +44,7 @@
               <button type="button" class="pdp-swatch" data-colour="Forest" aria-pressed="false" aria-label="Forest" style="background:#2F4A3B"></button>
               <button type="button" class="pdp-swatch" data-colour="Ink" aria-pressed="false" aria-label="Ink" style="background:#2A2620"></button>
             </div>
+            <p class="pdp-colour-note" data-colour-gallery-status aria-live="polite">Select a colour to preview its imagery.</p>
           </div>
 
           <div class="pdp-size">
@@ -59,7 +59,7 @@
           </div>
 
           <p class="pdp-sold-out" data-sold-out-label hidden>Sold out</p>
-          <button type="button" class="pdp-add" data-add-to-cart data-slug="shirt" data-name="Shirt" data-price="230" data-image="assets/v2/product-shirt-main.jpg">Add to Cart — EUR 230</button>
+          <button type="button" class="pdp-add" data-add-to-cart data-slug="shirt" data-name="Shirt" data-price="230" data-image="assets/paper/01KV68456NW8SJZP5R6X551XAH.png">Add to Cart — EUR 230</button>
           <p class="prototype-status" data-product-status aria-live="polite"></p>
           <form class="pdp-notify" data-notify-form hidden>
             <label for="notify-email">Email address</label>
@@ -75,7 +75,16 @@
             </div>
             <div class="pdp-acc-row">
               <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-fit"><span>Fit &amp; Measurements</span><span data-accordion-icon>+</span></button>
-              <div class="pdp-acc-content" id="product-fit" hidden>Current development sizing is XS–XL, while the first run may be simplified to S/M/L. Garment-specific measurements and fit guidance are pending final samples.</div>
+              <div class="pdp-acc-content pdp-fit-content" id="product-fit" hidden>
+                <div class="pdp-fit-visual"><img src="assets/fit-measurement-guide.svg" alt="Illustrative body measurement guide showing bust, waist, hip, and garment length positions"></div>
+                <div class="pdp-fit-copy">
+                  <p>Current development sizing is XS–XL, while the first run may be simplified to S/M/L.</p>
+                  <p class="pdp-fit-kicker">Illustrative body measurements · cm</p>
+                  <dl class="pdp-fit-sample"><div><dt>01 · Bust</dt><dd>88</dd></div><div><dt>02 · Waist</dt><dd>70</dd></div><div><dt>03 · Hip</dt><dd>96</dd></div><div><dt>04 · Length</dt><dd>68</dd></div></dl>
+                  <p class="pdp-fit-placeholder">Visual preview only. Final garment measurements and fit guidance will replace these sample values after approval.</p>
+                  <a href="size-guide.html">View full Size Guide →</a>
+                </div>
+              </div>
             </div>
             <div class="pdp-acc-row">
               <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-fabric"><span>Fabric &amp; Care</span><span data-accordion-icon>+</span></button>
@@ -94,7 +103,7 @@
         <div class="pdp-related-grid">
           <article class="shop-card"><a href="product.html?piece=top" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV6816HE9450H72167DYES51.png);background-position:50% 32%;--hover-image:url(assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Top</h3><span class="shop-card-price">EUR 195</span></div></div></a></article>
           <article class="shop-card"><a href="product.html?piece=trousers" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg);background-position:50% 24%;--hover-image:url(assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Trousers</h3><span class="shop-card-price">EUR 245</span></div></div></a></article>
-          <article class="shop-card"><a href="product.html?piece=slip-dress" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg);background-position:22% 55%;--hover-image:url(assets/paper/1EGC81TPPFQHCGCEZ8AM9AFN3H.png);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Slip Dress</h3><span class="shop-card-price">EUR 290</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=slip-dress" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg);background-position:22% 55%;--hover-image:url(assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg);"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Slip Dress</h3><span class="shop-card-price">EUR 290</span></div></div></a></article>
         </div>
       </section>
 
