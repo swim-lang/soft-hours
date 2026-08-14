@@ -1,0 +1,52 @@
+<header class="site-header{% if template.name == 'index' %} site-header--overlay{% endif %}" data-site-header>
+  <div class="site-header__inner">
+    <button class="site-header__menu button-reset" type="button" aria-expanded="false" aria-controls="MobileMenu" data-open-menu>
+      <span class="visually-hidden">{{ 'accessibility.open_menu' | t }}</span>
+      <span aria-hidden="true">☰</span>
+    </button>
+
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">SOFT HOURS</a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="{{ section.settings.collection_url | default: routes.all_products_collection_url }}">Collection I</a>
+      <a href="{{ section.settings.journal_url | default: '/blogs/journal' }}">Journal</a>
+      <a href="{{ section.settings.about_url | default: '/pages/about' }}">About</a>
+    </nav>
+
+    <div class="site-header__utilities">
+      <button class="button-reset utility-link" type="button" data-open-search>Search</button>
+      <a class="utility-link" href="{{ routes.account_url }}">Account</a>
+      <button class="button-reset utility-link" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>
+        Cart (<span data-cart-count>{{ cart.item_count }}</span>)
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="MobileMenu" aria-hidden="true" data-mobile-menu>
+    <div class="mobile-menu__head">
+      <span>SOFT HOURS</span>
+      <button class="button-reset" type="button" data-close-menu>Close ×</button>
+    </div>
+    <nav class="mobile-menu__links" aria-label="Mobile primary">
+      <a href="{{ section.settings.collection_url | default: routes.all_products_collection_url }}">Collection I</a>
+      <a href="{{ section.settings.journal_url | default: '/blogs/journal' }}">Journal</a>
+      <a href="{{ section.settings.about_url | default: '/pages/about' }}">About</a>
+    </nav>
+    <div class="mobile-menu__utilities">
+      <button class="button-reset utility-link" type="button" data-open-search>Search</button>
+      <a href="{{ routes.account_url }}">Account</a>
+      <button class="button-reset utility-link" type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "url", "id": "collection_url", "label": "Collection I link" },
+    { "type": "url", "id": "journal_url", "label": "Journal link" },
+    { "type": "url", "id": "about_url", "label": "About link" }
+  ]
+}
+{% endschema %}

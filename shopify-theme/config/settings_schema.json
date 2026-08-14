@@ -1,0 +1,28 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Soft Hours Ecommerce",
+    "theme_version": "0.1.0",
+    "theme_author": "Anchovies",
+    "theme_documentation_url": "https://app.paper.design/file/01KSQJRVQRH3PFPCCTXWKB2R1D/3-1",
+    "theme_support_url": "https://www.softhours.rest/"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "color", "id": "color_cream", "label": "Cream", "default": "#F2EBDD" },
+      { "type": "color", "id": "color_ink", "label": "Ink", "default": "#26241A" },
+      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#5A4F44" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "instagram_url", "label": "Instagram URL" },
+      { "type": "text", "id": "support_email", "label": "Support email" }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "checkbox", "id": "show_accelerated_checkout", "label": "Show eligible accelerated checkout buttons", "default": true },
+      { "type": "text", "id": "cart_operational_note", "label": "Operational note", "info": "Leave blank until shipping, duties, and taxes language is approved." }
+    ]
+  }
+]

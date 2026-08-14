@@ -1,0 +1,30 @@
+<section class="home-hero">
+  <div class="home-hero__media">
+    {% if section.settings.image %}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: preload: true, widths: '750, 1100, 1600, 2000, 2400', sizes: '100vw', alt: section.settings.image.alt | default: section.settings.heading }}
+    {% else %}
+      {{ 'hero-time-well-kept.jpg' | asset_url | image_tag: preload: true, alt: section.settings.heading }}
+    {% endif %}
+  </div>
+  <div class="home-hero__content">
+    <div>
+      <h1>{{ section.settings.heading }}</h1>
+      {% if section.settings.subheading != blank %}<p>{{ section.settings.subheading }}</p>{% endif %}
+    </div>
+    <a class="home-hero__cta" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.link_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "TIME WELL KEPT" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pyjamas for morning, evening, and the hours between." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Collection I" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Home hero" }]
+}
+{% endschema %}

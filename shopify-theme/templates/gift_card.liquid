@@ -1,0 +1,54 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_ink }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ shop.name }} — Gift Card</title>
+    {{ content_for_header }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <style>
+      .issued-gift-card{min-height:100svh;padding:40px;display:grid;place-items:center;background:var(--cream);color:var(--ink)}
+      .issued-gift-card__card{width:min(620px,100%);padding:52px;border:1px solid var(--hairline);text-align:center}
+      .issued-gift-card__brand{font:200 28px/1 var(--display);letter-spacing:.08em}
+      .issued-gift-card__balance{margin:56px 0 12px;font:200 72px/1 var(--display)}
+      .issued-gift-card__code{margin:36px 0 22px;padding:18px;border:1px solid var(--hairline);font:400 18px/1 var(--mono);letter-spacing:.08em}
+      .issued-gift-card__qr{display:grid;place-items:center;margin:0 auto 30px}
+      .issued-gift-card__actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+      @media(max-width:600px){.issued-gift-card{padding:14px}.issued-gift-card__card{padding:34px 18px}.issued-gift-card__balance{font-size:52px}}
+      @media print{.issued-gift-card{padding:0}.issued-gift-card__actions{display:none}}
+    </style>
+  </head>
+  <body>
+    <main class="issued-gift-card">
+      <section class="issued-gift-card__card">
+        <div class="issued-gift-card__brand">SOFT HOURS</div>
+        <h1 class="issued-gift-card__balance">{{ gift_card.balance | money }}</h1>
+        {% if gift_card.expired or gift_card.enabled == false %}<p class="eyebrow">This gift card is no longer active.</p>{% endif %}
+        {% if gift_card.expires_on %}<p class="eyebrow">Expires {{ gift_card.expires_on | date: '%d.%m.%y' }}</p>{% endif %}
+        <p class="rte">Use this code at checkout.</p>
+        <div class="issued-gift-card__code" id="GiftCardCode">{{ gift_card.code | format_code }}</div>
+        <div class="issued-gift-card__qr" data-gift-card-qr="{{ gift_card.qr_identifier }}"></div>
+        <div class="issued-gift-card__actions">
+          <button class="button" type="button" data-copy-gift-card>Copy code</button>
+          <a class="button button--dark" href="{{ shop.url }}">Shop Collection I</a>
+        </div>
+        <p class="form-status" role="status" aria-live="polite" data-copy-status></p>
+      </section>
+    </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var qr = document.querySelector('[data-gift-card-qr]');
+        new QRCode(qr, { text: qr.dataset.giftCardQr, width: 96, height: 96, imageAltText: 'Gift card QR code' });
+        document.querySelector('[data-copy-gift-card]').addEventListener('click', function () {
+          navigator.clipboard.writeText(document.getElementById('GiftCardCode').innerText).then(function () {
+            document.querySelector('[data-copy-status]').textContent = 'Gift card code copied.';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

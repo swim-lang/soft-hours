@@ -1,0 +1,18 @@
+{% liquid
+  assign card_product = product
+  assign secondary_image = card_product.images[1]
+%}
+<a class="product-card" href="{{ card_product.url }}">
+  <div class="product-card__media">
+    {% if card_product.featured_image %}
+      {{ card_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 901px) 33vw, 50vw', alt: card_product.featured_image.alt | default: card_product.title }}
+      {% if secondary_image %}{{ secondary_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 901px) 33vw, 50vw', alt: secondary_image.alt | default: card_product.title }}{% endif %}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {% endif %}
+  </div>
+  <div class="product-card__info">
+    <strong>{{ card_product.title }}</strong>
+    <span>{{ card_product.price | money }}</span>
+  </div>
+</a>

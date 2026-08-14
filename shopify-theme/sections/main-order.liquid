@@ -1,0 +1,26 @@
+<header class="page-hero"><p class="eyebrow">Customer account</p><h1>{{ order.name }}</h1></header>
+<section class="page-shell support-layout">
+  <div>
+    <p class="eyebrow">Placed {{ order.created_at | date: '%d.%m.%y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+    <div class="account-orders">
+      {% for line_item in order.line_items %}
+        <a href="{{ line_item.product.url | default: routes.all_products_collection_url }}">
+          <span>{{ line_item.title }}</span>
+          <span>{{ line_item.quantity }} × {{ line_item.final_price | money }}</span>
+          <span>{{ line_item.variant.title }}</span>
+          <span>{{ line_item.final_line_price | money }}</span>
+        </a>
+      {% endfor %}
+    </div>
+    <div class="main-cart__summary">
+      <div class="cart-summary"><span>Total</span><strong>{{ order.total_net_amount | money }}</strong></div>
+    </div>
+  </div>
+  <aside>
+    <p class="eyebrow">Shipping address</p><div class="rte">{{ order.shipping_address | format_address }}</div>
+    <p class="eyebrow">Billing address</p><div class="rte">{{ order.billing_address | format_address }}</div>
+    <p><a class="text-link" href="{{ routes.account_url }}">Back to account</a></p>
+  </aside>
+</section>
+
+{% schema %}{ "name": "Order", "settings": [] }{% endschema %}

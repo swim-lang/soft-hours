@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-about",
+      "blocks": {
+        "founder": { "type": "story", "settings": { "eyebrow": "The founder", "heading": "COMING HOME TO YOURSELF", "body": "<p>Soft Hours began with a belief that the hours around the day deserve their own kind of care.</p>" } },
+        "process": { "type": "story", "settings": { "eyebrow": "The making", "heading": "A WORK IN PROGRESS", "body": "<p>Collection I is still being refined through sampling. Product and production details will be added here only when they are confirmed.</p>" } }
+      },
+      "block_order": ["founder", "process"],
+      "settings": { "hero_heading": "FOR THE FIRST\nHOUR &\nTHE LAST" }
+    }
+  },
+  "order": ["main"]
+}

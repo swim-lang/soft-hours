@@ -1,0 +1,43 @@
+<section>
+  <header class="collection-hero">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ collection.title }}</h1>
+    {% if collection.description != blank %}<div class="rte">{{ collection.description }}</div>{% endif %}
+  </header>
+
+  <form class="collection-toolbar" method="get">
+    <span>{{ collection.products_count }} pieces</span>
+    <label>
+      <span class="visually-hidden">Sort by</span>
+      <select name="sort_by" onchange="this.form.submit()">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
+      </select>
+    </label>
+  </form>
+
+  <div class="collection-grid-wrap">
+    {% paginate collection.products by section.settings.products_per_page %}
+      {% if collection.products_count > 0 %}
+        <div class="product-grid">
+          {% for product in collection.products %}{% render 'product-card', product: product %}{% endfor %}
+        </div>
+      {% else %}
+        <div class="collection-empty">
+          <p class="display">Collection I is being prepared.</p>
+        </div>
+      {% endif %}
+      {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection product grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The first collection" },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 }
+  ]
+}
+{% endschema %}

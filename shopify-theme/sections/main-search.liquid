@@ -1,0 +1,26 @@
+<header class="page-hero"><p class="eyebrow">Soft Hours</p><h1>Search</h1></header>
+<section class="page-shell">
+  <form class="search-page-form" action="{{ routes.search_url }}" method="get" role="search">
+    <label class="visually-hidden" for="SearchPageInput">Search</label>
+    <input id="SearchPageInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="What are you looking for?">
+    <button class="button-reset" type="submit">Search →</button>
+  </form>
+  {% if search.performed %}
+    <div class="search-results">
+      {% paginate search.results by 20 %}
+        {% for item in search.results %}
+          <a class="search-results__item" href="{{ item.url }}">
+            <span>{% if item.featured_image %}{{ item.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.title }}{% endif %}</span>
+            <span><strong>{{ item.title }}</strong><br><small>{{ item.object_type }}</small></span>
+            <span>View →</span>
+          </a>
+        {% else %}
+          <div class="empty-state"><p>No results.</p><a class="text-link" href="{{ routes.all_products_collection_url }}">Browse Collection I</a></div>
+        {% endfor %}
+        {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}{ "name": "Search", "settings": [] }{% endschema %}

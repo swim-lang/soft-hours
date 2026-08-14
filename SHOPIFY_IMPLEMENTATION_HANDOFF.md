@@ -1,6 +1,6 @@
 # Soft Hours Shopify implementation handoff
 
-Status: design review in progress. Do not publish or replace the live coming-soon site.
+Status: approved Paper direction implemented as a local Shopify theme; authenticated unpublished-theme upload and store-data QA remain. Do not publish or replace the live coming-soon site.
 
 ## Source of truth
 
@@ -172,4 +172,6 @@ The design can use editable placeholders, but launch requires:
 
 ## Review gate
 
-Do not begin final Liquid implementation until the Ecommerce V2 Paper page is accepted as a faithful extension of the existing Soft Hours design. Do not publish the Shopify theme until all launch blockers are resolved and the current coming-soon site can be replaced safely.
+The local Liquid implementation is isolated under `shopify-theme/` and has passed Shopify Theme Check. See `SHOPIFY_THEME_BUILD_STATUS.md` for the exact implemented scope and remaining store setup.
+
+Do not upload the theme anywhere except an unpublished Shopify duplicate. Do not publish the Shopify theme until all launch blockers are resolved and the current coming-soon site can be replaced safely.

@@ -1,0 +1,13 @@
+<article class="article-page">
+  <header class="page-hero">
+    <p class="eyebrow">{{ article.published_at | date: '%d.%m.%y' }} · {{ blog.title }}</p>
+    <h1>{{ article.title }}</h1>
+  </header>
+  {% if article.image %}<div class="article-page__hero">{{ article.image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1400, 1800', sizes: '(min-width: 901px) 1080px, 100vw', alt: article.image.alt | default: article.title }}</div>{% endif %}
+  <div class="article-page__body">
+    <div class="rte">{{ article.content }}</div>
+    <p><a class="text-link" href="{{ blog.url }}">Back to Journal</a></p>
+  </div>
+</article>
+
+{% schema %}{ "name": "Journal article", "settings": [] }{% endschema %}

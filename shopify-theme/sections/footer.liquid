@@ -1,0 +1,55 @@
+{% liquid
+  assign collection_url = section.settings.collection_url | default: routes.all_products_collection_url
+  assign gift_card_url = section.settings.gift_card_url | default: '/products/soft-hours-gift-card'
+  assign size_guide_url = section.settings.size_guide_url | default: '/pages/size-guide'
+  assign about_url = section.settings.about_url | default: '/pages/about'
+  assign journal_url = section.settings.journal_url | default: '/blogs/journal'
+  assign contact_url = section.settings.contact_url | default: '/pages/contact'
+  assign faq_url = section.settings.faq_url | default: '/pages/faq'
+  assign delivery_url = section.settings.delivery_url | default: '/pages/delivery-returns'
+%}
+<footer class="site-footer" id="Newsletter">
+  <div class="site-footer__links">
+    <div>
+      <a href="{{ collection_url }}">Collection I</a>
+      <a href="{{ gift_card_url }}">Gift Card</a>
+      <a href="{{ size_guide_url }}">Size Guide</a>
+    </div>
+    <div>
+      <a href="{{ about_url }}">About</a>
+      <a href="{{ journal_url }}">Journal</a>
+      <a href="#NewsletterSignup">Newsletter</a>
+      <a href="{{ contact_url }}">Contact</a>
+    </div>
+    <div>
+      <a href="{{ faq_url }}">FAQ</a>
+      <a href="{{ delivery_url }}">Delivery & Returns</a>
+      <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a>
+      <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a>
+    </div>
+    <div class="site-footer__social">
+      {% if settings.instagram_url != blank %}<a href="{{ settings.instagram_url }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <a href="{{ routes.root_url }}">SOFT HOURS</a>
+    <span>MMXXVI</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "url", "id": "collection_url", "label": "Collection I link" },
+    { "type": "url", "id": "gift_card_url", "label": "Gift Card link" },
+    { "type": "url", "id": "size_guide_url", "label": "Size Guide link" },
+    { "type": "url", "id": "about_url", "label": "About link" },
+    { "type": "url", "id": "journal_url", "label": "Journal link" },
+    { "type": "url", "id": "contact_url", "label": "Contact link" },
+    { "type": "url", "id": "faq_url", "label": "FAQ link" },
+    { "type": "url", "id": "delivery_url", "label": "Delivery & Returns fallback link" }
+  ]
+}
+{% endschema %}

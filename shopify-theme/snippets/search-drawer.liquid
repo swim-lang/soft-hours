@@ -1,0 +1,14 @@
+<aside class="drawer search-drawer" id="SearchDrawer" aria-hidden="true" aria-labelledby="SearchDrawerTitle" data-search-drawer>
+  <div class="drawer__head">
+    <h2 id="SearchDrawerTitle">Search</h2>
+    <button class="button-reset" type="button" data-close-search>Close ×</button>
+  </div>
+  <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+    <label class="visually-hidden" for="SearchDrawerInput">Search Soft Hours</label>
+    <input id="SearchDrawerInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="What are you looking for?" autocomplete="off" data-predictive-search-input>
+    <button class="button-reset" type="submit">Search →</button>
+  </form>
+  <div class="predictive-results" data-predictive-results>
+    <p>Begin typing to search Collection I and Journal.</p>
+  </div>
+</aside>

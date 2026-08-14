@@ -1,0 +1,38 @@
+{
+  "accessibility": {
+    "close": "Close",
+    "open_menu": "Open menu",
+    "loading": "Loading",
+    "error": "Something went wrong. Please try again."
+  },
+  "general": {
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "continue_shopping": "Continue Shopping",
+    "newsletter_email": "Email address",
+    "newsletter_submit": "Subscribe"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "choose_size": "Choose a size",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "size_guide": "Size Guide",
+      "color": "Color",
+      "size": "Size"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "edit": "Edit",
+      "empty": "Your cart is empty",
+      "view_cart": "View full Cart"
+    }
+  }
+}

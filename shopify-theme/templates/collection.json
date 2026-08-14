@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "main-collection-product-grid", "settings": { "eyebrow": "The first collection", "products_per_page": 12 } }
+  },
+  "order": ["main"]
+}

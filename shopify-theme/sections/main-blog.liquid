@@ -1,0 +1,33 @@
+<header class="page-hero">
+  <p class="eyebrow">Journal</p>
+  <h1>{{ section.settings.heading | default: blog.title }}</h1>
+  {% if section.settings.subheading != blank %}<div class="rte">{{ section.settings.subheading }}</div>{% endif %}
+</header>
+<section class="page-shell">
+  {% paginate blog.articles by section.settings.articles_per_page %}
+    <div class="article-list">
+      {% for article in blog.articles %}
+        <a class="journal-card" href="{{ article.url }}">
+          <div class="journal-card__image">{% if article.image %}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360, 600, 900, 1000', sizes: '(min-width: 901px) 33vw, 100vw', alt: article.image.alt | default: article.title }}{% else %}{{ 'image' | placeholder_svg_tag }}{% endif %}</div>
+          <div class="journal-card__meta"><span>{{ blog.title }}</span><span>{{ article.published_at | date: '%d.%m.%y' }}</span></div>
+          <h3>{{ article.title }}</h3>
+          {% if article.excerpt != blank %}<div class="rte">{{ article.excerpt | strip_html | truncatewords: 24 }}</div>{% endif %}
+        </a>
+      {% else %}
+        <p class="rte">Journal notes will appear here when they are ready.</p>
+      {% endfor %}
+    </div>
+    {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+  {% endpaginate %}
+</section>
+
+{% schema %}
+{
+  "name": "Journal",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "AS SHE PLEASES" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Notes on home, place, and the quiet rituals that make time feel like your own.</p>" },
+    { "type": "range", "id": "articles_per_page", "label": "Articles per page", "min": 3, "max": 18, "step": 3, "default": 9 }
+  ]
+}
+{% endschema %}

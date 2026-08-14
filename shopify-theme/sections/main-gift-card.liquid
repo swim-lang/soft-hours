@@ -1,0 +1,25 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+<section class="product-main gift-card-product" data-product-root>
+  <div class="gift-card-product__media">
+    {% if product.featured_image %}{{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 901px) 60vw, 100vw', alt: product.featured_image.alt | default: product.title }}{% else %}{{ 'journal-urban.jpg' | asset_url | image_tag: alt: product.title }}{% endif %}
+  </div>
+  <div class="product-panel">
+    <p class="eyebrow">A quiet gift, delivered by email</p>
+    <h1>{{ product.title }}</h1>
+    <div class="product-price" data-product-price>{{ current_variant.price | money }}</div>
+    {% if product.description != blank %}<div class="product-description rte">{{ product.description }}</div>{% endif %}
+    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-product-form>
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <div class="product-form__row"><label for="GiftOption-{{ section.id }}-{{ forloop.index }}">{{ option.name }}</label><select id="GiftOption-{{ section.id }}-{{ forloop.index }}" data-option-select>{% for value in option.values %}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+        {% endfor %}
+      {% endunless %}
+      <div data-purchase-panel{% unless current_variant.available %} hidden{% endunless %}><button class="button button--dark button--full" type="submit" data-add-to-cart>Add to Cart</button></div>
+      <p class="form-status" role="status" aria-live="polite" data-product-status></p>
+    </form>
+    <script type="application/json" data-variants>[{% for variant in product.variants %}{"id":{{ variant.id }},"available":{{ variant.available | json }},"options":{{ variant.options | json }},"price":{{ variant.price | money | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+  </div>
+</section>
+
+{% schema %}{ "name": "Gift Card product", "settings": [] }{% endschema %}
