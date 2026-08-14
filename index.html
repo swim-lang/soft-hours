@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
   <title>Soft Hours — Time Well Kept</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
   <script>
     /* Enable scroll-reveal only when motion is welcome; set before paint to avoid flash */
     if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -29,107 +31,65 @@
       </div>
       <header class="nav nav--hero">
         <div class="nav-side nav-left"><a href="index.html" class="wordmark-nav" aria-label="Soft Hours"></a></div>
-        <nav class="nav-links">
-          <a href="shop.html">Shop</a>
-          <a href="shop.html">Collection I</a>
-          <a href="#">Journal</a>
-          <a href="about.html">About</a>
-        </nav>
-        <div class="nav-side nav-right">
-          <a href="#">Search</a>
-          <a href="#">Account</a>
-          <a href="#">Bag (0)</a>
-        </div>
+        <nav class="nav-links"></nav>
+        <div class="nav-side nav-right"></div>
         <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
-    </header>
-<div class="mobile-menu" id="mobile-menu">
-  <div class="mobile-menu-head">
-    <button class="mobile-menu-close" aria-label="Close menu">Close</button>
-  </div>
-  <nav class="mobile-menu-links">
-    <a href="shop.html">Shop</a>
-    <a href="shop.html">Collection I</a>
-    <a href="#">Journal</a>
-    <a href="about.html">About</a>
-  </nav>
-  <div class="mobile-menu-meta">
-    <a href="#">Search</a>
-    <a href="#">Account</a>
-    <a href="#">Bag (0)</a>
-  </div>
-</div>
+      </header>
+      <div class="mobile-menu" id="mobile-menu"></div>
 
     </section>
 
     <!-- Collection introduction -->
     <section class="home-intro">
       <h2 class="home-intro-title">MADE WITH PATIENCE</h2>
-      <p class="home-intro-body">A piece can only feel considered if it's made that way. From the mill that supplies our cloth to the atelier that cuts and finishes it, every part of Soft Hours is chosen for care over speed — including the studio that shaped the brand itself.</p>
+      <p class="home-intro-body">A piece can only feel considered if it is made that way. Soft Hours approaches fabric development, sampling, fit, and finishing with care over speed. Final material and maker details will be shared once they are approved.</p>
     </section>
 
     <!-- Two-panel feature -->
     <section class="home-duo">
-      <a href="product.html" class="home-duo-item">
+      <a href="product.html?piece=top" class="home-duo-item">
         <div class="home-duo-img" style="background-image:url(assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg); background-position:50% 30%;"></div>
-        <span class="home-duo-cap">Long Pyjama Set - $380</span>
+        <span class="home-duo-cap">Top — EUR 195</span>
       </a>
-      <a href="product.html" class="home-duo-item">
+      <a href="product.html?piece=shorts" class="home-duo-item">
         <div class="home-duo-img" style="background-image:url(assets/paper/1E8E60JMH7M1YYDYZ445N3ZE6N.jpg); background-position:50% 26%;"></div>
-        <span class="home-duo-cap">Short Pyjama Set - $320</span>
+        <span class="home-duo-cap">Shorts — EUR 195</span>
       </a>
     </section>
 
-    <!-- The Washed Silk Edit -->
+    <!-- Collection I -->
     <section class="home-edit" style="background-image:url(assets/paper/01KV8M6QDDQ6C7P21WFFWKVW6D.jpg);">
       <div class="home-edit-scrim"></div>
       <div class="home-edit-label">
         <span class="line"></span>
-        <span>The Washed Silk Edit</span>
+        <span>Collection I</span>
         <span class="line"></span>
       </div>
       <h2 class="home-edit-title">HOURS WORTH DRESSING FOR</h2>
     </section>
 
-    <!-- Shop new arrivals -->
+    <!-- Shop Collection I -->
     <section class="home-arrivals">
       <div class="home-arrivals-head">
-        <h2 class="home-arrivals-title">SHOP NEW ARRIVALS</h2>
+        <h2 class="home-arrivals-title">SHOP COLLECTION I</h2>
       </div>
       <div class="home-arrivals-rows">
         <div class="home-arrivals-row">
-          <a href="product.html" class="home-arrival">
+          <a href="product.html?piece=top" class="home-arrival">
             <div class="home-arrival-img" style="background-image:url(assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg); background-position:50% 30%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Long Pyjama Set</span><span class="home-arrival-price">$ 380</span></div><div class="home-arrival-dots"><span style="background:#2F4A3B"></span><span style="background:#5A2A37"></span><span style="background:#E3D8C2"></span></div></div>
+            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Top</span><span class="home-arrival-price">EUR 195</span></div></div>
           </a>
-          <a href="product.html" class="home-arrival">
+          <a href="product.html?piece=shorts" class="home-arrival">
             <div class="home-arrival-img" style="background-image:url(assets/paper/1E8E60JMH7M1YYDYZ445N3ZE6N.jpg); background-position:50% 26%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Short Pyjama Set</span><span class="home-arrival-price">$ 320</span></div><div class="home-arrival-dots"><span style="background:#5A2A37"></span><span style="background:#9AA388"></span><span style="background:#3A352E"></span></div></div>
+            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Shorts</span><span class="home-arrival-price">EUR 195</span></div></div>
           </a>
-          <a href="product.html" class="home-arrival">
+          <a href="product.html?piece=shirt" class="home-arrival">
             <div class="home-arrival-img" style="background-image:url(assets/paper/1EGC81TPPFQHCGCEZ8AM9AFN3H.png); background-position:50% 22%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Soft Dress</span><span class="home-arrival-price">$ 360</span></div><div class="home-arrival-dots"><span style="background:#E3D8C2"></span><span style="background:#2C3340"></span><span style="background:#9AA388"></span></div></div>
+            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Shirt</span><span class="home-arrival-price">EUR 230</span></div></div>
           </a>
-          <a href="product.html" class="home-arrival">
+          <a href="product.html?piece=trousers" class="home-arrival">
             <div class="home-arrival-img" style="background-image:url(assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg); background-position:50% 24%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Camisole</span><span class="home-arrival-price">$ 280</span></div><div class="home-arrival-dots"><span style="background:#E8DCC0"></span><span style="background:#D6B7A6"></span><span style="background:#6B6B66"></span></div></div>
-          </a>
-        </div>
-        <div class="home-arrivals-row">
-          <a href="product.html" class="home-arrival">
-            <div class="home-arrival-img" style="background-image:url(assets/paper/01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg); background-position:50% 30%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Long Pyjama Set</span><span class="home-arrival-price">$ 380</span></div><div class="home-arrival-dots"><span style="background:#2F4A3B"></span><span style="background:#5A2A37"></span><span style="background:#E3D8C2"></span></div></div>
-          </a>
-          <a href="product.html" class="home-arrival">
-            <div class="home-arrival-img" style="background-image:url(assets/paper/1E8E60JMH7M1YYDYZ445N3ZE6N.jpg); background-position:50% 26%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Short Pyjama Set</span><span class="home-arrival-price">$ 320</span></div><div class="home-arrival-dots"><span style="background:#5A2A37"></span><span style="background:#9AA388"></span><span style="background:#3A352E"></span></div></div>
-          </a>
-          <a href="product.html" class="home-arrival">
-            <div class="home-arrival-img" style="background-image:url(assets/paper/1EGC81TPPFQHCGCEZ8AM9AFN3H.png); background-position:50% 22%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Soft Dress</span><span class="home-arrival-price">$ 360</span></div><div class="home-arrival-dots"><span style="background:#E3D8C2"></span><span style="background:#2C3340"></span><span style="background:#9AA388"></span></div></div>
-          </a>
-          <a href="product.html" class="home-arrival">
-            <div class="home-arrival-img" style="background-image:url(assets/paper/01KV8PYRHCSVV1QXRGET4FSMV8.jpg); background-position:50% 24%;"></div>
-            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Camisole</span><span class="home-arrival-price">$ 280</span></div><div class="home-arrival-dots"><span style="background:#E8DCC0"></span><span style="background:#D6B7A6"></span><span style="background:#6B6B66"></span></div></div>
+            <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">Trousers</span><span class="home-arrival-price">EUR 245</span></div></div>
           </a>
         </div>
       </div>
@@ -156,110 +116,50 @@
         <p class="home-journal-sub">Notes on travel, interiors, and the art of staying in.</p>
       </div>
       <div class="home-triptych">
-        <article class="home-world">
+        <a class="home-world" href="article.html?story=home">
           <div class="home-world-img" style="background-image:url(assets/paper/01KV63THF88XNMH3YZCEEPHWRC.png)"></div>
           <div class="home-world-info">
             <div class="home-world-meta"><span>World I</span><span>№ 01</span></div>
             <div class="home-world-name">Home</div>
             <div class="home-world-body">A balcony, a curtain, the kettle in the kitchen — the rooms a woman keeps for herself.</div>
           </div>
-        </article>
-        <article class="home-world">
+        </a>
+        <a class="home-world" href="article.html?story=urban-landscape">
           <div class="home-world-img" style="background-image:url(assets/paper/01KV63T6G65ZWKXMFAPFXTPT4H.png)"></div>
           <div class="home-world-info">
             <div class="home-world-meta"><span>World II</span><span>№ 02</span></div>
             <div class="home-world-name">Urban landscape</div>
             <div class="home-world-body">A street in last light, a window open above a courtyard, the city catching its breath.</div>
           </div>
-        </article>
-        <article class="home-world">
+        </a>
+        <a class="home-world" href="article.html?story=soft-landscape">
           <div class="home-world-img" style="background-image:url(assets/paper/01KV63VEK16QTR9X8JRHSPT2NS.png)"></div>
           <div class="home-world-info">
             <div class="home-world-meta"><span>World III</span><span>№ 03</span></div>
             <div class="home-world-name">Soft landscape</div>
             <div class="home-world-body">Long grass and shoreline, the air still cool — the slow openings of a day.</div>
           </div>
-        </article>
+        </a>
       </div>
     </section>
 
     <!-- Email capture -->
-    <section class="home-email">
+    <section class="home-email" id="newsletter">
       <div class="home-email-mark" style="background-image:url(assets/paper/01KV643NF6BWVRJJAC387ZDG46.png)"></div>
       <h2 class="home-email-title">NOTES FROM SOFT HOURS</h2>
       <p class="home-email-sub">Collection releases, private previews, and occasional observations on the art of staying in.</p>
-      <div class="home-email-form">
-        <div class="home-email-field">
-          <div class="home-email-field-left">
-            <span>Email address</span>
-            <span>your.name@maison.fr</span>
-          </div>
-          <div class="home-email-sub-btn">
-            <span>Subscribe</span>
-            <svg width="22" height="8" viewBox="0 0 22 8" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;flex-shrink:0;"><line x1="0" y1="4" x2="20" y2="4" stroke="#26241A"/><line x1="20" y1="4" x2="16" y2="0" stroke="#26241A"/><line x1="20" y1="4" x2="16" y2="8" stroke="#26241A"/></svg>
-          </div>
-        </div>
+      <form class="home-email-form" data-newsletter-form>
+        <label class="home-email-field" for="newsletter-email">
+          <span class="home-email-field-left"><span>Email address</span><input id="newsletter-email" type="email" required placeholder="your.name@example.com" /></span>
+          <button class="home-email-sub-btn" type="submit"><span>Subscribe</span><span aria-hidden="true">→</span></button>
+        </label>
         <div class="home-email-note">By subscribing you agree to receive correspondence from Soft Hours. Unsubscribe in a single click.</div>
-      </div>
+        <p class="prototype-status" data-form-status aria-live="polite"></p>
+      </form>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-top">
-        <div class="footer-cols">
-          <div class="footer-col">
-            <h4>Shop</h4>
-            <ul>
-              <li><a href="shop.html">Collection I</a></li>
-              <li><a href="#">Sets</a></li>
-              <li><a href="#">Separates</a></li>
-              <li><a href="#">Accessories</a></li>
-              <li><a href="#">Gift cards</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Maison</h4>
-            <ul>
-              <li><a href="about.html">About</a></li>
-              <li><a href="#">Journal</a></li>
-              <li><a href="#">Atelier</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Care</h4>
-            <ul>
-              <li><a href="#">Shipping</a></li>
-              <li><a href="#">Returns</a></li>
-              <li><a href="#">The care guide</a></li>
-              <li><a href="#">Privacy</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Salon</h4>
-            <ul>
-              <li><a href="#">Instagram · @softhours</a></li>
-              <li><a href="#">Pinterest</a></li>
-              <li><a href="#">Press enquiries</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-wordmark-band">
-        <div class="footer-wordmark" role="img" aria-label="Soft Hours"></div>
-      </div>
-      <div class="footer-bottom">
-        <span>© Soft Hours · MMXXVI</span>
-        <div class="footer-meta">
-          <span>EN</span>
-          <span class="divider"></span>
-          <span>USD · EUR · GBP</span>
-          <span class="divider"></span>
-          <span>Ship worldwide</span>
-        </div>
-        <span>Designed in Paris · Made in Italy</span>
-      </div>
-    </footer>
+    <footer class="footer"></footer>
 
   </div>
   <script>

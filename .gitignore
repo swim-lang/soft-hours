@@ -10,3 +10,4 @@ theme-preview/*
 !theme-preview/pp-watch-extralight.otf
 !theme-preview/paper/
 !theme-preview/paper/*.webp
+.vercel

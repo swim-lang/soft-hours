@@ -1,299 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soft Hours — Long Pyjama Set</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script>
-    /* Enable scroll-reveal only when motion is welcome; set before paint to avoid flash */
-    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('js-reveal');
-    }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Soft Hours — Collection I</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="v2.css">
+  <script>if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-reveal');</script>
 </head>
 <body>
-  <div class="page">
-
-    <!-- Nav -->
+  <div class="page product-v2" data-product>
     <header class="nav">
       <div class="nav-side nav-left"><a href="index.html" class="wordmark-nav" aria-label="Soft Hours"></a></div>
-      <nav class="nav-links">
-        <a href="shop.html">Shop</a>
-        <a href="shop.html">Collection I</a>
-        <a href="#">Journal</a>
-        <a href="about.html">About</a>
-      </nav>
-      <div class="nav-side nav-right">
-        <a href="#">Search</a>
-        <a href="#">Account</a>
-        <a href="#">Bag (0)</a>
-      </div>
-      <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary"></nav>
+      <div class="nav-side nav-right"></div>
+      <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
     </header>
-<div class="mobile-menu" id="mobile-menu">
-  <div class="mobile-menu-head">
-    <button class="mobile-menu-close" aria-label="Close menu">Close</button>
+    <div class="mobile-menu" id="mobile-menu"></div>
+
+    <main class="page-main">
+      <section class="pdp-hero">
+        <div class="pdp-gallery" data-gallery data-reveal>
+          <div class="pdp-main-img" data-gallery-main style="background-image:url(assets/v2/product-shirt-main.jpg);"></div>
+          <div class="pdp-thumbs" aria-label="Product gallery">
+            <button class="pdp-thumb active" type="button" data-gallery-thumb="assets/v2/product-shirt-01.png" aria-label="View first product image" style="background-image:url(assets/v2/product-shirt-01.png);background-position:50% 32%;"></button>
+            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/v2/product-shirt-02.png" aria-label="View second product image" style="background-image:url(assets/v2/product-shirt-02.png);background-position:50% 30%;"></button>
+            <button class="pdp-thumb" type="button" data-gallery-thumb="assets/v2/product-shirt-03.png" aria-label="View third product image" style="background-image:url(assets/v2/product-shirt-03.png);background-position:50% 40%;"></button>
+          </div>
+        </div>
+
+        <div class="pdp-info" data-reveal>
+          <div class="pdp-crumb"><a href="shop.html">Collection I</a><span>/</span><span class="current" data-product-name>Shirt</span></div>
+          <h1 class="pdp-title" data-product-name-uppercase>SHIRT</h1>
+          <div class="pdp-price" data-product-price>EUR 230</div>
+          <p class="pdp-desc" data-product-description>A fluid layer for the first hour, the final hour, and the quieter moments between.</p>
+          <div class="pdp-rule"></div>
+
+          <div class="pdp-colour">
+            <div class="pdp-opt-label">Colour — <span data-colour-label>Bone</span></div>
+            <div class="pdp-swatches">
+              <button type="button" class="pdp-swatch" data-colour="Bone" aria-pressed="true" aria-label="Bone" style="background:#E3D8C2"></button>
+              <button type="button" class="pdp-swatch" data-colour="Bordeaux" aria-pressed="false" aria-label="Bordeaux" style="background:#5A2A37"></button>
+              <button type="button" class="pdp-swatch" data-colour="Forest" aria-pressed="false" aria-label="Forest" style="background:#2F4A3B"></button>
+              <button type="button" class="pdp-swatch" data-colour="Ink" aria-pressed="false" aria-label="Ink" style="background:#2A2620"></button>
+            </div>
+          </div>
+
+          <div class="pdp-size">
+            <div class="pdp-size-head"><span class="pdp-opt-label">Size <span class="visually-hidden">selected:</span> <span data-size-label></span></span><a href="size-guide.html" class="pdp-size-guide">Size Guide</a></div>
+            <div class="pdp-sizes">
+              <button type="button" class="pdp-size-opt" data-size="XS" aria-pressed="false">XS</button>
+              <button type="button" class="pdp-size-opt" data-size="S" aria-pressed="false">S</button>
+              <button type="button" class="pdp-size-opt" data-size="M" aria-pressed="false">M</button>
+              <button type="button" class="pdp-size-opt" data-size="L" aria-pressed="false">L</button>
+              <button type="button" class="pdp-size-opt" data-size="XL" aria-pressed="false">XL</button>
+            </div>
+          </div>
+
+          <button type="button" class="pdp-add" data-add-to-cart data-slug="shirt" data-name="Shirt" data-price="230" data-image="assets/v2/product-shirt-main.jpg">Add to Cart — EUR 230</button>
+          <p class="prototype-status" data-product-status aria-live="polite"></p>
+          <p class="pdp-ship-note">Delivery and returns details to be confirmed.</p>
+
+          <div class="pdp-accordion">
+            <div class="pdp-acc-row">
+              <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-details"><span>Details</span><span data-accordion-icon>+</span></button>
+              <div class="pdp-acc-content" id="product-details" hidden>Sampling is still in progress. Final construction details, model information, and colour names will remain editable until approved.</div>
+            </div>
+            <div class="pdp-acc-row">
+              <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-fit"><span>Fit &amp; Measurements</span><span data-accordion-icon>+</span></button>
+              <div class="pdp-acc-content" id="product-fit" hidden>Current development sizing is XS–XL, while the first run may be simplified to S/M/L. Garment-specific measurements and fit guidance are pending final samples.</div>
+            </div>
+            <div class="pdp-acc-row">
+              <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-fabric"><span>Fabric &amp; Care</span><span data-accordion-icon>+</span></button>
+              <div class="pdp-acc-content" id="product-fabric" hidden>Double-satin silk/modal blend. A 50/50 blend is being sampled and is not yet final. The intended care direction is machine washable on a gentle cycle, pending approval.</div>
+            </div>
+            <div class="pdp-acc-row">
+              <button class="pdp-acc-button" type="button" data-accordion-button aria-expanded="false" aria-controls="product-delivery"><span>Delivery &amp; Returns</span><span data-accordion-icon>+</span></button>
+              <div class="pdp-acc-content" id="product-delivery" hidden>Dispatch, shipping, duties, taxes, and customs treatment are still being confirmed. Final customer-facing promises will be added only after operations are approved.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pdp-related" data-reveal>
+        <div class="pdp-related-head"><h2 class="pdp-related-title">Complete Collection I</h2><a href="shop.html" class="pdp-view-all">View all →</a></div>
+        <div class="pdp-related-grid">
+          <article class="shop-card"><a href="product.html?piece=top" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV6816HE9450H72167DYES51.png);background-position:50% 32%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Top</h3><span class="shop-card-price">EUR 195</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=trousers" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg);background-position:50% 24%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Trousers</h3><span class="shop-card-price">EUR 245</span></div></div></a></article>
+          <article class="shop-card"><a href="product.html?piece=slip-dress" class="shop-card-link"><div class="shop-card-img" style="background-image:url(assets/paper/01KV684QM8FD71MTJ337JET3W2.jpg);background-position:22% 55%;"></div><div class="shop-card-info"><div class="shop-card-row"><h3 class="shop-card-name">Slip Dress</h3><span class="shop-card-price">EUR 290</span></div></div></a></article>
+        </div>
+      </section>
+
+      <section class="product-editorial"><h2>FOR THE FIRST HOUR AND THE LAST</h2></section>
+    </main>
+
+    <footer class="footer"></footer>
   </div>
-  <nav class="mobile-menu-links">
-    <a href="shop.html">Shop</a>
-    <a href="shop.html">Collection I</a>
-    <a href="#">Journal</a>
-    <a href="about.html">About</a>
-  </nav>
-  <div class="mobile-menu-meta">
-    <a href="#">Search</a>
-    <a href="#">Account</a>
-    <a href="#">Bag (0)</a>
-  </div>
-</div>
-
-
-    <!-- Hero -->
-    <section class="pdp-hero">
-      <div class="pdp-gallery">
-        <div class="pdp-main-img" style="background-image:url(assets/paper/01KV67X8G6N4NHY4A69QGRBE2V.jpg); background-position:50% 32%;"></div>
-        <div class="pdp-thumbs">
-          <div class="pdp-thumb active" style="background-image:url(assets/paper/01KV67Y135HYV9811QS1KQV6J7.png); background-position:50% 32%;"></div>
-          <div class="pdp-thumb" style="background-image:url(assets/paper/01KV67YDSB1SS5XY3DYD75R8NX.png); background-position:50% 30%;"></div>
-          <div class="pdp-thumb" style="background-image:url(assets/paper/01KV680CPDKSC4FCTPKY900JK6.png); background-position:50% 40%;"></div>
-        </div>
-      </div>
-      <div class="pdp-info">
-        <div class="pdp-crumb">
-          <a href="shop.html">Shop</a><span>/</span><a href="shop.html">Collection I</a><span>/</span><span class="current">Long Pyjama Set</span>
-        </div>
-        <div class="pdp-no">No. 01</div>
-        <h1 class="pdp-title">LONG PYJAMA SET</h1>
-        <div class="pdp-price">$ 380</div>
-        <p class="pdp-desc">A fluid silk-crêpe set cut for stillness — a soft, open-collar shirt and an easy tapered trouser. Made for first light, late reading, and the hours in between.</p>
-        <div class="pdp-rule"></div>
-        <div class="pdp-colour">
-          <div class="pdp-opt-label">Colour — Bone</div>
-          <div class="pdp-swatches">
-            <span class="pdp-swatch active" style="background:#E3D8C2"></span>
-            <span class="pdp-swatch" style="background:#5A2A37"></span>
-            <span class="pdp-swatch" style="background:#2F4A3B"></span>
-            <span class="pdp-swatch" style="background:#2A2620"></span>
-          </div>
-        </div>
-        <div class="pdp-size">
-          <div class="pdp-size-head">
-            <span class="pdp-opt-label">Size</span>
-            <a href="#" class="pdp-size-guide">Size guide</a>
-          </div>
-          <div class="pdp-sizes">
-            <div class="pdp-size-opt active">XS</div>
-            <div class="pdp-size-opt">S</div>
-            <div class="pdp-size-opt">M</div>
-            <div class="pdp-size-opt">L</div>
-          </div>
-        </div>
-        <div class="pdp-add">Add to bag — $ 380</div>
-        <div class="pdp-ship-note">Complimentary shipping over $200 · 30-day returns</div>
-        <div class="pdp-accordion">
-          <div class="pdp-acc-row"><span>Fabric &amp; care</span><span class="pdp-acc-plus">+</span></div>
-          <div class="pdp-acc-row"><span>The making</span><span class="pdp-acc-plus">+</span></div>
-          <div class="pdp-acc-row"><span>Shipping &amp; returns</span><span class="pdp-acc-plus">+</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Complete the set -->
-    <section class="pdp-related">
-      <div class="pdp-related-head">
-        <div class="pdp-related-title">Complete the set</div>
-        <a href="shop.html" class="pdp-view-all">View all →</a>
-      </div>
-      <div class="pdp-related-grid">
-        <article class="shop-card">
-          <a href="product.html" class="shop-card-img" style="background-image:url(assets/paper/01KV684H0VDRG3GVFXEF0EHZYG.jpg); background-position:50% 28%;"><span class="shop-card-tag">Set</span></a>
-          <div class="shop-card-info">
-            <div class="shop-card-row">
-              <div class="shop-card-name-block">
-                <span class="shop-card-no">No. 02</span>
-                <h3 class="shop-card-name">Short Pyjama Set</h3>
-                <span class="shop-card-sub">Washed silk · Blush</span>
-              </div>
-              <span class="shop-card-price">$ 320</span>
-            </div>
-            <div class="shop-card-foot">
-              <div class="shop-dots"><span style="background:#D9C2B5"></span><span style="background:#9AA388"></span><span style="background:#3A352E"></span></div>
-              <a href="product.html" class="shop-view">View piece →</a>
-            </div>
-          </div>
-        </article>
-        <article class="shop-card">
-          <a href="product.html" class="shop-card-img" style="background-image:url(assets/paper/73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg); background-position:50% 28%;"><span class="shop-card-tag">Separate</span></a>
-          <div class="shop-card-info">
-            <div class="shop-card-row">
-              <div class="shop-card-name-block">
-                <span class="shop-card-no">No. 04</span>
-                <h3 class="shop-card-name">Camisole</h3>
-                <span class="shop-card-sub">Silk satin · Champagne</span>
-              </div>
-              <span class="shop-card-price">$ 280</span>
-            </div>
-            <div class="shop-card-foot">
-              <div class="shop-dots"><span style="background:#E8DCC0"></span><span style="background:#D6B7A6"></span><span style="background:#6B6B66"></span></div>
-              <a href="product.html" class="shop-view">View piece →</a>
-            </div>
-          </div>
-        </article>
-        <article class="shop-card">
-          <a href="product.html" class="shop-card-img" style="background-image:url(assets/paper/01KV6G8W6PF4QRGG7B0V629Q18.png); background-position:50% 28%;"><span class="shop-card-tag">Object</span></a>
-          <div class="shop-card-info">
-            <div class="shop-card-row">
-              <div class="shop-card-name-block">
-                <span class="shop-card-no">No. 06</span>
-                <h3 class="shop-card-name">Travel Pouch</h3>
-                <span class="shop-card-sub">Hand-bound · Ink</span>
-              </div>
-              <span class="shop-card-price">$ 140</span>
-            </div>
-            <div class="shop-card-foot">
-              <div class="shop-dots"><span style="background:#2A2620"></span><span style="background:#E3D8C2"></span><span style="background:#B07A57"></span></div>
-              <a href="product.html" class="shop-view">View piece →</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- The making -->
-    <section class="pdp-making">
-      <div class="shop-eyebrow">
-        <span class="line"></span>
-        <span>The making</span>
-        <span class="line"></span>
-      </div>
-      <h2 class="pdp-making-title">NO DETAIL UNCONSIDERED</h2>
-      <p class="pdp-making-body">Cut from a washed silk-crêpe that falls like water and softens with every wear. Seams are finished by hand, buttons set one at a time, and each set is numbered as its own small edition — the way something kept is made.</p>
-      <div class="pdp-feature-row">
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Material</div>
-          <h3 class="pdp-feature-title">SILK CREPE</h3>
-          <p class="pdp-feature-body">19mm, washed for a fluid, lived-in hand.</p>
-        </div>
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Finishing</div>
-          <h3 class="pdp-feature-title">HAND-SEWN</h3>
-          <p class="pdp-feature-body">French seams, set buttons, no raw edges.</p>
-        </div>
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Edition</div>
-          <h3 class="pdp-feature-title">NUMBERED</h3>
-          <p class="pdp-feature-body">One of a named, limited run.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Service row -->
-    <section class="pdp-service">
-      <div class="pdp-feature-row">
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Shipping</div>
-          <h3 class="pdp-feature-title">COMPLIMENTARY</h3>
-          <p class="pdp-feature-body">On every order over $200, sent worldwide.</p>
-        </div>
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Returns</div>
-          <h3 class="pdp-feature-title">THIRTY DAYS</h3>
-          <p class="pdp-feature-body">Unworn, with tags, in a single click.</p>
-        </div>
-        <div class="pdp-feature">
-          <div class="pdp-feature-label">Making</div>
-          <h3 class="pdp-feature-title">HAND-FINISHED</h3>
-          <p class="pdp-feature-body">Made and numbered in Italy, by hand.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Closing banner -->
-    <section class="pdp-banner">
-      <div class="pdp-banner-img" style="background-image:url(assets/paper/01KV8Q5YVKN4B291G463W18R4R.jpg); background-position:50% 42%;"></div>
-      <div class="pdp-banner-scrim"></div>
-      <h2 class="pdp-banner-title">FOR DOING IT ALL, BEAUTIFULLY</h2>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-top">
-        <div class="footer-cols">
-          <div class="footer-col">
-            <h4>Shop</h4>
-            <ul>
-              <li><a href="shop.html">Collection I</a></li>
-              <li><a href="#">Sets</a></li>
-              <li><a href="#">Separates</a></li>
-              <li><a href="#">Accessories</a></li>
-              <li><a href="#">Gift cards</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Maison</h4>
-            <ul>
-              <li><a href="about.html">About</a></li>
-              <li><a href="#">Journal</a></li>
-              <li><a href="#">Atelier</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Care</h4>
-            <ul>
-              <li><a href="#">Shipping</a></li>
-              <li><a href="#">Returns</a></li>
-              <li><a href="#">The care guide</a></li>
-              <li><a href="#">Privacy</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Salon</h4>
-            <ul>
-              <li><a href="#">Instagram · @softhours</a></li>
-              <li><a href="#">Pinterest</a></li>
-              <li><a href="#">Press enquiries</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-wordmark-band">
-        <div class="footer-wordmark" role="img" aria-label="Soft Hours"></div>
-      </div>
-      <div class="footer-bottom">
-        <span>© Soft Hours · MMXXVI</span>
-        <div class="footer-meta">
-          <span>EN</span>
-          <span class="divider"></span>
-          <span>USD · EUR · GBP</span>
-          <span class="divider"></span>
-          <span>Ship worldwide</span>
-        </div>
-        <span>Designed in Paris · Made in Italy</span>
-      </div>
-    </footer>
-
-  </div>
-  <script>
-    (function () {
-      if (!document.documentElement.classList.contains('js-reveal')) return;
-      var SELECTOR = '.nav-links a, .nav-right a, .home-hero-text, .home-hero-cta, .home-intro-title, .home-intro-body, .home-duo-item, .home-edit-label, .home-edit-title, .home-arrivals-title, .home-arrival, .home-firsthour-title, .home-firsthour-emblem, .home-firsthour-body, .home-journal-eyebrow, .home-journal-title, .home-journal-sub, .home-world, .home-email-mark, .home-email-title, .home-email-sub, .home-email-form, .shop-eyebrow, .shop-title, .shop-intro, .shop-card, .pdp-gallery, .pdp-info, .pdp-related-title, .pdp-making-title, .pdp-making-body, .pdp-feature, .pdp-banner-title';
-      var els = document.querySelectorAll(SELECTOR);
-      if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('is-visible'); }); return; }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-      els.forEach(function (el) { io.observe(el); });
-      requestAnimationFrame(function () {
-        var vh = window.innerHeight;
-        els.forEach(function (el) {
-          var r = el.getBoundingClientRect();
-          if (r.top < vh * 0.92 && r.bottom > 0) { el.classList.add('is-visible'); io.unobserve(el); }
-        });
-      });
-    })();
-  </script>
   <script src="nav.js"></script>
 </body>
 </html>
