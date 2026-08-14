@@ -24,6 +24,7 @@ Preserve:
 - Existing photography and editorial image pacing.
 - “Time Well Kept,” the emotional premise, founder narrative, and quiet brand tone.
 - The established navigation character and oversized Soft Hours footer treatment.
+- The coded About-page clock motif, including its reduced-motion behavior.
 - The current responsive rhythm unless a commerce control requires a specific adjustment.
 
 Change only where the current prototype is inaccurate, unsupported, nonfunctional, or missing a required commerce state.
@@ -71,6 +72,8 @@ Use Shopify-native data and behavior wherever practical:
 - Shopify blog and article templates for Journal.
 - Native gift-card product.
 - Ajax Cart drawer with full Cart fallback.
+- The Cart drawer is the primary post-add and pre-checkout surface. Item edits, quantity, removal, subtotal, standard Checkout, and eligible accelerated checkout options remain available without a required visit to the full Cart page.
+- Render cart-level accelerated options with Shopify's `additional_checkout_buttons` and `content_for_additional_checkout_buttons`; never hard-code branded Apple Pay, Shop Pay, Google Pay, or other wallet buttons.
 - Shopify forms for newsletter and contact.
 - Theme editor sections and blocks for homepage, About, and editorial modules.
 
@@ -126,11 +129,30 @@ Do not migrate the following static-prototype content:
 ## Implementation order
 
 1. Recreate the shared header, mobile menu, footer, typography, colors, spacing, and buttons as theme components.
-2. Build Homepage, Collection I, Product, Cart drawer, and full Cart from the approved Paper artboards.
+2. Build Homepage, three-column desktop Collection I, Product, primary Cart drawer, and full-Cart fallback from the approved Paper artboards.
 3. Add Search, Account, and commerce-state behavior.
 4. Add About, Journal, gift card, size guide, Contact, FAQ, and policy templates using the same components.
 5. Connect product data, variants, Markets, accounts, search, blog, forms, and Cart behavior.
 6. Test desktop and mobile together, then review an unpublished Shopify preview.
+
+## Footer destination inventory
+
+The shared footer keeps the established visual composition but exposes only real launch destinations:
+
+- Collection I.
+- Gift Card.
+- Size Guide.
+- About.
+- Journal.
+- Newsletter.
+- Contact.
+- FAQ.
+- Delivery & Returns.
+- Privacy.
+- Terms.
+- Instagram, once the final profile URL is confirmed.
+
+No footer label may ship with a `#` URL or a missing template.
 
 ## Launch blockers
 
