@@ -4,7 +4,7 @@ Last updated: August 14, 2026
 
 ## Local implementation
 
-The approved **Soft Hours — Ecommerce V2** Paper direction has been translated into a separate Shopify Online Store 2.0 theme under `shopify-theme/`.
+The separate Shopify Online Store 2.0 foundation under `shopify-theme/` contains the required commerce templates and behaviors. Its exact visual fidelity to all 25 **Soft Hours — Ecommerce V2** Paper artboards is not yet approved and is being handled through the screen-by-screen port plan in `PAPER_V2_PORT_PLAN.md`.
 
 Implemented locally:
 

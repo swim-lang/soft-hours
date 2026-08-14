@@ -1,17 +1,19 @@
 # Soft Hours Shopify implementation handoff
 
-Status: approved Paper direction implemented as a local Shopify theme; authenticated unpublished-theme upload and store-data QA remain. Do not publish or replace the live coming-soon site.
+Status: a Shopify functional foundation exists locally, but the exact Paper V2 fidelity port is still in progress. Authenticated unpublished-theme upload and store-data QA remain. Do not publish or replace the live coming-soon site.
 
 ## Source of truth
 
 - Paper file: [Soft Hours Homepage — Ecommerce V2](https://app.paper.design/file/01KSQJRVQRH3PFPCCTXWKB2R1D/3-1)
 - Paper page: `Soft Hours — Ecommerce V2`
+- Exact Paper-export review viewer: [soft-hours-ecommerce-review.vercel.app](https://soft-hours-ecommerce-review.vercel.app/)
+- Screen-by-screen port plan: `PAPER_V2_PORT_PLAN.md`
 - Code baseline: `origin/main` at `bac7959`
 - Isolated implementation branch: `codex/soft-hours-shopify`
 - Isolated worktree: `/Users/seanashlow/Documents/Codex/2026-08-14/soft-hours-shopify`
 - Client working facts: `/Users/seanashlow/.codex/.chatgpt-projects/g-p-6a6b6c826db88191b7a186bc22103e0e/soft-hours-ecommerce-working-context.md`
 
-The original Paper artboards and the live Shopify coming-soon theme remain untouched.
+The original Paper artboards and the live Shopify coming-soon theme remain untouched. The Vercel review viewer is a faithful visual index of the 25 Paper artboards, not a functional Shopify storefront.
 
 ## Design boundary
 

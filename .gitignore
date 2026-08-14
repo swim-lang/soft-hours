@@ -1,2 +1,12 @@
 shopify-theme/*.zip
 theme-preview/
+!theme-preview/
+theme-preview/*
+!theme-preview/index.html
+!theme-preview/review.css
+!theme-preview/review.js
+!theme-preview/vercel.json
+!theme-preview/circle.png
+!theme-preview/pp-watch-extralight.otf
+!theme-preview/paper/
+!theme-preview/paper/*.webp
