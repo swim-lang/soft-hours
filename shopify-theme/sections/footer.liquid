@@ -1,31 +1,25 @@
-{% liquid
-  assign collection_url = section.settings.collection_url | default: routes.all_products_collection_url
-  assign gift_card_url = section.settings.gift_card_url | default: '/products/soft-hours-gift-card'
-  assign size_guide_url = section.settings.size_guide_url | default: '/pages/size-guide'
-  assign about_url = section.settings.about_url | default: '/pages/about'
-  assign journal_url = section.settings.journal_url | default: '/blogs/journal'
-  assign contact_url = section.settings.contact_url | default: '/pages/contact'
-  assign faq_url = section.settings.faq_url | default: '/pages/faq'
-  assign delivery_url = section.settings.delivery_url | default: '/pages/delivery-returns'
-%}
 <footer class="site-footer" id="Newsletter">
   <div class="site-footer__links">
     <div>
-      <a href="{{ collection_url }}">Collection I</a>
-      <a href="{{ gift_card_url }}">Gift Card</a>
-      <a href="{{ size_guide_url }}">Size Guide</a>
+      {% if section.settings.shop_menu != blank %}
+        {% for link in section.settings.shop_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}">Shop</a><a href="/products/soft-hours-gift-card">Gift Card</a><a href="/pages/size-guide">Size Guide</a>
+      {% endif %}
     </div>
     <div>
-      <a href="{{ about_url }}">About</a>
-      <a href="{{ journal_url }}">Journal</a>
-      <a href="#NewsletterSignup">Newsletter</a>
-      <a href="{{ contact_url }}">Contact</a>
+      {% if section.settings.brand_menu != blank %}
+        {% for link in section.settings.brand_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+      {% else %}
+        <a href="/pages/about">About</a><a href="/blogs/journal">Journal</a><a href="#NewsletterSignup">Newsletter</a><a href="/pages/contact-1">Contact</a>
+      {% endif %}
     </div>
     <div>
-      <a href="{{ faq_url }}">FAQ</a>
-      <a href="{{ delivery_url }}">Delivery & Returns</a>
-      <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a>
-      <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a>
+      {% if section.settings.help_menu != blank %}
+        {% for link in section.settings.help_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+      {% else %}
+        <a href="/pages/faqs">FAQ</a><a href="/pages/shipping-returns">Delivery & Returns</a><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a>
+      {% endif %}
     </div>
     <div class="site-footer__social">
       {% if settings.instagram_url != blank %}<a href="{{ settings.instagram_url }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
@@ -33,8 +27,8 @@
   </div>
 
   <div class="site-footer__bottom">
-    <a href="{{ routes.root_url }}">SOFT HOURS</a>
-    <span>MMXXVI</span>
+    <a href="{{ routes.root_url }}">{{ settings.brand_name | default: shop.name }}</a>
+    <span>{{ settings.footer_year }}</span>
   </div>
 </footer>
 
@@ -42,14 +36,10 @@
 {
   "name": "Footer",
   "settings": [
-    { "type": "url", "id": "collection_url", "label": "Collection I link" },
-    { "type": "url", "id": "gift_card_url", "label": "Gift Card link" },
-    { "type": "url", "id": "size_guide_url", "label": "Size Guide link" },
-    { "type": "url", "id": "about_url", "label": "About link" },
-    { "type": "url", "id": "journal_url", "label": "Journal link" },
-    { "type": "url", "id": "contact_url", "label": "Contact link" },
-    { "type": "url", "id": "faq_url", "label": "FAQ link" },
-    { "type": "url", "id": "delivery_url", "label": "Delivery & Returns fallback link" }
+    { "type": "paragraph", "content": "Manage link names and destinations in Content > Menus, then select the three footer menus here." },
+    { "type": "link_list", "id": "shop_menu", "label": "Shop column" },
+    { "type": "link_list", "id": "brand_menu", "label": "Soft Hours column" },
+    { "type": "link_list", "id": "help_menu", "label": "Help column" }
   ]
 }
 {% endschema %}

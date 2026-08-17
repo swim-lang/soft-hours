@@ -1,8 +1,8 @@
 {% assign featured_collection = section.settings.collection %}
 <section class="featured-collection">
   <div class="section-head">
-    <h2>{{ section.settings.heading }}</h2>
-    {% if featured_collection != blank %}<a href="{{ featured_collection.url }}">View Collection I</a>{% endif %}
+    <div><h2>{{ section.settings.heading }}</h2>{% if section.settings.body != blank %}<div class="rte section-head__intro">{{ section.settings.body }}</div>{% endif %}</div>
+    {% if featured_collection != blank and section.settings.link_label != blank %}<a href="{{ featured_collection.url }}">{{ section.settings.link_label }}</a>{% endif %}
   </div>
   <div class="product-grid">
     {% if featured_collection != blank and featured_collection.products_count > 0 %}
@@ -24,9 +24,12 @@
 {
   "name": "Featured collection",
   "settings": [
+    { "type": "paragraph", "content": "Product names, prices, images, and availability come from Products. This section only controls the homepage presentation." },
     { "type": "text", "id": "heading", "label": "Heading", "default": "COLLECTION I" },
+    { "type": "richtext", "id": "body", "label": "Optional introduction" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 6, "step": 1, "default": 5 }
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 6, "step": 1, "default": 5 },
+    { "type": "text", "id": "link_label", "label": "Shop-all link label", "default": "Shop all" }
   ],
   "presets": [{ "name": "Featured collection" }]
 }

@@ -1,11 +1,11 @@
 {
   "sections": {
-    "hero": { "type": "home-hero", "settings": { "heading": "TIME WELL KEPT", "subheading": "Pyjamas for morning, evening, and the hours between.", "link_label": "Collection I" } },
-    "premise": { "type": "home-premise", "settings": { "eyebrow": "Soft Hours", "heading": "FOR THE FIRST HOUR AND THE LAST", "body": "The day belongs to many things. Soft Hours is made for the moments a woman keeps for herself." } },
-    "collection": { "type": "featured-collection", "settings": { "heading": "COLLECTION I", "products_to_show": 5 } },
-    "story": { "type": "editorial-story", "settings": { "eyebrow": "Our story", "heading": "COMING HOME TO YOURSELF", "body": "<p>Soft Hours is an invitation to return to your own rhythm.</p>", "link_label": "About Soft Hours" } },
-    "journal": { "type": "journal-preview", "settings": { "heading": "AS SHE PLEASES", "subheading": "Notes on home, place, and the quiet rituals that make time feel like your own." } },
-    "newsletter": { "type": "newsletter", "settings": { "heading": "NOTES FROM SOFT HOURS", "body": "Collection releases, private previews, and occasional observations on the art of staying in." } }
+    "hero": { "type": "home-hero", "settings": { "heading": "TIME WELL KEPT", "subheading": "Pyjamas for morning, evening, and the hours between.", "link_label": "Shop Collection I" } },
+    "premise": { "type": "home-premise", "settings": { "eyebrow": "Soft Hours", "heading": "FOR THE FIRST HOUR AND THE LAST", "body": "<p>The day belongs to many things. Soft Hours is made for the moments a woman keeps for herself.</p>" } },
+    "collection": { "type": "featured-collection", "settings": { "heading": "COLLECTION I", "products_to_show": 5, "link_label": "Shop all" } },
+    "story": { "type": "editorial-story", "settings": { "eyebrow": "Our story", "heading": "COMING HOME TO YOURSELF", "body": "<p>Soft Hours is an invitation to return to your own rhythm.</p>", "link_label": "About Soft Hours", "image_side": "left" } },
+    "journal": { "type": "journal-preview", "settings": { "eyebrow": "Journal", "heading": "AS SHE PLEASES", "subheading": "Notes on home, place, and the quiet rituals that make time feel like your own.", "articles_to_show": 3 } },
+    "newsletter": { "type": "newsletter", "settings": { "eyebrow": "Keep in touch", "heading": "NOTES FROM SOFT HOURS", "body": "Collection releases, private previews, and occasional observations on the art of staying in.", "email_placeholder": "Email address", "button_label": "Subscribe →", "success_message": "Thank you. You are on the list." } }
   },
   "order": ["hero", "premise", "collection", "story", "journal", "newsletter"]
 }

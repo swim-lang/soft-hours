@@ -1,3 +1,5 @@
+{% assign primary_menu = section.settings.primary_menu %}
+{% assign secondary_menu = section.settings.secondary_menu %}
 <header class="site-header{% if template.name == 'index' %} site-header--overlay{% endif %}" data-site-header>
   <div class="site-header__inner">
     <button class="site-header__menu button-reset" type="button" aria-expanded="false" aria-controls="MobileMenu" data-open-menu>
@@ -5,37 +7,44 @@
       <span aria-hidden="true">☰</span>
     </button>
 
-    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">SOFT HOURS</a>
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">{{ settings.brand_name | default: shop.name }}</a>
 
     <nav class="site-header__nav" aria-label="Primary">
-      <a href="{{ section.settings.collection_url | default: routes.all_products_collection_url }}">Collection I</a>
-      <a href="{{ section.settings.journal_url | default: '/blogs/journal' }}">Journal</a>
-      <a href="{{ section.settings.about_url | default: '/pages/about' }}">About</a>
+      {% if primary_menu != blank %}
+        {% for link in primary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="/blogs/journal">Journal</a>
+        <a href="/pages/about">About</a>
+      {% endif %}
     </nav>
 
     <div class="site-header__utilities">
-      <button class="button-reset utility-link" type="button" data-open-search>Search</button>
-      <a class="utility-link" href="{{ routes.account_url }}">Account</a>
-      <button class="button-reset utility-link" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>
-        Cart (<span data-cart-count>{{ cart.item_count }}</span>)
-      </button>
+      {% if section.settings.show_search %}<button class="button-reset utility-link" type="button" data-open-search>Search</button>{% endif %}
+      {% if section.settings.show_account %}<a class="utility-link" href="{{ routes.account_url }}">Account</a>{% endif %}
+      {% if section.settings.show_cart %}<button class="button-reset utility-link" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>{% endif %}
     </div>
   </div>
 
   <div class="mobile-menu" id="MobileMenu" aria-hidden="true" data-mobile-menu>
     <div class="mobile-menu__head">
-      <span>SOFT HOURS</span>
+      <span>{{ settings.brand_name | default: shop.name }}</span>
       <button class="button-reset" type="button" data-close-menu>Close ×</button>
     </div>
     <nav class="mobile-menu__links" aria-label="Mobile primary">
-      <a href="{{ section.settings.collection_url | default: routes.all_products_collection_url }}">Collection I</a>
-      <a href="{{ section.settings.journal_url | default: '/blogs/journal' }}">Journal</a>
-      <a href="{{ section.settings.about_url | default: '/pages/about' }}">About</a>
+      {% if primary_menu != blank %}
+        {% for link in primary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="/blogs/journal">Journal</a>
+        <a href="/pages/about">About</a>
+      {% endif %}
+      {% if secondary_menu != blank %}{% for link in secondary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% endif %}
     </nav>
     <div class="mobile-menu__utilities">
-      <button class="button-reset utility-link" type="button" data-open-search>Search</button>
-      <a href="{{ routes.account_url }}">Account</a>
-      <button class="button-reset utility-link" type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>
+      {% if section.settings.show_search %}<button class="button-reset utility-link" type="button" data-open-search>Search</button>{% endif %}
+      {% if section.settings.show_account %}<a href="{{ routes.account_url }}">Account</a>{% endif %}
+      {% if section.settings.show_cart %}<button class="button-reset utility-link" type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>{% endif %}
     </div>
   </div>
 </header>
@@ -44,9 +53,14 @@
 {
   "name": "Header",
   "settings": [
-    { "type": "url", "id": "collection_url", "label": "Collection I link" },
-    { "type": "url", "id": "journal_url", "label": "Journal link" },
-    { "type": "url", "id": "about_url", "label": "About link" }
+    { "type": "header", "content": "Navigation" },
+    { "type": "paragraph", "content": "Manage link names and destinations in Content > Menus, then select the menu here." },
+    { "type": "link_list", "id": "primary_menu", "label": "Primary menu" },
+    { "type": "link_list", "id": "secondary_menu", "label": "Mobile-only secondary menu" },
+    { "type": "header", "content": "Utilities" },
+    { "type": "checkbox", "id": "show_search", "label": "Show Search", "default": false },
+    { "type": "checkbox", "id": "show_account", "label": "Show Account", "default": false },
+    { "type": "checkbox", "id": "show_cart", "label": "Show Cart", "default": true }
   ]
 }
 {% endschema %}

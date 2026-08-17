@@ -1,8 +1,10 @@
 {
   "current": {
+    "brand_name": "SOFT HOURS",
     "color_cream": "#F2EBDD",
     "color_ink": "#26241A",
     "color_muted": "#5A4F44",
+    "footer_year": "MMXXVI",
     "show_accelerated_checkout": true
   },
   "presets": {}

@@ -1,4 +1,4 @@
-<header class="page-hero"><p class="eyebrow">Support</p><h1>{{ page.title | default: 'Contact' }}</h1></header>
+<header class="page-hero"><p class="eyebrow">{{ section.settings.eyebrow }}</p><h1>{{ page.title | default: 'Contact' }}</h1></header>
 <section class="page-shell support-layout">
   <div class="contact-form">
     {% form 'contact' %}
@@ -12,8 +12,8 @@
     {% endform %}
   </div>
   <aside>
-    <p class="eyebrow">Contact</p>
-    <h2 class="display">A NOTE TO SOFT HOURS</h2>
+    <p class="eyebrow">{{ section.settings.aside_eyebrow }}</p>
+    <h2 class="display">{{ section.settings.aside_heading }}</h2>
     {% if section.settings.body != blank %}<div class="rte">{{ section.settings.body }}</div>{% endif %}
     {% if settings.support_email != blank %}<a class="text-link" href="mailto:{{ settings.support_email }}">{{ settings.support_email }}</a>{% endif %}
   </aside>
@@ -22,6 +22,12 @@
 {% schema %}
 {
   "name": "Contact",
-  "settings": [{ "type": "richtext", "id": "body", "label": "Intro", "default": "<p>For product, fit, or order questions, send us a note.</p>" }]
+  "settings": [
+    { "type": "paragraph", "content": "The page title is edited in Online Store > Pages. The contact form fields remain standard so customers can complete them quickly." },
+    { "type": "text", "id": "eyebrow", "label": "Page eyebrow", "default": "Support" },
+    { "type": "text", "id": "aside_eyebrow", "label": "Intro eyebrow", "default": "Contact" },
+    { "type": "text", "id": "aside_heading", "label": "Intro heading", "default": "A NOTE TO SOFT HOURS" },
+    { "type": "richtext", "id": "body", "label": "Intro body", "default": "<p>For product, fit, or order questions, send us a note.</p>" }
+  ]
 }
 {% endschema %}

@@ -1,7 +1,7 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 <section class="product-main gift-card-product" data-product-root>
   <div class="gift-card-product__media">
-    {% if product.featured_image %}{{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 901px) 60vw, 100vw', alt: product.featured_image.alt | default: product.title }}{% else %}{{ 'journal-urban.jpg' | asset_url | image_tag: alt: product.title }}{% endif %}
+    {% if product.featured_image %}{{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 901px) 60vw, 100vw', alt: product.featured_image.alt | default: product.title }}{% else %}<img src="{{ 'journal-urban.jpg' | asset_url }}" width="1163" height="1600" alt="{{ product.title | escape }}">{% endif %}
   </div>
   <div class="product-panel">
     <p class="eyebrow">A quiet gift, delivered by email</p>

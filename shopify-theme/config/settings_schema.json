@@ -10,17 +10,23 @@
   {
     "name": "Brand",
     "settings": [
+      { "type": "header", "content": "Brand and contact" },
+      { "type": "paragraph", "content": "These details are shared across the storefront. Page-specific copy and photography are edited from the page selector in the theme editor." },
+      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "SOFT HOURS" },
       { "type": "color", "id": "color_cream", "label": "Cream", "default": "#F2EBDD" },
       { "type": "color", "id": "color_ink", "label": "Ink", "default": "#26241A" },
       { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#5A4F44" },
       { "type": "image_picker", "id": "favicon", "label": "Favicon" },
       { "type": "text", "id": "instagram_url", "label": "Instagram URL" },
-      { "type": "text", "id": "support_email", "label": "Support email" }
+      { "type": "text", "id": "support_email", "label": "Support email" },
+      { "type": "text", "id": "footer_year", "label": "Footer year", "default": "MMXXVI" }
     ]
   },
   {
     "name": "Cart",
     "settings": [
+      { "type": "header", "content": "Checkout entry" },
+      { "type": "paragraph", "content": "Keep operational language blank until shipping, duties, taxes, and returns are confirmed. Eligible wallet buttons are rendered by Shopify." },
       { "type": "checkbox", "id": "show_accelerated_checkout", "label": "Show eligible accelerated checkout buttons", "default": true },
       { "type": "text", "id": "cart_operational_note", "label": "Operational note", "info": "Leave blank until shipping, duties, and taxes language is approved." }
     ]

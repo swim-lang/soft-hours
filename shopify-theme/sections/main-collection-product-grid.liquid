@@ -24,7 +24,7 @@
         </div>
       {% else %}
         <div class="collection-empty">
-          <p class="display">Collection I is being prepared.</p>
+          <p class="display">{{ section.settings.empty_message }}</p>
         </div>
       {% endif %}
       {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
@@ -36,8 +36,10 @@
 {
   "name": "Collection product grid",
   "settings": [
+    { "type": "paragraph", "content": "The collection title, description, products, and photography are managed in Products > Collections." },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The first collection" },
-    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 }
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 },
+    { "type": "text", "id": "empty_message", "label": "Empty collection message", "default": "Collection I is being prepared." }
   ]
 }
 {% endschema %}

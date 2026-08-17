@@ -1,12 +1,13 @@
 <section class="newsletter" id="NewsletterSignup">
+  {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}
   <h2>{{ section.settings.heading }}</h2>
   {% if section.settings.body != blank %}<p>{{ section.settings.body }}</p>{% endif %}
   {% form 'customer', class: 'newsletter-form' %}
     <input type="hidden" name="contact[tags]" value="newsletter">
     <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Email address</label>
-    <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="Email address" autocomplete="email" required>
-    <button type="submit">Subscribe →</button>
-    {% if form.posted_successfully? %}<p class="form-status">Thank you. You are on the list.</p>{% endif %}
+    <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="{{ section.settings.email_placeholder }}" autocomplete="email" required>
+    <button type="submit">{{ section.settings.button_label }}</button>
+    {% if form.posted_successfully? %}<p class="form-status">{{ section.settings.success_message }}</p>{% endif %}
     {% if form.errors %}<div class="form-status">{{ form.errors | default_errors }}</div>{% endif %}
   {% endform %}
 </section>
@@ -15,8 +16,12 @@
 {
   "name": "Newsletter",
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Keep in touch" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "NOTES FROM SOFT HOURS" },
-    { "type": "textarea", "id": "body", "label": "Body", "default": "Collection releases, private previews, and occasional observations on the art of staying in." }
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Collection releases, private previews, and occasional observations on the art of staying in." },
+    { "type": "text", "id": "email_placeholder", "label": "Email field placeholder", "default": "Email address" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe →" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thank you. You are on the list." }
   ],
   "presets": [{ "name": "Newsletter" }]
 }

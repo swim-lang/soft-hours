@@ -1,6 +1,5 @@
 {% liquid
   assign current_variant = product.selected_or_first_available_variant
-  assign short_description = product.metafields.custom.short_description | default: product.description
 %}
 <section class="product-main" data-product-root>
   <div class="product-gallery" aria-label="Product images">
@@ -17,10 +16,10 @@
   </div>
 
   <div class="product-panel">
-    <p class="eyebrow">Collection I</p>
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
     <h1>{{ product.title }}</h1>
     <div class="product-price" data-product-price>{{ current_variant.price | money }}</div>
-    {% if short_description != blank %}<div class="product-description rte">{{ short_description }}</div>{% endif %}
+    {% if product.metafields.custom.short_description != blank %}<div class="product-description rte">{{ product.metafields.custom.short_description | metafield_tag }}</div>{% elsif product.description != blank %}<div class="product-description rte">{{ product.description }}</div>{% endif %}
 
     <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="product-form" data-product-form>
       <input type="hidden" name="id" value="{{ current_variant.id }}">
@@ -63,13 +62,28 @@
     ]</script>
 
     <div class="product-accordions">
-      {% if product.metafields.custom.details != blank or product.description != blank %}<details><summary>Details</summary><div class="rte">{{ product.metafields.custom.details | default: product.description }}</div></details>{% endif %}
-      {% if product.metafields.custom.fit_notes != blank or product.metafields.custom.size_guide != blank %}<details><summary>Fit & Measurements</summary><div class="rte">{{ product.metafields.custom.fit_notes }}{{ product.metafields.custom.size_guide }}</div></details>{% endif %}
-      {% if product.metafields.custom.fabric_composition != blank or product.metafields.custom.care_instructions != blank %}<details><summary>Fabric & Care</summary><div class="rte">{{ product.metafields.custom.fabric_composition }}{{ product.metafields.custom.care_instructions }}</div></details>{% endif %}
-      {% if product.metafields.custom.delivery_returns_summary != blank %}<details><summary>Delivery & Returns</summary><div class="rte">{{ product.metafields.custom.delivery_returns_summary }}</div></details>{% endif %}
+      {% if product.metafields.custom.details != blank or product.metafields.custom.maker_story != blank or product.description != blank %}<details><summary>Details</summary><div class="rte">{% if product.metafields.custom.details != blank %}{{ product.metafields.custom.details | metafield_tag }}{% elsif product.description != blank %}{{ product.description }}{% endif %}{% if product.metafields.custom.maker_story != blank %}{{ product.metafields.custom.maker_story | metafield_tag }}{% endif %}</div></details>{% endif %}
+      {% if product.metafields.custom.fit_notes != blank or product.metafields.custom.size_guide != blank or product.metafields.custom.model_information != blank %}<details><summary>Fit & Measurements</summary><div class="rte">{% if product.metafields.custom.fit_notes != blank %}{{ product.metafields.custom.fit_notes | metafield_tag }}{% endif %}{% if product.metafields.custom.size_guide != blank %}{{ product.metafields.custom.size_guide | metafield_tag }}{% endif %}{% if product.metafields.custom.model_information != blank %}{{ product.metafields.custom.model_information | metafield_tag }}{% endif %}</div></details>{% endif %}
+      {% if product.metafields.custom.fabric_composition != blank or product.metafields.custom.care_instructions != blank %}<details><summary>Fabric & Care</summary><div class="rte">{% if product.metafields.custom.fabric_composition != blank %}{{ product.metafields.custom.fabric_composition | metafield_tag }}{% endif %}{% if product.metafields.custom.care_instructions != blank %}{{ product.metafields.custom.care_instructions | metafield_tag }}{% endif %}</div></details>{% endif %}
+      {% if product.metafields.custom.delivery_returns_summary != blank or product.metafields.custom.dispatch_estimate != blank %}<details><summary>Delivery & Returns</summary><div class="rte">{% if product.metafields.custom.dispatch_estimate != blank %}{{ product.metafields.custom.dispatch_estimate | metafield_tag }}{% endif %}{% if product.metafields.custom.delivery_returns_summary != blank %}{{ product.metafields.custom.delivery_returns_summary | metafield_tag }}{% endif %}</div></details>{% endif %}
     </div>
   </div>
 </section>
+
+{% assign related_products = product.metafields.custom.related_products.value %}
+{% if related_products != blank %}
+  <section class="product-related page-width">
+    <div class="section-heading">
+      <p class="eyebrow">{{ section.settings.related_eyebrow }}</p>
+      <h2>{{ section.settings.related_heading }}</h2>
+    </div>
+    <div class="product-grid">
+      {% for related_product in related_products limit: 3 %}
+        {% render 'product-card', product: related_product %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
 
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
@@ -77,7 +91,12 @@
 {
   "name": "Product",
   "settings": [
-    { "type": "url", "id": "size_guide_url", "label": "Size Guide link" }
+    { "type": "paragraph", "content": "Product name, gallery, price, variants, and description are edited in Products. Fit, model, maker, fabric, care, dispatch, delivery, and related-product fields use the custom product metafields listed in the editor guide. Blank fields stay hidden." },
+    { "type": "text", "id": "eyebrow", "label": "Product eyebrow", "default": "Collection I" },
+    { "type": "url", "id": "size_guide_url", "label": "Size Guide link" },
+    { "type": "header", "content": "Related products" },
+    { "type": "text", "id": "related_eyebrow", "label": "Eyebrow", "default": "Complete the set" },
+    { "type": "text", "id": "related_heading", "label": "Heading", "default": "Made to be worn together." }
   ]
 }
 {% endschema %}
