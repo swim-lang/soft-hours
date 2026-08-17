@@ -1,18 +1,42 @@
 {% liquid
   assign card_product = product
+  assign primary_image = card_product.featured_image
   assign secondary_image = card_product.images[1]
+  assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
+  assign fallback_hover = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
+  assign fallback_position = '50% 32%'
+  case card_product.handle
+    when 'shorts'
+      assign fallback_primary = '01KV680CPDKSC4FCTPKY900JK6.png'
+      assign fallback_hover = '01KV67Y135HYV9811QS1KQV6J7.png'
+      assign fallback_position = '50% 30%'
+    when 'button-down-shirt'
+      assign fallback_primary = '01KV68456NW8SJZP5R6X551XAH.png'
+      assign fallback_hover = '01KV67YDSB1SS5XY3DYD75R8NX.png'
+      assign fallback_position = '50% 20%'
+    when 'long-pants'
+      assign fallback_primary = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
+      assign fallback_hover = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+      assign fallback_position = '50% 24%'
+    when 'dress'
+      assign fallback_primary = '01KV684QM8FD71MTJ337JET3W2.jpg'
+      assign fallback_hover = '01KV8Q5YVKN4B291G463W18R4R.jpg'
+      assign fallback_position = '22% 55%'
+  endcase
+  if primary_image
+    assign primary_url = primary_image | image_url: width: 1200
+  else
+    assign primary_url = fallback_primary | asset_url
+  endif
+  if secondary_image
+    assign hover_url = secondary_image | image_url: width: 1200
+  else
+    assign hover_url = fallback_hover | asset_url
+  endif
 %}
-<a class="product-card" href="{{ card_product.url }}">
-  <div class="product-card__media">
-    {% if card_product.featured_image %}
-      {{ card_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 901px) 33vw, 50vw', alt: card_product.featured_image.alt | default: card_product.title }}
-      {% if secondary_image %}{{ secondary_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 901px) 33vw, 50vw', alt: secondary_image.alt | default: card_product.title }}{% endif %}
-    {% else %}
-      {{ 'product-1' | placeholder_svg_tag }}
-    {% endif %}
-  </div>
-  <div class="product-card__info">
-    <strong>{{ card_product.title }}</strong>
-    <span>{{ card_product.price | money }}</span>
-  </div>
-</a>
+<article class="shop-card" data-product-card data-name="{{ card_product.title | escape }}" data-price="{{ card_product.price }}" data-colours="{% for option in card_product.options_with_values %}{% if option.name == 'Color' or option.name == 'Colour' %}{% for value in option.values %}{{ value | handle }} {% endfor %}{% endif %}{% endfor %}" data-sizes="{% for option in card_product.options_with_values %}{% if option.name == 'Size' %}{% for value in option.values %}{{ value | handle }} {% endfor %}{% endif %}{% endfor %}">
+  <a href="{{ card_product.url }}" class="shop-card-link">
+    <div class="shop-card-img" role="img" aria-label="{{ primary_image.alt | default: card_product.title | escape }}" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};--hover-image:url('{{ hover_url }}');"></div>
+    <div class="shop-card-info"><div class="shop-card-row"><h2 class="shop-card-name">{{ card_product.title }}</h2><span class="shop-card-price">{{ card_product.price | money_with_currency }}</span></div></div>
+  </a>
+</article>

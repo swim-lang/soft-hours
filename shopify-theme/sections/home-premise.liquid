@@ -1,18 +1,14 @@
-<section class="home-premise">
-  <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-  <h2>{{ section.settings.heading }}</h2>
-  {% if section.settings.body != blank %}<div class="rte">{{ section.settings.body }}</div>{% endif %}
+<section class="home-intro">
+  <h2 class="home-intro-title">{{ section.settings.heading }}</h2>
+  {% if section.settings.body != blank %}<div class="home-intro-body">{{ section.settings.body }}</div>{% endif %}
 </section>
-
 {% schema %}
 {
-  "name": "Home premise",
+  "name": "Making introduction",
   "settings": [
-    { "type": "paragraph", "content": "The short brand statement immediately after the hero." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Soft Hours" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "FOR THE FIRST HOUR AND THE LAST" },
-    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>The day belongs to many things. Soft Hours is made for the moments a woman keeps for herself.</p>" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "MADE WITH PATIENCE" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>A piece can only feel considered if it is made that way. Soft Hours approaches fabric development, sampling, fit, and finishing with care over speed. Final material and maker details will be shared once they are approved.</p>" }
   ],
-  "presets": [{ "name": "Home premise" }]
+  "presets": [{ "name": "Making introduction" }]
 }
 {% endschema %}

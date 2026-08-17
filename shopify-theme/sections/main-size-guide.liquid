@@ -1,6 +1,6 @@
 <header class="page-hero">
   <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-  <h1>{{ page.title | default: 'Size Guide' }}</h1>
+  <h1>{{ section.settings.page_heading }}</h1>
 </header>
 <section class="page-shell support-layout">
   <div>
@@ -28,6 +28,7 @@
   "settings": [
     { "type": "paragraph", "content": "Use the blocks below for approved measurements. Values are plain text so Marion can include cm or inches exactly as needed." },
     { "type": "text", "id": "eyebrow", "label": "Page eyebrow", "default": "Fit & Measurements" },
+    { "type": "text", "id": "page_heading", "label": "Page heading", "default": "SIZE GUIDE" },
     { "type": "image_picker", "id": "image", "label": "Measurement illustration" },
     { "type": "text", "id": "image_alt", "label": "Illustration description" },
     { "type": "text", "id": "empty_message", "label": "Message when no sizes exist", "default": "The final size range and garment measurements will appear here once sampling is complete." },

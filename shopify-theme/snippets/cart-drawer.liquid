@@ -1,67 +1,55 @@
-<aside class="drawer cart-drawer" id="CartDrawer" aria-hidden="true" aria-labelledby="CartDrawerTitle" data-cart-drawer>
-  <div class="drawer__head">
-    <h2 id="CartDrawerTitle">Cart (<span data-cart-count>{{ cart.item_count }}</span>)</h2>
-    <button class="button-reset" type="button" data-close-cart>Close ×</button>
-  </div>
-
-  <div class="cart-drawer__body" data-cart-drawer-body>
+<aside class="site-drawer" id="CartDrawer" aria-hidden="true" aria-labelledby="CartDrawerTitle" data-cart-drawer>
+  <div class="drawer-head"><h2 id="CartDrawerTitle">Cart (<span data-cart-count>{{ cart.item_count }}</span>)</h2><button type="button" data-close-cart>Close ×</button></div>
+  <div class="cart-drawer-body" data-cart-drawer-body>
     {% if cart.item_count == 0 %}
-      <div class="empty-state">
-        <p>Your cart is empty.</p>
-        <a class="text-link" href="{{ routes.all_products_collection_url }}">Continue Shopping</a>
-      </div>
+      <div class="cart-empty"><p class="drawer-eyebrow">Your selection</p><h3>Your cart is empty.</h3><p>Collection I is ready whenever you are.</p><a class="prototype-button" href="{{ routes.collections_url }}/collection-i">Shop Collection I</a></div>
     {% else %}
-      <div class="cart-lines">
-        {% for item in cart.items %}
-          <article class="cart-line" data-cart-line="{{ forloop.index }}">
-            <a class="cart-line__image" href="{{ item.url }}">
-              {% if item.image %}{{ item.image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '120, 240, 320', alt: item.product.title }}{% endif %}
-            </a>
-            <div class="cart-line__details">
-              <div class="cart-line__top">
-                <a href="{{ item.url }}">{{ item.product.title }}</a>
-                <span>{{ item.final_line_price | money }}</span>
-              </div>
-              {% unless item.product.has_only_default_variant %}
-                <dl class="cart-line__options">
-                  {% for option in item.options_with_values %}<div><dt>{{ option.name }}:</dt><dd>{{ option.value }}</dd></div>{% endfor %}
-                </dl>
-              {% endunless %}
-              <div class="cart-line__actions">
-                <div class="quantity" aria-label="Quantity for {{ item.product.title }}">
-                  <button type="button" aria-label="Decrease quantity" data-cart-change data-line="{{ forloop.index }}" data-quantity="{{ item.quantity | minus: 1 }}">−</button>
-                  <span aria-live="polite">{{ item.quantity }}</span>
-                  <button type="button" aria-label="Increase quantity" data-cart-change data-line="{{ forloop.index }}" data-quantity="{{ item.quantity | plus: 1 }}">+</button>
-                </div>
-                <a class="text-link" href="{{ item.url }}">Edit</a>
-                <button class="button-reset text-link" type="button" data-cart-change data-line="{{ forloop.index }}" data-quantity="0">Remove</button>
-              </div>
+      {% for item in cart.items %}
+        {% liquid
+          assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
+          assign fallback_hover = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
+          case item.product.handle
+            when 'shorts'
+              assign fallback_primary = '01KV680CPDKSC4FCTPKY900JK6.png'
+              assign fallback_hover = '01KV67Y135HYV9811QS1KQV6J7.png'
+            when 'button-down-shirt'
+              assign fallback_primary = '01KV68456NW8SJZP5R6X551XAH.png'
+              assign fallback_hover = '01KV67YDSB1SS5XY3DYD75R8NX.png'
+            when 'long-pants'
+              assign fallback_primary = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
+              assign fallback_hover = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+            when 'dress'
+              assign fallback_primary = '01KV684QM8FD71MTJ337JET3W2.jpg'
+              assign fallback_hover = '01KV8Q5YVKN4B291G463W18R4R.jpg'
+          endcase
+        %}
+        <article class="cart-line" data-cart-line="{{ forloop.index }}">
+          <a class="cart-line-image" href="{{ item.url }}">
+            {% if item.image %}{{ item.image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '180, 320, 500', alt: item.product.title }}{% else %}<img src="{{ fallback_primary | asset_url }}" alt="{{ item.product.title | escape }}" width="320" height="420" loading="lazy">{% endif %}
+            {% if item.product.images[1] %}{{ item.product.images[1] | image_url: width: 500 | image_tag: class: 'cart-line-image-hover', loading: 'lazy', widths: '180, 320, 500', alt: item.product.title }}{% else %}<img class="cart-line-image-hover" src="{{ fallback_hover | asset_url }}" alt="" width="320" height="420" loading="lazy">{% endif %}
+          </a>
+          <div class="cart-line-main">
+            <div class="cart-line-top"><a href="{{ item.url }}">{{ item.product.title }}</a><span>{{ item.final_line_price | money_with_currency }}</span></div>
+            {% unless item.product.has_only_default_variant %}<dl>{% for option in item.options_with_values %}<div><dt>{{ option.name }}</dt><dd>{{ option.value }}</dd></div>{% endfor %}</dl>{% endunless %}
+            <div class="cart-line-actions">
+              <div class="cart-quantity" aria-label="Quantity for {{ item.product.title }}"><button type="button" aria-label="Decrease quantity" data-cart-change data-line="{{ forloop.index }}" data-quantity="{{ item.quantity | minus: 1 }}">−</button><span aria-live="polite">{{ item.quantity }}</span><button type="button" aria-label="Increase quantity" data-cart-change data-line="{{ forloop.index }}" data-quantity="{{ item.quantity | plus: 1 }}">+</button></div>
+              <div class="cart-line-links"><a class="text-link" href="{{ item.url }}">Edit</a><button class="button-reset text-link" type="button" data-cart-change data-line="{{ forloop.index }}" data-quantity="0">Remove</button></div>
             </div>
-          </article>
-        {% endfor %}
-      </div>
+          </div>
+        </article>
+      {% endfor %}
     {% endif %}
   </div>
 
   {% if cart.item_count > 0 %}
-    <div class="cart-drawer__footer">
-      <div class="cart-summary"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money_with_currency }}</strong></div>
       {% if settings.cart_operational_note != blank %}<p class="cart-note">{{ settings.cart_operational_note }}</p>{% endif %}
-      {% if settings.show_accelerated_checkout and additional_checkout_buttons %}
-        <div class="accelerated-checkout">
-          <span>Express checkout</span>
-          <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
-        </div>
-        <div class="cart-divider"><span>or</span></div>
-      {% endif %}
-      <form action="{{ routes.cart_url }}" method="post">
-        <button class="button button--dark button--full" type="submit" name="checkout">Checkout</button>
-      </form>
-      <div class="cart-drawer__links">
-        <button class="button-reset text-link" type="button" data-close-cart>Continue Shopping</button>
-        <a class="text-link" href="{{ routes.cart_url }}">View full Cart</a>
-      </div>
+      {% if settings.show_accelerated_checkout and additional_checkout_buttons %}<div class="accelerated-checkout"><span>Express checkout</span><div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div></div><div class="cart-or"><span>or</span></div>{% endif %}
+      <form action="{{ routes.cart_url }}" method="post"><button class="prototype-button" type="submit" name="checkout">Checkout</button></form>
+      <button class="button-reset text-link cart-continue" type="button" data-close-cart>Continue Shopping</button>
+      <p class="cart-availability">Delivery, duties, taxes, and dispatch timing are still being confirmed.</p>
     </div>
   {% endif %}
-  <p class="form-status" role="status" aria-live="polite" data-cart-status></p>
+  <p class="prototype-status" role="status" aria-live="polite" data-cart-status></p>
 </aside>

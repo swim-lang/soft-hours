@@ -1,45 +1,36 @@
-<footer class="site-footer" id="Newsletter">
-  <div class="site-footer__links">
-    <div>
-      {% if section.settings.shop_menu != blank %}
-        {% for link in section.settings.shop_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-      {% else %}
-        <a href="{{ routes.all_products_collection_url }}">Shop</a><a href="/products/soft-hours-gift-card">Gift Card</a><a href="/pages/size-guide">Size Guide</a>
-      {% endif %}
-    </div>
-    <div>
-      {% if section.settings.brand_menu != blank %}
-        {% for link in section.settings.brand_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-      {% else %}
-        <a href="/pages/about">About</a><a href="/blogs/journal">Journal</a><a href="#NewsletterSignup">Newsletter</a><a href="/pages/contact-1">Contact</a>
-      {% endif %}
-    </div>
-    <div>
-      {% if section.settings.help_menu != blank %}
-        {% for link in section.settings.help_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-      {% else %}
-        <a href="/pages/faqs">FAQ</a><a href="/pages/shipping-returns">Delivery & Returns</a><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a>
-      {% endif %}
-    </div>
-    <div class="site-footer__social">
-      {% if settings.instagram_url != blank %}<a href="{{ settings.instagram_url }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
-    </div>
-  </div>
-
-  <div class="site-footer__bottom">
-    <a href="{{ routes.root_url }}">{{ settings.brand_name | default: shop.name }}</a>
-    <span>{{ settings.footer_year }}</span>
+<footer class="footer" id="FooterNewsletter">
+  <div class="footer-top"><div class="footer-cols">
+    <div class="footer-col"><h4>Shop</h4><ul>
+      {% if section.settings.shop_menu != blank %}{% for link in section.settings.shop_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+      {% else %}<li><a href="{{ routes.collections_url }}/collection-i">Collection I</a></li>{% if all_products['soft-hours-gift-card'] != blank %}<li><a href="{{ all_products['soft-hours-gift-card'].url }}">Gift Card</a></li>{% endif %}<li><a href="{{ section.settings.size_guide_review_url }}">Size Guide</a></li>{% endif %}
+    </ul></div>
+    <div class="footer-col"><h4>Soft Hours</h4><ul>
+      {% if section.settings.brand_menu != blank %}{% for link in section.settings.brand_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+      {% else %}<li><a href="{{ section.settings.about_review_url }}">About</a></li><li><a href="{{ blogs['journal'].url | default: routes.root_url }}">Journal</a></li><li><a href="{{ routes.root_url }}#NewsletterSignup">Newsletter</a></li><li><a href="{{ routes.root_url }}pages/contact-1">Contact</a></li>{% endif %}
+    </ul></div>
+    <div class="footer-col"><h4>Help</h4><ul>
+      {% if section.settings.help_menu != blank %}{% for link in section.settings.help_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+      {% else %}<li><a href="{{ routes.root_url }}pages/faqs">FAQ</a></li><li><a href="{{ routes.root_url }}pages/shipping-returns">Delivery & Returns</a></li>{% if shop.privacy_policy.url != blank %}<li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>{% endif %}{% if shop.terms_of_service.url != blank %}<li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>{% endif %}{% endif %}
+    </ul></div>
+    <div class="footer-col"><h4>Follow</h4><ul>{% if settings.instagram_url != blank %}<li><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram · @softhours</a></li>{% endif %}</ul></div>
+  </div></div>
+  <div class="footer-wordmark-band"><a class="footer-wordmark" href="{{ routes.root_url }}" aria-label="Soft Hours"></a></div>
+  <div class="footer-bottom">
+    <span>© Soft Hours · {{ settings.footer_year }}</span>
+    <div class="footer-meta"><span>{{ localization.language.iso_code | upcase }}</span><span class="divider"></span><span>{{ localization.country.currency.iso_code }}</span></div>
+    <span>{% if shop.privacy_policy.url != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}{% if shop.privacy_policy.url != blank and shop.terms_of_service.url != blank %} · {% endif %}{% if shop.terms_of_service.url != blank %}<a href="{{ shop.terms_of_service.url }}">Terms</a>{% endif %}</span>
   </div>
 </footer>
-
 {% schema %}
 {
   "name": "Footer",
   "settings": [
-    { "type": "paragraph", "content": "Manage link names and destinations in Content > Menus, then select the three footer menus here." },
+    { "type": "paragraph", "content": "The approved oversized wordmark footer is fixed. Manage links in Content > Menus." },
     { "type": "link_list", "id": "shop_menu", "label": "Shop column" },
     { "type": "link_list", "id": "brand_menu", "label": "Soft Hours column" },
-    { "type": "link_list", "id": "help_menu", "label": "Help column" }
+    { "type": "link_list", "id": "help_menu", "label": "Help column" },
+    { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." },
+    { "type": "text", "id": "size_guide_review_url", "label": "Size Guide link", "default": "/pages/contact-1?view=size-guide-review", "info": "Staging route while the Size Guide page is unpublished. Change to /pages/size-guide before launch." }
   ]
 }
 {% endschema %}

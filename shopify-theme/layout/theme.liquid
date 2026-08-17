@@ -19,11 +19,13 @@
     {{ content_for_header }}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'approved-base.css' | asset_url | stylesheet_tag }}
+    {{ 'approved-v2.css' | asset_url | stylesheet_tag }}
     <script>document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="template-{{ template.name | handle }}">
+  <body class="page template-{{ template.name | handle }}">
     <a class="skip-link" href="#MainContent">Skip to content</a>
     {% section 'header' %}
 

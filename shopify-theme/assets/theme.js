@@ -9,7 +9,10 @@
   const lockPage = (locked) => document.documentElement.classList.toggle('drawer-open', locked);
 
   function closePanels() {
-    qsa('[data-cart-drawer], [data-search-drawer], [data-mobile-menu]').forEach((panel) => panel.setAttribute('aria-hidden', 'true'));
+    qsa('[data-cart-drawer], [data-search-drawer], [data-mobile-menu]').forEach((panel) => {
+      panel.setAttribute('aria-hidden', 'true');
+      panel.classList.remove('is-open');
+    });
     setExpanded('[data-open-cart], [data-open-menu]', false);
     overlay.hidden = true;
     lockPage(false);
@@ -21,6 +24,7 @@
     closePanels();
     lastTrigger = trigger;
     panel.setAttribute('aria-hidden', 'false');
+    panel.classList.add('is-open');
     setExpanded(triggerSelector, true);
     overlay.hidden = false;
     lockPage(true);
@@ -127,13 +131,79 @@
     if (price) price.textContent = variant.price;
     if (button) {
       button.disabled = !variant.available;
-      button.textContent = variant.available ? 'Add to Cart' : 'Sold out';
+      button.textContent = variant.available ? `Add to Cart — ${variant.price}` : 'Sold out';
     }
     if (purchasePanel) purchasePanel.hidden = !variant.available;
     if (notifyPanel) notifyPanel.hidden = variant.available;
     const url = new URL(window.location.href);
     url.searchParams.set('variant', variant.id);
     window.history.replaceState({}, '', url);
+  });
+
+  document.addEventListener('click', (event) => {
+    const optionButton = event.target.closest('[data-option-button]');
+    if (optionButton) {
+      const scope = optionButton.closest('[data-product-root]');
+      const index = optionButton.dataset.optionIndex;
+      const select = qs(`[data-option-select][data-option-index="${index}"]`, scope);
+      if (select) {
+        select.value = optionButton.dataset.optionValue;
+        qsa(`[data-option-button][data-option-index="${index}"]`, scope).forEach((button) => button.setAttribute('aria-pressed', String(button === optionButton)));
+        qsa(`[data-option-label="${index}"]`, scope).forEach((label) => { label.textContent = optionButton.dataset.optionValue; });
+        if (optionButton.dataset.colourImage) {
+          const main = qs('[data-gallery-main]', scope);
+          if (main) {
+            main.classList.add('is-changing');
+            window.setTimeout(() => {
+              main.style.backgroundImage = `url("${optionButton.dataset.colourImage}")`;
+              main.classList.remove('is-changing');
+            }, 160);
+          }
+        }
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    const thumb = event.target.closest('[data-gallery-thumb]');
+    if (thumb) {
+      const gallery = thumb.closest('[data-gallery]');
+      const main = qs('[data-gallery-main]', gallery);
+      qsa('[data-gallery-thumb]', gallery).forEach((button) => button.classList.toggle('active', button === thumb));
+      if (main) main.style.backgroundImage = `url("${thumb.dataset.galleryThumb}")`;
+    }
+
+    const accordionButton = event.target.closest('[data-accordion-button]');
+    if (accordionButton) {
+      const content = document.getElementById(accordionButton.getAttribute('aria-controls'));
+      const willOpen = accordionButton.getAttribute('aria-expanded') !== 'true';
+      accordionButton.setAttribute('aria-expanded', String(willOpen));
+      if (content) content.hidden = !willOpen;
+      const icon = qs('[data-accordion-icon]', accordionButton);
+      if (icon) icon.textContent = willOpen ? '−' : '+';
+    }
+
+    if (event.target.closest('[data-open-size-guide]')) {
+      event.preventDefault();
+      qs('[data-size-guide-dialog]')?.showModal();
+    }
+    if (event.target.closest('[data-close-size-guide]')) qs('[data-size-guide-dialog]')?.close();
+  });
+
+  document.addEventListener('change', (event) => {
+    const filter = event.target.closest('[data-collection-filter]');
+    if (!filter) return;
+    const root = filter.closest('.collection-v2');
+    const colour = qs('[data-collection-filter="colour"]', root)?.value || 'all';
+    const size = qs('[data-collection-filter="size"]', root)?.value || 'all';
+    let visible = 0;
+    qsa('[data-product-card]', root).forEach((card) => {
+      const matchesColour = colour === 'all' || (card.dataset.colours || '').split(/\s+/).includes(colour);
+      const matchesSize = size === 'all' || (card.dataset.sizes || '').split(/\s+/).includes(size);
+      card.hidden = !(matchesColour && matchesSize);
+      if (!card.hidden) visible += 1;
+    });
+    const status = qs('[data-collection-status]', root);
+    if (status) status.textContent = `${visible} ${visible === 1 ? 'piece' : 'pieces'} shown.`;
   });
 
   let predictiveTimer;

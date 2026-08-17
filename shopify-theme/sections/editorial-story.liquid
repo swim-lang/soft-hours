@@ -1,34 +1,16 @@
-<section class="editorial-story editorial-story--{{ section.settings.image_side }}">
-  <div class="editorial-story__media">
-    {% if section.settings.image %}
-      {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 901px) 50vw, 100vw', alt: section.settings.image_alt | default: section.settings.image.alt | default: section.settings.heading }}
-    {% else %}
-      <img src="{{ 'founder.jpg' | asset_url }}" width="510" height="768" alt="{{ section.settings.heading | escape }}" loading="lazy">
-    {% endif %}
-  </div>
-  <div class="editorial-story__copy">
-    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-    <h2>{{ section.settings.heading }}</h2>
-    <div class="rte">{{ section.settings.body }}</div>
-    {% if section.settings.link_label != blank %}<a class="text-link" href="{{ section.settings.link | default: '/pages/about' }}">{{ section.settings.link_label }}</a>{% endif %}
-  </div>
+<section class="home-edit"{% if section.settings.image %} style="background-image:url({{ section.settings.image | image_url: width: 2200 }})"{% else %} style="background-image:url({{ '01KV8M6QDDQ6C7P21WFFWKVW6D.jpg' | asset_url }})"{% endif %}>
+  <div class="home-edit-scrim"></div>
+  <div class="home-edit-label"><span class="line"></span><span>{{ section.settings.eyebrow }}</span><span class="line"></span></div>
+  <h2 class="home-edit-title">{{ section.settings.heading }}</h2>
 </section>
-
 {% schema %}
 {
-  "name": "Editorial story",
+  "name": "Collection editorial",
   "settings": [
-    { "type": "header", "content": "Photography" },
     { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "text", "id": "image_alt", "label": "Image description" },
-    { "type": "select", "id": "image_side", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
-    { "type": "header", "content": "Copy" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our story" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "COMING HOME TO YOURSELF" },
-    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Soft Hours is an invitation to return to your own rhythm.</p>" },
-    { "type": "text", "id": "link_label", "label": "Link label", "default": "About Soft Hours" },
-    { "type": "url", "id": "link", "label": "Link" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collection I" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "HOURS WORTH DRESSING FOR" }
   ],
-  "presets": [{ "name": "Editorial story" }]
+  "presets": [{ "name": "Collection editorial" }]
 }
 {% endschema %}

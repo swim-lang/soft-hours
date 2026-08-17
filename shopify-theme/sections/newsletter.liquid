@@ -1,26 +1,23 @@
-<section class="newsletter" id="NewsletterSignup">
-  {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}
-  <h2>{{ section.settings.heading }}</h2>
-  {% if section.settings.body != blank %}<p>{{ section.settings.body }}</p>{% endif %}
-  {% form 'customer', class: 'newsletter-form' %}
+<section class="home-email" id="NewsletterSignup">
+  <div class="home-email-mark"{% if section.settings.image %} style="background-image:url({{ section.settings.image | image_url: width: 500 }})"{% else %} style="background-image:url({{ '01KV643NF6BWVRJJAC387ZDG46.png' | asset_url }})"{% endif %}></div>
+  <h2 class="home-email-title">{{ section.settings.heading }}</h2><p class="home-email-sub">{{ section.settings.body }}</p>
+  {% form 'customer', class: 'home-email-form' %}
     <input type="hidden" name="contact[tags]" value="newsletter">
-    <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Email address</label>
-    <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="{{ section.settings.email_placeholder }}" autocomplete="email" required>
-    <button type="submit">{{ section.settings.button_label }}</button>
-    {% if form.posted_successfully? %}<p class="form-status">{{ section.settings.success_message }}</p>{% endif %}
-    {% if form.errors %}<div class="form-status">{{ form.errors | default_errors }}</div>{% endif %}
+    <label class="home-email-field" for="NewsletterEmail-{{ section.id }}"><span class="home-email-field-left"><span>Email address</span><input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" required placeholder="{{ section.settings.email_placeholder }}"></span><button class="home-email-sub-btn" type="submit"><span>{{ section.settings.button_label }}</span><span aria-hidden="true">→</span></button></label>
+    <div class="home-email-note">{{ section.settings.note }}</div>
+    {% if form.posted_successfully? %}<p class="prototype-status">{{ section.settings.success_message }}</p>{% endif %}{% if form.errors %}<div class="prototype-status">{{ form.errors | default_errors }}</div>{% endif %}
   {% endform %}
 </section>
-
 {% schema %}
 {
   "name": "Newsletter",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Keep in touch" },
+    { "type": "image_picker", "id": "image", "label": "Emblem" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "NOTES FROM SOFT HOURS" },
     { "type": "textarea", "id": "body", "label": "Body", "default": "Collection releases, private previews, and occasional observations on the art of staying in." },
-    { "type": "text", "id": "email_placeholder", "label": "Email field placeholder", "default": "Email address" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe →" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "your.name@example.com" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
+    { "type": "text", "id": "note", "label": "Consent note", "default": "By subscribing you agree to receive correspondence from Soft Hours. Unsubscribe in a single click." },
     { "type": "text", "id": "success_message", "label": "Success message", "default": "Thank you. You are on the list." }
   ],
   "presets": [{ "name": "Newsletter" }]

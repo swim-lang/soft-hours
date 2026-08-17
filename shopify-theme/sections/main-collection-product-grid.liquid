@@ -1,45 +1,48 @@
-<section>
-  <header class="collection-hero">
-    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-    <h1>{{ collection.title }}</h1>
-    {% if collection.description != blank %}<div class="rte">{{ collection.description }}</div>{% endif %}
-  </header>
+<div class="collection-v2">
+  <section class="shop-head" data-reveal>
+    <div class="shop-eyebrow"><span class="line"></span><span>{{ section.settings.eyebrow }}</span><span class="line"></span></div>
+    <h1 class="shop-title">{{ section.settings.heading | default: collection.title }}</h1>
+    {% if section.settings.intro != blank %}<p class="shop-intro">{{ section.settings.intro }}</p>{% elsif collection.description != blank %}<div class="shop-intro rte">{{ collection.description }}</div>{% endif %}
+  </section>
 
-  <form class="collection-toolbar" method="get">
-    <span>{{ collection.products_count }} pieces</span>
-    <label>
-      <span class="visually-hidden">Sort by</span>
-      <select name="sort_by" onchange="this.form.submit()">
-        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-        {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
-      </select>
-    </label>
+  <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
+    <div class="shop-controls">
+      <label class="shop-select"><span>Colour</span><select aria-label="Filter by colour" data-collection-filter="colour"><option value="all">All</option><option value="pine-grove">Pine Grove</option><option value="eggplant">Eggplant</option><option value="burnished-lilac">Burnished Lilac</option><option value="oat-milk">Oat Milk</option></select></label>
+      <label class="shop-select"><span>Size</span><select aria-label="Filter by size" data-collection-filter="size"><option value="all">All</option><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option></select></label>
+      <div class="shop-divider"></div>
+      <label class="shop-sort"><span>Sort</span><select name="sort_by" aria-label="Sort {{ collection.title }}" onchange="this.form.submit()">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}{% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></label>
+    </div>
   </form>
+  <p class="visually-hidden" data-collection-status aria-live="polite"></p>
 
-  <div class="collection-grid-wrap">
-    {% paginate collection.products by section.settings.products_per_page %}
-      {% if collection.products_count > 0 %}
-        <div class="product-grid">
-          {% for product in collection.products %}{% render 'product-card', product: product %}{% endfor %}
-        </div>
-      {% else %}
-        <div class="collection-empty">
-          <p class="display">{{ section.settings.empty_message }}</p>
-        </div>
-      {% endif %}
-      {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
-    {% endpaginate %}
-  </div>
-</section>
+  {% paginate collection.products by section.settings.products_per_page %}
+    <section class="shop-grid" data-collection-grid>
+      {% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<div class="collection-empty"><p>{{ section.settings.empty_message }}</p></div>{% endfor %}
+    </section>
+    {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+  {% endpaginate %}
+
+  <section class="collection-note">
+    <div><h2>{{ section.settings.note_one_heading }}</h2><p>{{ section.settings.note_one_body }}</p></div>
+    <div><h2>{{ section.settings.note_two_heading }}</h2><p>{{ section.settings.note_two_body }}</p></div>
+  </section>
+</div>
 
 {% schema %}
 {
   "name": "Collection product grid",
   "settings": [
-    { "type": "paragraph", "content": "The collection title, description, products, and photography are managed in Products > Collections." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The first collection" },
+    { "type": "paragraph", "content": "Product names, prices, variants, and photography are managed in Products. The collection title and description are managed in Products > Collections." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collection I" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "STILL LIFE" },
+    { "type": "textarea", "id": "intro", "label": "Introduction", "default": "Five pieces for morning, evening, and the hours between. Designed to move easily from first light to the final hour." },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 },
-    { "type": "text", "id": "empty_message", "label": "Empty collection message", "default": "Collection I is being prepared." }
+    { "type": "text", "id": "empty_message", "label": "Empty collection message", "default": "Collection I is being prepared." },
+    { "type": "header", "content": "Closing notes" },
+    { "type": "text", "id": "note_one_heading", "label": "First heading", "default": "QUIETLY AVAILABLE" },
+    { "type": "textarea", "id": "note_one_body", "label": "First body", "default": "Sold-out or coming-soon pieces will be shown calmly, with a Notify me option instead of urgency language." },
+    { "type": "text", "id": "note_two_heading", "label": "Second heading", "default": "FIVE PIECES, FOUR COLOURS" },
+    { "type": "textarea", "id": "note_two_body", "label": "Second body", "default": "Final colour names and first-run size availability remain editable while sampling is completed." }
   ]
 }
 {% endschema %}

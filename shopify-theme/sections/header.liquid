@@ -1,66 +1,35 @@
 {% assign primary_menu = section.settings.primary_menu %}
 {% assign secondary_menu = section.settings.secondary_menu %}
-<header class="site-header{% if template.name == 'index' %} site-header--overlay{% endif %}" data-site-header>
-  <div class="site-header__inner">
-    <button class="site-header__menu button-reset" type="button" aria-expanded="false" aria-controls="MobileMenu" data-open-menu>
-      <span class="visually-hidden">{{ 'accessibility.open_menu' | t }}</span>
-      <span aria-hidden="true">☰</span>
-    </button>
-
-    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">{{ settings.brand_name | default: shop.name }}</a>
-
-    <nav class="site-header__nav" aria-label="Primary">
-      {% if primary_menu != blank %}
-        {% for link in primary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-      {% else %}
-        <a href="{{ routes.all_products_collection_url }}">Shop</a>
-        <a href="/blogs/journal">Journal</a>
-        <a href="/pages/about">About</a>
-      {% endif %}
-    </nav>
-
-    <div class="site-header__utilities">
-      {% if section.settings.show_search %}<button class="button-reset utility-link" type="button" data-open-search>Search</button>{% endif %}
-      {% if section.settings.show_account %}<a class="utility-link" href="{{ routes.account_url }}">Account</a>{% endif %}
-      {% if section.settings.show_cart %}<button class="button-reset utility-link" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>{% endif %}
-    </div>
-  </div>
-
-  <div class="mobile-menu" id="MobileMenu" aria-hidden="true" data-mobile-menu>
-    <div class="mobile-menu__head">
-      <span>{{ settings.brand_name | default: shop.name }}</span>
-      <button class="button-reset" type="button" data-close-menu>Close ×</button>
-    </div>
-    <nav class="mobile-menu__links" aria-label="Mobile primary">
-      {% if primary_menu != blank %}
-        {% for link in primary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-      {% else %}
-        <a href="{{ routes.all_products_collection_url }}">Shop</a>
-        <a href="/blogs/journal">Journal</a>
-        <a href="/pages/about">About</a>
-      {% endif %}
-      {% if secondary_menu != blank %}{% for link in secondary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% endif %}
-    </nav>
-    <div class="mobile-menu__utilities">
-      {% if section.settings.show_search %}<button class="button-reset utility-link" type="button" data-open-search>Search</button>{% endif %}
-      {% if section.settings.show_account %}<a href="{{ routes.account_url }}">Account</a>{% endif %}
-      {% if section.settings.show_cart %}<button class="button-reset utility-link" type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>{% endif %}
-    </div>
-  </div>
+{% assign journal = blogs['journal'] %}
+<header class="nav{% if template.name == 'index' %} nav--hero{% endif %}" data-site-header>
+  <div class="nav-side nav-left"><a class="wordmark-nav" href="{{ routes.root_url }}" aria-label="{{ shop.name }}"></a></div>
+  <nav class="nav-links" aria-label="Primary">
+    {% if primary_menu != blank %}
+      {% for link in primary_menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endfor %}
+    {% else %}
+      <a href="{{ routes.collections_url }}/collection-i">Shop</a><a href="{% if journal != blank %}{{ journal.url }}{% else %}{{ routes.root_url }}#JournalPreview{% endif %}">Journal</a><a href="{{ section.settings.about_review_url }}">About</a>
+    {% endif %}
+  </nav>
+  <div class="nav-side nav-right"><button class="nav-action" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button></div>
+  <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="MobileMenu" data-open-menu><span></span><span></span></button>
 </header>
-
+<div class="mobile-menu" id="MobileMenu" aria-hidden="true" data-mobile-menu>
+  <div class="mobile-menu-head"><span>{{ settings.brand_name | default: shop.name }}</span><button class="mobile-menu-close" type="button" data-close-menu>Close ×</button></div>
+  <nav class="mobile-menu-links" aria-label="Mobile primary">
+    {% if primary_menu != blank %}{% for link in primary_menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endfor %}
+    {% else %}<a href="{{ routes.collections_url }}/collection-i">Shop</a><a href="{% if journal != blank %}{{ journal.url }}{% else %}{{ routes.root_url }}#JournalPreview{% endif %}">Journal</a><a href="{{ section.settings.about_review_url }}">About</a>{% endif %}
+    {% if secondary_menu != blank %}{% for link in secondary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% endif %}
+  </nav>
+  <div class="mobile-menu-meta"><button type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button></div>
+</div>
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    { "type": "header", "content": "Navigation" },
-    { "type": "paragraph", "content": "Manage link names and destinations in Content > Menus, then select the menu here." },
+    { "type": "paragraph", "content": "The approved Soft Hours wordmark and navigation styling are fixed. Manage links in Content > Menus." },
     { "type": "link_list", "id": "primary_menu", "label": "Primary menu" },
     { "type": "link_list", "id": "secondary_menu", "label": "Mobile-only secondary menu" },
-    { "type": "header", "content": "Utilities" },
-    { "type": "checkbox", "id": "show_search", "label": "Show Search", "default": false },
-    { "type": "checkbox", "id": "show_account", "label": "Show Account", "default": false },
-    { "type": "checkbox", "id": "show_cart", "label": "Show Cart", "default": true }
+    { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." }
   ]
 }
 {% endschema %}

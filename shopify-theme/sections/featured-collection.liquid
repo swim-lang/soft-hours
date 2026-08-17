@@ -1,36 +1,45 @@
-{% assign featured_collection = section.settings.collection %}
-<section class="featured-collection">
-  <div class="section-head">
-    <div><h2>{{ section.settings.heading }}</h2>{% if section.settings.body != blank %}<div class="rte section-head__intro">{{ section.settings.body }}</div>{% endif %}</div>
-    {% if featured_collection != blank and section.settings.link_label != blank %}<a href="{{ featured_collection.url }}">{{ section.settings.link_label }}</a>{% endif %}
-  </div>
-  <div class="product-grid">
-    {% if featured_collection != blank and featured_collection.products_count > 0 %}
-      {% for product in featured_collection.products limit: section.settings.products_to_show %}
-        {% render 'product-card', product: product %}
-      {% endfor %}
+{% assign featured_collection = section.settings.collection | default: collections['collection-i'] %}
+<section class="home-arrivals">
+  <div class="home-arrivals-head"><h2 class="home-arrivals-title">{{ section.settings.heading }}</h2><p>{{ section.settings.body }}</p></div>
+  <div class="home-arrivals-rows"><div class="home-arrivals-row">
+    {% for product in featured_collection.products limit: 5 %}
+      {% liquid
+        assign main_asset = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
+        assign hover_asset = '01KV6816HE9450H72167DYES51.png'
+        case product.handle
+          when 'shorts'
+            assign main_asset = '01KV680CPDKSC4FCTPKY900JK6.png'
+            assign hover_asset = '01KV67Y135HYV9811QS1KQV6J7.png'
+          when 'button-down-shirt'
+            assign main_asset = '01KV68456NW8SJZP5R6X551XAH.png'
+            assign hover_asset = '01KV67YDSB1SS5XY3DYD75R8NX.png'
+          when 'long-pants'
+            assign main_asset = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+            assign hover_asset = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
+          when 'dress'
+            assign main_asset = '01KV684QM8FD71MTJ337JET3W2.jpg'
+            assign hover_asset = '01KV8Q5YVKN4B291G463W18R4R.jpg'
+        endcase
+      %}
+      <a href="{{ product.url }}" class="home-arrival">
+        <div class="home-arrival-img" style="background-image:url({% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% else %}{{ main_asset | asset_url }}{% endif %});--hover-image:url({% if product.images[1] %}{{ product.images[1] | image_url: width: 900 }}{% else %}{{ hover_asset | asset_url }}{% endif %});"></div>
+        <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">{{ product.title }}</span><span class="home-arrival-price">{{ product.price | money }}</span></div></div>
+      </a>
     {% else %}
-      {% for i in (1..5) %}
-        <div class="product-card" aria-hidden="true">
-          <div class="product-card__media">{{ 'product-' | append: i | placeholder_svg_tag }}</div>
-          <div class="product-card__info"><strong>Product name</strong><span>Price</span></div>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
+      {% assign fallback_names = 'Camisole|Shorts|Button Down Shirt|Long Pants|Dress' | split: '|' %}
+      {% assign fallback_images = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg|01KV680CPDKSC4FCTPKY900JK6.png|01KV68456NW8SJZP5R6X551XAH.png|01KV8PYRHCSVV1QXRGET4FSMV8.jpg|01KV684QM8FD71MTJ337JET3W2.jpg' | split: '|' %}
+      {% for name in fallback_names %}<div class="home-arrival"><div class="home-arrival-img" style="background-image:url({{ fallback_images[forloop.index0] | asset_url }})"></div><div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">{{ name }}</span><span class="home-arrival-price">Price pending</span></div></div></div>{% endfor %}
+    {% endfor %}
+  </div></div>
 </section>
-
 {% schema %}
 {
-  "name": "Featured collection",
+  "name": "Shop Collection I",
   "settings": [
-    { "type": "paragraph", "content": "Product names, prices, images, and availability come from Products. This section only controls the homepage presentation." },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "COLLECTION I" },
-    { "type": "richtext", "id": "body", "label": "Optional introduction" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 6, "step": 1, "default": 5 },
-    { "type": "text", "id": "link_label", "label": "Shop-all link label", "default": "Shop all" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "SHOP COLLECTION I" },
+    { "type": "text", "id": "body", "label": "Introduction", "default": "Five pieces for morning, evening, and the hours between." }
   ],
-  "presets": [{ "name": "Featured collection" }]
+  "presets": [{ "name": "Shop Collection I" }]
 }
 {% endschema %}

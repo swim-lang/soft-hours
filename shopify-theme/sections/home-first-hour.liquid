@@ -1,0 +1,16 @@
+<section class="home-firsthour"><div class="home-firsthour-inner">
+  <h2 class="home-firsthour-title">{{ section.settings.heading }}</h2>
+  <div class="home-firsthour-emblem"{% if section.settings.image %} style="background-image:url({{ section.settings.image | image_url: width: 500 }})"{% else %} style="background-image:url({{ '01KVTMPXRF16KBXZ1W33X0T8EC.png' | asset_url }})"{% endif %}></div>
+  <div class="home-firsthour-body">{{ section.settings.body }}</div>
+</div></section>
+{% schema %}
+{
+  "name": "First hour and last",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FOR THE FIRST HOUR AND THE LAST" },
+    { "type": "image_picker", "id": "image", "label": "Emblem" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>The day belongs to many things. Soft Hours is made for the moments a woman keeps for herself — the first hour, the final hour, and the quiet intervals that shape how she feels.</p><p>— Marion —</p>" }
+  ],
+  "presets": [{ "name": "First hour and last" }]
+}
+{% endschema %}
