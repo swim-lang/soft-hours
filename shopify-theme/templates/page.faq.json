@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "main-faq", "settings": { "heading": "HOW CAN WE HELP?" } } },
+  "sections": { "main": { "type": "main-faq", "settings": { "heading": "How Can We Help?" } } },
   "order": ["main"]
 }

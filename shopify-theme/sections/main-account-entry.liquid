@@ -1,7 +1,7 @@
 <header class="page-hero"><p class="eyebrow">Customer account</p><h1>Account</h1></header>
 <section class="page-shell support-layout">
   <div class="contact-form">
-    <h2 class="display">WELCOME BACK</h2>
+    <h2 class="display">Welcome Back</h2>
     {% form 'customer_login' %}
       {% if form.errors %}<div class="form-status">{{ form.errors | default_errors }}</div>{% endif %}
       <div class="field"><label for="CustomerEmail">Email</label><input id="CustomerEmail" type="email" name="customer[email]" autocomplete="email" required></div>

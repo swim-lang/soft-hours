@@ -1,7 +1,7 @@
 <header class="page-hero"><p class="eyebrow">Customer account</p><h1>Welcome, {{ customer.first_name | default: customer.name }}</h1></header>
 <section class="page-shell support-layout">
   <div>
-    <h2 class="display">ORDER HISTORY</h2>
+    <h2 class="display">Order History</h2>
     {% paginate customer.orders by 12 %}
       {% if customer.orders.size > 0 %}
         <div class="account-orders">

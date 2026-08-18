@@ -56,7 +56,7 @@
 
     <div class="pdp-info" data-reveal>
       <div class="pdp-crumb"><a href="{{ routes.collections_url }}/collection-i">Shop</a><span>/</span><span class="current">{{ product.title }}</span></div>
-      <h1 class="pdp-title">{{ product.title | upcase }}</h1>
+      <h1 class="pdp-title">{{ product.title }}</h1>
       <div class="pdp-price" data-product-price>{{ current_variant.price | money_with_currency }}</div>
       <div class="pdp-desc">
         {% if product.metafields.custom.short_description != blank %}{{ product.metafields.custom.short_description | metafield_tag }}
@@ -166,7 +166,7 @@
     { "type": "textarea", "id": "fabric_placeholder", "label": "Fabric and care placeholder", "default": "Double-satin silk/modal blend. Final composition and care instructions remain subject to sampling and approval." },
     { "type": "textarea", "id": "delivery_placeholder", "label": "Delivery and returns placeholder", "default": "Delivery and returns details to be confirmed." },
     { "type": "text", "id": "related_heading", "label": "Related-products heading", "default": "Complete the set" },
-    { "type": "text", "id": "editorial_heading", "label": "Editorial heading", "default": "FOR THE FIRST HOUR AND THE LAST" }
+    { "type": "text", "id": "editorial_heading", "label": "Editorial heading", "default": "For the First Hour and the Last" }
   ]
 }
 {% endschema %}

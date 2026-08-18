@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "main-blog", "settings": { "heading": "AS SHE PLEASES", "subheading": "<p>Notes on home, place, and the quiet rituals that make time feel like your own.</p>", "articles_per_page": 9 } } },
+  "sections": { "main": { "type": "main-blog", "settings": { "heading": "As She Pleases", "subheading": "<p>Notes on home, place, and the quiet rituals that make time feel like your own.</p>", "articles_per_page": 9 } } },
   "order": ["main"]
 }

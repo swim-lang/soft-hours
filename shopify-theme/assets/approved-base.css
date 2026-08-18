@@ -838,11 +838,11 @@ img { display: block; }
   .mobile-menu-links a {
     font-family: var(--display);
     font-weight: 200;
-    /* "COLLECTION I" must fit one line on a 320px screen */
+    /* Primary navigation must fit one line on a 320px screen. */
     font-size: clamp(28px, 9vw, 40px);
     line-height: 1.1;
     letter-spacing: -0.01em;
-    text-transform: uppercase;
+    text-transform: none;
     color: var(--ink);
     text-decoration: none;
   }
