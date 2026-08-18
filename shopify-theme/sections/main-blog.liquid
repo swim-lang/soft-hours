@@ -1,25 +1,52 @@
-<header class="page-hero">
-  <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-  <h1>{{ section.settings.heading | default: blog.title }}</h1>
-  {% if section.settings.subheading != blank %}<div class="rte">{{ section.settings.subheading }}</div>{% endif %}
-</header>
-<section class="page-shell">
-  {% paginate blog.articles by section.settings.articles_per_page %}
-    <div class="article-list">
-      {% for article in blog.articles %}
-        <a class="journal-card" href="{{ article.url }}">
-          <div class="journal-card__image">{% if article.image %}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360, 600, 900, 1000', sizes: '(min-width: 901px) 33vw, 100vw', alt: article.image.alt | default: article.title }}{% else %}{{ 'image' | placeholder_svg_tag }}{% endif %}</div>
-          <div class="journal-card__meta"><span>{{ blog.title }}</span><span>{{ article.published_at | date: '%d.%m.%y' }}</span></div>
-          <h3>{{ article.title }}</h3>
-          {% if article.excerpt != blank %}<div class="rte">{{ article.excerpt | strip_html | truncatewords: 24 }}</div>{% endif %}
-        </a>
-      {% else %}
-        <p class="rte">Journal notes will appear here when they are ready.</p>
-      {% endfor %}
-    </div>
-    {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
-  {% endpaginate %}
-</section>
+<div class="journal-v2">
+  <header class="editorial-head">
+    <p class="page-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading | default: blog.title }}</h1>
+    {% if section.settings.subheading != blank %}<div class="editorial-subheading">{{ section.settings.subheading }}</div>{% endif %}
+  </header>
+
+  <section class="journal-latest" aria-label="Journal stories">
+    {% paginate blog.articles by section.settings.articles_per_page %}
+      <div class="journal-latest-head">
+        <span>{{ section.settings.list_label }}</span>
+        <span>{% if blog.articles_count > 0 %}{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'story', 'stories' }}{% else %}Three stories{% endif %}</span>
+      </div>
+
+      <div class="journal-grid-v2">
+        {% for article in blog.articles %}
+          <a class="journal-card-v2" href="{{ article.url }}">
+            <span class="journal-image">
+              {% if article.image %}
+                {{ article.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1200', sizes: '(min-width: 761px) 33vw, 100vw', alt: article.image.alt | default: article.title }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </span>
+            <span class="journal-meta"><span>World {% case forloop.index %}{% when 1 %}I{% when 2 %}II{% when 3 %}III{% else %}{{ forloop.index }}{% endcase %}</span><span>No. {{ forloop.index | prepend: '0' }}</span></span>
+            <strong>{{ article.title }}</strong>
+            <span class="journal-summary">{{ article.excerpt_or_content | strip_html | truncate: 150 }}</span>
+            <span class="journal-read">Read note</span>
+          </a>
+        {% else %}
+          {% assign fallback_titles = 'Home|Urban landscape|Soft landscape' | split: '|' %}
+          {% assign fallback_images = 'journal-home.jpg|journal-urban.jpg|journal-soft.jpg' | split: '|' %}
+          {% assign fallback_summaries = 'A balcony, a curtain, the kettle in the kitchen—the rooms a woman keeps for herself.|A street in last light, a window open above a courtyard, the city catching its breath.|Long grass and shoreline, the air still cool—the slow openings of a day.' | split: '|' %}
+          {% for title in fallback_titles %}
+            <article class="journal-card-v2">
+              <span class="journal-image"><img src="{{ fallback_images[forloop.index0] | asset_url }}" alt="" loading="lazy" width="1200" height="1200"></span>
+              <span class="journal-meta"><span>World {% case forloop.index %}{% when 1 %}I{% when 2 %}II{% else %}III{% endcase %}</span><span>No. 0{{ forloop.index }}</span></span>
+              <strong>{{ title }}</strong>
+              <span class="journal-summary">{{ fallback_summaries[forloop.index0] }}</span>
+              <span class="journal-read">Journal launch content pending</span>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+    {% endpaginate %}
+  </section>
+</div>
 
 {% schema %}
 {
@@ -29,6 +56,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Journal" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "AS SHE PLEASES" },
     { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Notes on home, place, and the quiet rituals that make time feel like your own.</p>" },
+    { "type": "text", "id": "list_label", "label": "Story list label", "default": "Latest notes" },
     { "type": "range", "id": "articles_per_page", "label": "Articles per page", "min": 3, "max": 18, "step": 3, "default": 9 }
   ]
 }

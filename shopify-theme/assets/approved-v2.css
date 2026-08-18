@@ -11,6 +11,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .shop-card-link { color: inherit; text-decoration: none; }
 .home-world { color: inherit; text-decoration: none; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Keep the approved Vercel hero typography from being overridden by the
+   earlier Shopify theme's generic `.home-hero h1` and `.home-hero p` rules. */
+.home-hero h1.home-hero-title {
+  max-width: 620px;
+  margin: 0;
+  font: 200 60px/64px var(--display);
+  letter-spacing: -.06em;
+}
+.home-hero p.home-hero-sub {
+  max-width: 402px;
+  margin: 0;
+  font: 400 20px/23px var(--mono);
+  letter-spacing: .02em;
+  text-transform: none;
+}
 .nav-action { padding: 0; border: 0; background: none; font: 400 14px/18px var(--label); letter-spacing: .08em; text-transform: uppercase; color: inherit; cursor: pointer; }
 .nav-action { text-decoration: none; }
 .nav-action:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -299,6 +315,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .editorial-head { padding: 88px 40px 76px; text-align: center; border-bottom: 1px solid var(--hairline); }
 .editorial-head h1 { margin-top: 20px; font: 200 92px/83px var(--display); letter-spacing: -.02em; }
 .editorial-head p { max-width: 570px; margin: 20px auto 0; font: 15px/24px var(--mono); color: #5A4F44; text-transform: uppercase; }
+.editorial-subheading { max-width: 570px; margin: 20px auto 0; font: 15px/24px var(--mono); color: #5A4F44; text-transform: uppercase; }
+.editorial-subheading p { margin: 0; font: inherit; color: inherit; text-transform: inherit; }
 .journal-latest { padding: 54px 40px 110px; }
 .journal-latest-head { display: flex; justify-content: space-between; margin-bottom: 62px; font: 13px/17px var(--label); letter-spacing: .08em; text-transform: uppercase; }
 .journal-grid-v2 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
@@ -413,6 +431,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 @media (max-width: 760px) {
+  .home-hero h1.home-hero-title { font-size: clamp(38px, 11vw, 52px); line-height: 1.08; }
+  .home-hero p.home-hero-sub { max-width: 340px; font-size: 17px; line-height: 21px; }
   .nav-action { font-size: 13px; line-height: 17px; }
   .site-drawer { width: 100%; }
   .drawer-head { height: 68px; padding: 0 16px; }
