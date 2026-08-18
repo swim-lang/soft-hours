@@ -42,6 +42,16 @@
     }
     if (openMenu) openPanel(qs('[data-mobile-menu]'), '[data-open-menu]', openMenu);
     if (event.target.closest('[data-close-cart], [data-close-search], [data-close-menu]') || event.target === overlay) closePanels();
+
+    const shareArticle = event.target.closest('[data-share-article]');
+    if (shareArticle) {
+      const shareData = { title: document.title, url: window.location.href };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareData.url).then(() => { shareArticle.textContent = 'Link copied'; });
+      }
+    }
   });
 
   document.addEventListener('keydown', (event) => {

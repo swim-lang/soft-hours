@@ -330,14 +330,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .journal-read { font: 13px/17px var(--label); text-decoration: underline; text-underline-offset: 4px; text-transform: uppercase; }
 .article-v2 { padding: 70px 40px 0; }
 .article-v2 header { max-width: 980px; margin: 0 auto 55px; text-align: center; }
+.article-v2 .article-header--long { max-width: 1120px; }
 .article-v2 header .page-eyebrow { display: flex; justify-content: center; gap: 22px; }
 .article-v2 h1 { margin: 20px 0 18px; font: 200 90px/81px var(--display); }
+.article-v2 h1.article-title--long { font-size: clamp(54px, 4.75vw, 68px); line-height: 1.02; letter-spacing: -.018em; }
+.article-v2 h1.article-title--xlong { font-size: clamp(46px, 4vw, 58px); line-height: 1.04; letter-spacing: -.015em; }
 .article-v2 header > p:last-child { font: 14px/20px var(--mono); color: #5A4F44; text-transform: uppercase; }
 .article-v2 figure { max-width: 1080px; height: 580px; margin: 0 auto; overflow: hidden; }
 .article-v2 figure img { width: 100%; height: 100%; object-fit: cover; }
 .article-v2 .article-body { max-width: 720px; margin: 54px auto 0; padding-bottom: 80px; border-bottom: 1px solid var(--hairline); }
 .article-v2 .article-body h2 { margin-bottom: 28px; font: 200 34px/37px var(--display); text-transform: uppercase; }
 .article-v2 .article-body p { margin-bottom: 28px; font: 15px/27px var(--mono); color: #4F463C; text-transform: uppercase; }
+.article-v2 .article-content { color: #4F463C; }
+.article-v2 .article-content > *:first-child { margin-top: 0; }
+.article-v2 .article-content h3 { margin: 36px 0 20px; font: 200 27px/32px var(--display); text-transform: uppercase; }
+.article-v2 .article-content ul, .article-v2 .article-content ol { margin: 0 0 28px 22px; font: 15px/27px var(--mono); color: #4F463C; text-transform: uppercase; }
+.article-v2 .article-content img { width: 100%; height: auto; margin: 42px 0; }
 .article-v2 blockquote { margin: 30px 0; padding: 28px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); font: 200 29px/34px var(--display); text-transform: uppercase; }
 .article-actions { display: flex; justify-content: space-between; }
 .article-actions button, .article-actions a { padding: 0; border: 0; background: transparent; color: inherit; font: 13px/17px var(--label); text-transform: uppercase; text-decoration: none; cursor: pointer; }
@@ -523,6 +531,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .article-v2 { padding: 54px 20px 0; }
   .article-v2 header { margin-bottom: 44px; }
   .article-v2 h1 { font-size: 48px; line-height: 52px; }
+  .article-v2 h1.article-title--long { font-size: 36px; line-height: 40px; }
+  .article-v2 h1.article-title--xlong { font-size: 32px; line-height: 36px; }
+  .article-v2 header > p:last-child { font-size: 13px; line-height: 19px; }
   .article-v2 figure { height: auto; aspect-ratio: 1/1.08; }
   .article-v2 .article-body { margin-top: 46px; }
   .article-v2 .article-body p { font-size: 15px; line-height: 26px; }

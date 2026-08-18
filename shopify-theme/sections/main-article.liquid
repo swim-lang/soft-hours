@@ -1,13 +1,59 @@
-<article class="article-page">
-  <header class="page-hero">
-    <p class="eyebrow">{{ article.published_at | date: '%d.%m.%y' }} · {{ blog.title }}</p>
-    <h1>{{ article.title }}</h1>
+{% assign article_position = 1 %}
+{% for journal_article in blog.articles %}
+  {% if journal_article.handle == article.handle %}{% assign article_position = forloop.index %}{% endif %}
+{% endfor %}
+
+{% capture article_world %}{% case article_position %}{% when 1 %}I{% when 2 %}II{% when 3 %}III{% else %}{{ article_position }}{% endcase %}{% endcapture %}
+{% assign title_length = article.title | size %}
+{% assign title_modifier = '' %}
+{% if title_length > 84 %}
+  {% assign title_modifier = ' article-title--xlong' %}
+{% elsif title_length > 42 %}
+  {% assign title_modifier = ' article-title--long' %}
+{% endif %}
+
+<main class="article-v2 journal-article-v2">
+  <header class="article-header{% if title_modifier != blank %} article-header--long{% endif %}">
+    <p class="page-eyebrow"><span>World {{ article_world | strip }}</span><span>No. {{ article_position | prepend: '0' }}</span></p>
+    <h1 class="article-title{{ title_modifier }}">{{ article.title }}</h1>
+    <p class="article-date">{{ article.published_at | date: '%d %B %Y' }} · {{ blog.title }}</p>
   </header>
-  {% if article.image %}<div class="article-page__hero">{{ article.image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1400, 1800', sizes: '(min-width: 901px) 1080px, 100vw', alt: article.image.alt | default: article.title }}</div>{% endif %}
-  <div class="article-page__body">
-    <div class="rte">{{ article.content }}</div>
-    <p><a class="text-link" href="{{ blog.url }}">Back to Journal</a></p>
+
+  {% if article.image %}
+    <figure>
+      {{ article.image | image_url: width: 1800 | image_tag: loading: 'eager', widths: '750, 1080, 1400, 1800', sizes: '(min-width: 761px) 1080px, 100vw', alt: article.image.alt | default: article.title }}
+    </figure>
+  {% endif %}
+
+  <div class="article-body">
+    {% if article.content != blank %}
+      {% if article.excerpt != blank %}<h2>{{ article.excerpt | strip_html }}</h2>{% endif %}
+      <div class="article-content rte">{{ article.content }}</div>
+    {% else %}
+      <div class="article-placeholder" aria-label="Temporary article content">
+        <h2>Silk, distance, and the long road toward something worth keeping.</h2>
+        <p>This temporary editorial copy demonstrates the approved Journal reading experience. Replace it in Shopify when the complete story is ready.</p>
+        <p>Body text, captions, credits, pull quotes, and publication details remain editable Shopify blog content.</p>
+        <blockquote>“The day belongs to many things. Some hours remain your own.”</blockquote>
+      </div>
+    {% endif %}
+
+    <div class="article-actions"><button type="button" data-share-article>Share</button><a href="{{ blog.url }}">Back to Journal</a></div>
   </div>
-</article>
+
+  {% assign next_note = blank %}
+  {% assign current_found = false %}
+  {% for journal_article in blog.articles %}
+    {% if current_found and next_note == blank %}{% assign next_note = journal_article %}{% endif %}
+    {% if journal_article.handle == article.handle %}{% assign current_found = true %}{% endif %}
+  {% endfor %}
+  {% if next_note == blank and blog.articles.size > 1 %}{% assign next_note = blog.articles.first %}{% endif %}
+
+  {% if next_note != blank %}
+    <a class="article-next" href="{{ next_note.url }}"><span><small>Next note</small><strong>{{ next_note.title }}</strong></span><span>Read next</span></a>
+  {% else %}
+    <a class="article-next" href="{{ blog.url }}"><span><small>Continue reading</small><strong>Journal</strong></span><span>View all notes</span></a>
+  {% endif %}
+</main>
 
 {% schema %}{ "name": "Journal article", "settings": [] }{% endschema %}
