@@ -9,7 +9,7 @@
   const lockPage = (locked) => document.documentElement.classList.toggle('drawer-open', locked);
 
   function closePanels() {
-    qsa('[data-cart-drawer], [data-search-drawer], [data-mobile-menu]').forEach((panel) => {
+    qsa('[data-cart-drawer], [data-search-drawer], [data-mobile-menu], [data-collection-filter-drawer], [data-size-guide-drawer]').forEach((panel) => {
       panel.setAttribute('aria-hidden', 'true');
       panel.classList.remove('is-open');
     });
@@ -57,7 +57,7 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closePanels();
     if (event.key === 'Tab') {
-      const panel = qs('[aria-hidden="false"][data-cart-drawer], [aria-hidden="false"][data-search-drawer], [aria-hidden="false"][data-mobile-menu]');
+      const panel = qs('[aria-hidden="false"][data-cart-drawer], [aria-hidden="false"][data-search-drawer], [aria-hidden="false"][data-mobile-menu], [aria-hidden="false"][data-collection-filter-drawer], [aria-hidden="false"][data-size-guide-drawer]');
       if (!panel) return;
       const focusable = qsa('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])', panel).filter((node) => !node.hidden);
       if (!focusable.length) return;
@@ -87,6 +87,19 @@
     event.preventDefault();
     const submit = qs('[type="submit"]', form);
     const status = qs('[data-product-status]', form);
+    if (form.hasAttribute('data-requires-size')) {
+      const scope = form.closest('[data-product-root]');
+      const variants = JSON.parse(qs('[data-variants]', scope)?.textContent || '[]');
+      const selectedOptions = qsa('[data-option-select]', form).map((input) => input.value);
+      const variant = variants.find((candidate) => candidate.options.every((value, index) => value === selectedOptions[index]));
+      const variantInput = qs('[name="id"]', form);
+      if (!variant || !variantInput) {
+        if (status) status.textContent = 'Select a size before adding this piece.';
+        return;
+      }
+      variantInput.value = String(variant.id);
+      variantInput.setAttribute('value', String(variant.id));
+    }
     submit.disabled = true;
     submit.setAttribute('aria-busy', 'true');
     if (status) status.textContent = 'Adding to Cart…';
@@ -122,6 +135,8 @@
   });
 
   document.addEventListener('change', (event) => {
+    const localization = event.target.closest('[data-localization-select]');
+    if (localization) localization.form?.submit();
     const select = event.target.closest('[data-option-select]');
     if (!select) return;
     const scope = select.closest('[data-product-root]');
@@ -130,14 +145,18 @@
     const variant = variants.find((candidate) => candidate.options.every((value, index) => value === selectedOptions[index]));
     const price = qs('[data-product-price]', scope);
     const button = qs('[data-add-to-cart]', scope);
-    const idInput = qs('[name="id"]', scope);
+    const productForm = select.closest('[data-product-form]');
+    const idInput = qs('[name="id"]', productForm || scope);
     const purchasePanel = qs('[data-purchase-panel]', scope);
     const notifyPanel = qs('[data-notify-panel]', scope);
     if (!variant) {
       if (button) { button.disabled = true; button.textContent = 'Unavailable'; }
       return;
     }
-    if (idInput) idInput.value = variant.id;
+    if (idInput) {
+      idInput.value = String(variant.id);
+      idInput.setAttribute('value', String(variant.id));
+    }
     if (price) price.textContent = variant.price;
     if (button) {
       button.disabled = !variant.available;
@@ -148,6 +167,11 @@
     const url = new URL(window.location.href);
     url.searchParams.set('variant', variant.id);
     window.history.replaceState({}, '', url);
+    window.setTimeout(() => {
+      if (!idInput) return;
+      idInput.value = String(variant.id);
+      idInput.setAttribute('value', String(variant.id));
+    }, 0);
   });
 
   document.addEventListener('click', (event) => {
@@ -165,12 +189,19 @@
           if (main) {
             main.classList.add('is-changing');
             window.setTimeout(() => {
-              main.style.backgroundImage = `url("${optionButton.dataset.colourImage}")`;
+              if (main.tagName === 'IMG') main.src = optionButton.dataset.colourImage;
+              else main.style.backgroundImage = `url("${optionButton.dataset.colourImage}")`;
               main.classList.remove('is-changing');
             }, 160);
           }
         }
         select.dispatchEvent(new Event('change', { bubbles: true }));
+        const selectedVariantId = new URL(window.location.href).searchParams.get('variant');
+        const variantInput = qs('[name="id"]', optionButton.closest('[data-product-form]') || scope);
+        if (selectedVariantId && variantInput) {
+          variantInput.value = selectedVariantId;
+          variantInput.setAttribute('value', selectedVariantId);
+        }
       }
     }
 
@@ -179,7 +210,10 @@
       const gallery = thumb.closest('[data-gallery]');
       const main = qs('[data-gallery-main]', gallery);
       qsa('[data-gallery-thumb]', gallery).forEach((button) => button.classList.toggle('active', button === thumb));
-      if (main) main.style.backgroundImage = `url("${thumb.dataset.galleryThumb}")`;
+      if (main) {
+        if (main.tagName === 'IMG') main.src = thumb.dataset.galleryThumb;
+        else main.style.backgroundImage = `url("${thumb.dataset.galleryThumb}")`;
+      }
     }
 
     const accordionButton = event.target.closest('[data-accordion-button]');
@@ -194,9 +228,45 @@
 
     if (event.target.closest('[data-open-size-guide]')) {
       event.preventDefault();
-      qs('[data-size-guide-dialog]')?.showModal();
+      const drawer = qs('[data-size-guide-drawer]');
+      if (drawer) openPanel(drawer, '[data-open-size-guide]', event.target.closest('[data-open-size-guide]'));
     }
-    if (event.target.closest('[data-close-size-guide]')) qs('[data-size-guide-dialog]')?.close();
+    if (event.target.closest('[data-close-size-guide]')) closePanels();
+
+    const openCollectionFilter = event.target.closest('[data-open-collection-filter]');
+    if (openCollectionFilter) {
+      const drawer = qs('[data-collection-filter-drawer]');
+      if (drawer) openPanel(drawer, '[data-open-collection-filter]', openCollectionFilter);
+    }
+    if (event.target.closest('[data-close-collection-filter]')) closePanels();
+
+    const cardSize = event.target.closest('[data-card-size]');
+    if (cardSize) {
+      const form = cardSize.closest('[data-quick-add-form]');
+      qsa('[data-card-size]', form).forEach((button) => button.setAttribute('aria-pressed', String(button === cardSize)));
+      qs('[data-quick-variant]', form).value = cardSize.dataset.variantId;
+      const add = qs('.shop-card-add', form);
+      if (add) add.disabled = !cardSize.dataset.variantId;
+    }
+
+    const imageControl = event.target.closest('[data-card-image-next], [data-card-image-prev]');
+    if (imageControl) {
+      const card = imageControl.closest('[data-product-card]');
+      const image = qs('[data-card-image]', card);
+      const showingSecondary = image.dataset.imageState === 'secondary';
+      image.dataset.imageState = showingSecondary ? 'primary' : 'secondary';
+      image.style.backgroundImage = `url("${showingSecondary ? image.dataset.primaryImage : image.dataset.secondaryImage}")`;
+    }
+
+    const wishlist = event.target.closest('[data-wishlist-toggle]');
+    if (wishlist) {
+      const saved = new Set(JSON.parse(window.localStorage.getItem('soft-hours-wishlist') || '[]'));
+      const handle = wishlist.dataset.productHandle;
+      if (saved.has(handle)) saved.delete(handle); else saved.add(handle);
+      window.localStorage.setItem('soft-hours-wishlist', JSON.stringify([...saved]));
+      wishlist.setAttribute('aria-pressed', String(saved.has(handle)));
+      wishlist.querySelector('span').textContent = saved.has(handle) ? '♥' : '♡';
+    }
   });
 
   document.addEventListener('change', (event) => {
@@ -243,4 +313,44 @@
       }
     }, 220);
   });
+
+  const header = qs('[data-site-header]');
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    if (!header) return;
+    const currentY = window.scrollY;
+    header.classList.toggle('nav--scrolled', currentY > 20);
+    header.classList.toggle('nav--hidden', currentY > 160 && currentY > lastScrollY);
+    lastScrollY = currentY;
+  }, { passive: true });
+
+  const savedWishlist = new Set(JSON.parse(window.localStorage.getItem('soft-hours-wishlist') || '[]'));
+  qsa('[data-wishlist-toggle]').forEach((button) => {
+    const isSaved = savedWishlist.has(button.dataset.productHandle);
+    button.setAttribute('aria-pressed', String(isSaved));
+    button.querySelector('span').textContent = isSaved ? '♥' : '♡';
+  });
+
+  const policyBody = qs('.shopify-policy__body');
+  if (policyBody) {
+    const headings = qsa('h2', policyBody);
+    if (headings.length > 1) {
+      const list = document.createElement('ol');
+      headings.forEach((heading, index) => {
+        heading.id ||= `policy-section-${index + 1}`;
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent.trim();
+        item.append(link);
+        list.append(item);
+      });
+      const toc = document.createElement('nav');
+      toc.className = 'policy-toc';
+      toc.setAttribute('aria-label', 'Policy contents');
+      toc.innerHTML = '<strong>On this page</strong>';
+      toc.append(list);
+      policyBody.prepend(toc);
+    }
+  }
 })();

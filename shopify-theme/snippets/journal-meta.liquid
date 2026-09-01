@@ -1,0 +1,20 @@
+{% liquid
+  assign hour_roman = article.metafields.custom.hour_roman.value | default: article.metafields.custom.hour.value
+  assign archive_number = article.metafields.custom.archive_number.value
+  if hour_roman == blank
+    case position
+      when 1
+        assign hour_roman = 'I'
+      when 2
+        assign hour_roman = 'II'
+      when 3
+        assign hour_roman = 'VI'
+      else
+        assign hour_roman = position
+    endcase
+  endif
+  if archive_number == blank
+    assign archive_number = position | prepend: '0'
+  endif
+%}
+<span>Hour {{ hour_roman }}</span><span>№ {{ archive_number }}</span>

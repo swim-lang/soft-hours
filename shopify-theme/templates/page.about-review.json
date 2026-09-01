@@ -9,9 +9,9 @@
             "fallback_image": "brick",
             "image_position": "50% 30%",
             "image_alt": "Red brick fabric mill",
-            "caption": "Fabric development · In progress",
-            "heading": "Double-Satin Blend",
-            "body": "<p>Silk and modal sampling is still underway. The final composition will be published only after the fabric has been approved.</p>"
+            "caption": "Making · Details to be confirmed",
+            "heading": "Manufacturing",
+            "body": "<p>Maker, workshop, and production-location details will be published after they have been verified.</p>"
           }
         },
         "sampling": {
@@ -20,9 +20,10 @@
             "fallback_image": "fabric",
             "image_position": "50% 35%",
             "image_alt": "Green fabric being cut",
-            "caption": "Garment sampling · In progress",
-            "heading": "Fit, Fall, and Finish",
-            "body": "<p>Fit, measurements, care, and production details remain editable while the first collection is sampled.</p>"
+            "image": "shopify://shop_images/IMG_0536.heic",
+            "caption": "Product design · Details to be confirmed",
+            "heading": "Product Design",
+            "body": "<p>Fit, fall, finish, measurements, and care remain editable while the first collection is sampled.</p>"
           }
         },
         "identity": {
@@ -31,14 +32,27 @@
             "fallback_image": "office",
             "image_position": "50% 22%",
             "image_alt": "Soft Hours studio",
-            "caption": "Identity and direction · Soft Hours",
-            "heading": "Time Well Kept",
-            "body": "<p>The visual world is built around restraint, tactility, and the private hours at the beginning and end of the day.</p>"
+            "caption": "Denver · Brand direction",
+            "heading": "Branding",
+            "body": "<p>The Soft Hours identity is built around restraint, tactility, and the private hours at the beginning and end of the day.</p>"
           }
         }
       },
       "block_order": ["fabric", "sampling", "identity"],
-      "settings": {}
+      "settings": {
+        "hero_heading": "For the First Hour & the Last",
+        "intro_eyebrow": "About Soft Hours",
+        "intro_body": "<p>Soft Hours is built around a single idea: what you wear when you enter and exit the day should be treated with care, intention, and patience.</p><p>The spark for Soft Hours arrived on a phone call between two women, eight thousand kilometres and an hour apart, talking about business ventures.</p><p>What followed: how to make something exact enough to be worn out of the bedroom and soft enough to stay in it. How to design for the most private hours of her day, without making her disappear into them.</p>",
+        "bedspread_image": "shopify://shop_images/DSCF1259_2.jpg",
+        "bedspread_label": "For Chosen Solitude",
+        "bedspread_heading": "Time Well Kept",
+        "founder_image": "shopify://shop_images/Marion_resized.jpg",
+        "founder_image_alt": "Marion Still",
+        "founder_heading": "Founder Note",
+        "founder_body": "<p>When I started this journey, I did not know where it would lead. All I knew is that I wanted to create something special for all women who carry so much, daily. Something they will love, keep, and make them feel beautiful, during the intimate hours of their day.</p><p>I started my career working in investment banking - a very high-pressure environment. Slowing down, and not making what is happening around me dictate my internal state, has become a superpower for me. I truly think there is nothing more powerful than coming home to oneself, and I believe we should all feel elegant and a little \"femme fatale\" while doing so.</p><p>— Marion —</p>",
+        "patience_heading": "Many Hands",
+        "patience_body": "<p>Every mind, hand, and heart involved has been integral in bringing Soft Hours to life: the fabric makers, the design team, the brand designers, and the photographers, to name just a few. Verified maker and location details will be added as they are approved.</p>"
+      }
     }
   },
   "order": ["main"]

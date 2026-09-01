@@ -1,6 +1,6 @@
 {
   "sections": {
-    "main": { "type": "main-product", "settings": {} }
+    "main": { "type": "main-product", "settings": { "fallback_description": "A fluid layer for the first hour, the final hour, and the quieter moments between.", "details_placeholder": "Sampling is still in progress. Final construction details, model information, and colour names will remain editable until approved.", "fabric_placeholder": "Double-satin silk and modal blend in development. Final composition and care instructions remain subject to sampling and approval.", "delivery_placeholder": "Delivery and returns details to be confirmed.", "related_heading": "Complete the set", "editorial_heading": "For the First Hour and the Last" } }
   },
   "order": ["main"]
 }

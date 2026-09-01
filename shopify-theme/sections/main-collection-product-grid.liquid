@@ -6,13 +6,17 @@
   </section>
 
   <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
-    <div class="shop-controls">
-      <label class="shop-select"><span>Colour</span><select aria-label="Filter by colour" data-collection-filter="colour"><option value="all">All</option><option value="pine-grove">Pine Grove</option><option value="eggplant">Eggplant</option><option value="burnished-lilac">Burnished Lilac</option><option value="oat-milk">Oat Milk</option></select></label>
-      <label class="shop-select"><span>Size</span><select aria-label="Filter by size" data-collection-filter="size"><option value="all">All</option><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option></select></label>
-      <div class="shop-divider"></div>
-      <label class="shop-sort"><span>Sort</span><select name="sort_by" aria-label="Sort {{ collection.title }}" onchange="this.form.submit()">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}{% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></label>
-    </div>
+    <button class="shop-filter-trigger" type="button" data-open-collection-filter>Filter <span aria-hidden="true">+</span></button>
+    <label class="shop-sort"><span>Sort</span><select name="sort_by" aria-label="Sort {{ collection.title }}" onchange="this.form.submit()">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}{% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></label>
   </form>
+  <aside class="site-drawer collection-filter-drawer" aria-hidden="true" aria-labelledby="CollectionFilterTitle" data-collection-filter-drawer>
+    <div class="drawer-head"><h2 id="CollectionFilterTitle">Filter</h2><button type="button" data-close-collection-filter>Close ×</button></div>
+    <div class="collection-filter-body">
+      <label><span>Colour</span><select aria-label="Filter by colour" data-collection-filter="colour"><option value="all">All colours</option><option value="pine-grove">Pine Grove</option><option value="eggplant">Eggplant</option><option value="burnished-lilac">Burnished Lilac</option><option value="oat-milk">Oat Milk</option></select></label>
+      <label><span>Size</span><select aria-label="Filter by size" data-collection-filter="size"><option value="all">All sizes</option><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select></label>
+      <button class="collection-filter-apply" type="button" data-close-collection-filter>View pieces</button>
+    </div>
+  </aside>
   <p class="visually-hidden" data-collection-status aria-live="polite"></p>
 
   {% paginate collection.products by section.settings.products_per_page %}
@@ -22,10 +26,10 @@
     {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
   {% endpaginate %}
 
-  <section class="collection-note">
+  {% if section.settings.show_closing_notes %}<section class="collection-note">
     <div><h2>{{ section.settings.note_one_heading }}</h2><p>{{ section.settings.note_one_body }}</p></div>
     <div><h2>{{ section.settings.note_two_heading }}</h2><p>{{ section.settings.note_two_body }}</p></div>
-  </section>
+  </section>{% endif %}
 </div>
 
 {% schema %}
@@ -38,6 +42,7 @@
     { "type": "textarea", "id": "intro", "label": "Introduction", "default": "Five pieces for morning, evening, and the hours between. Designed to move easily from first light to the final hour." },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 },
     { "type": "text", "id": "empty_message", "label": "Empty collection message", "default": "Collection I is being prepared." },
+    { "type": "checkbox", "id": "show_closing_notes", "label": "Show closing notes", "default": false },
     { "type": "header", "content": "Closing notes" },
     { "type": "text", "id": "note_one_heading", "label": "First heading", "default": "Quietly Available" },
     { "type": "textarea", "id": "note_one_body", "label": "First body", "default": "Sold-out or coming-soon pieces will be shown calmly, with a Notify me option instead of urgency language." },

@@ -46,7 +46,7 @@
 <div class="product-v2" data-product-root>
   <section class="pdp-hero">
     <div class="pdp-gallery" data-gallery data-reveal>
-      <div class="pdp-main-img" data-gallery-main role="img" aria-label="{{ product.title | escape }}" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};"></div>
+      <div class="pdp-main-img"><img src="{{ primary_url }}" alt="{{ product.title | escape }}" width="1400" height="1750" data-gallery-main></div>
       <div class="pdp-thumbs" aria-label="Product gallery">
         <button class="pdp-thumb active" type="button" data-gallery-thumb="{{ primary_url }}" aria-label="View first product image" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};"></button>
         <button class="pdp-thumb" type="button" data-gallery-thumb="{{ secondary_url }}" aria-label="View second product image" style="background-image:url('{{ secondary_url }}');background-position:50% 30%;"></button>
@@ -55,6 +55,7 @@
     </div>
 
     <div class="pdp-info" data-reveal>
+      <button class="pdp-product-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ product.handle }}" aria-pressed="false" aria-label="Save {{ product.title | escape }} to wishlist"><span aria-hidden="true">♡</span></button>
       <div class="pdp-crumb"><a href="{{ routes.collections_url }}/collection-i">Shop</a><span>/</span><span class="current">{{ product.title }}</span></div>
       <h1 class="pdp-title">{{ product.title }}</h1>
       <div class="pdp-price" data-product-price>{{ current_variant.price | money_with_currency }}</div>
@@ -65,8 +66,8 @@
       </div>
       <div class="pdp-rule"></div>
 
-      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-product-form>
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-product-form{% for option in product.options_with_values %}{% if option.name == 'Size' %} data-requires-size{% endif %}{% endfor %}>
+        <input type="hidden" name="id" value="{% unless product.options contains 'Size' %}{{ current_variant.id }}{% endunless %}">
         {% unless product.has_only_default_variant %}
           {% for option in product.options_with_values %}
             {% assign option_index = forloop.index0 %}
@@ -75,35 +76,31 @@
                 <div class="pdp-opt-label">{{ option.name }} — <span data-option-label="{{ option_index }}">{{ option.selected_value }}</span></div>
                 <div class="pdp-swatches">
                   {% for value in option.values %}
-                    {% assign colour_image = primary_url %}
-                    {% case forloop.index %}
-                      {% when 2 %}{% assign colour_image = secondary_url %}
-                      {% when 3 %}{% assign colour_image = third_url %}
-                      {% when 4 %}{% assign colour_image = secondary_url %}
-                    {% endcase %}
+                    {% assign colour_image = blank %}
+                    {% for colour_variant in product.variants %}{% if colour_variant.options contains value and colour_variant.featured_media != blank %}{% assign colour_image = colour_variant.featured_media.preview_image | image_url: width: 1800 %}{% break %}{% endif %}{% endfor %}
+                    {% if colour_image == blank %}{% case forloop.index %}{% when 1 %}{% assign colour_image = primary_url %}{% when 2 %}{% assign colour_image = secondary_url %}{% when 3 %}{% assign colour_image = third_url %}{% else %}{% assign colour_image = secondary_url %}{% endcase %}{% endif %}
                     <button type="button" class="pdp-swatch" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" data-colour-image="{{ colour_image }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" style="{% case value | handle %}{% when 'pine-grove' %}background:#2F4A3B{% when 'eggplant' %}background:#563747{% when 'burnished-lilac' %}background:#A77F86{% when 'oat-milk' %}background:#E3D8C2{% else %}background:#D7C8B0{% endcase %}"></button>
                   {% endfor %}
                 </div>
-                <p class="pdp-colour-note" aria-live="polite">Select a colour to preview its imagery.</p>
               </div>
             {% elsif option.name == 'Size' %}
               <div class="pdp-size">
-                <div class="pdp-size-head"><span class="pdp-opt-label">Size <span class="visually-hidden">selected:</span> <span data-option-label="{{ option_index }}">{{ option.selected_value }}</span></span><button type="button" class="pdp-size-guide" data-open-size-guide>Size Guide</button></div>
+                <div class="pdp-size-head"><span class="pdp-opt-label">Size <span class="visually-hidden">selected:</span> <span data-option-label="{{ option_index }}">Select a size</span></span><button type="button" class="pdp-size-guide" data-open-size-guide>Size Guide</button></div>
                 <div class="pdp-sizes">
-                  {% for value in option.values %}<button type="button" class="pdp-size-opt" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}">{{ value }}</button>{% endfor %}
+                  {% for value in option.values %}<button type="button" class="pdp-size-opt" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" aria-pressed="false">{{ value | replace: 'Small', 'S' | replace: 'Medium', 'M' | replace: 'Large', 'L' }}</button>{% endfor %}
                 </div>
               </div>
             {% else %}
               <div class="pdp-size"><label class="pdp-opt-label" for="Option-{{ section.id }}-{{ option_index }}">{{ option.name }}</label><select id="Option-{{ section.id }}-{{ option_index }}" data-option-select data-option-index="{{ option_index }}">{% for value in option.values %}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
             {% endif %}
             {% unless option.name != 'Color' and option.name != 'Colour' and option.name != 'Size' %}
-              <select class="visually-hidden" aria-hidden="true" tabindex="-1" data-option-select data-option-index="{{ option_index }}">{% for value in option.values %}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>{% endfor %}</select>
+              <select class="visually-hidden" aria-hidden="true" tabindex="-1" data-option-select data-option-index="{{ option_index }}">{% if option.name == 'Size' %}<option value="" selected>Select size</option>{% endif %}{% for value in option.values %}<option value="{{ value | escape }}"{% unless option.name == 'Size' %}{% if option.selected_value == value %} selected{% endif %}{% endunless %}>{{ value }}</option>{% endfor %}</select>
             {% endunless %}
           {% endfor %}
         {% endunless %}
 
         <div data-purchase-panel{% unless current_variant.available %} hidden{% endunless %}>
-          <button class="pdp-add" type="submit" data-add-to-cart>Add to Cart — {{ current_variant.price | money_with_currency }}</button>
+          <button class="pdp-add" type="submit" data-add-to-cart{% if product.options contains 'Size' %} disabled{% endif %}>{% if product.options contains 'Size' %}Select a size{% else %}Add to Cart — {{ current_variant.price | money_with_currency }}{% endif %}</button>
         </div>
         <p class="prototype-status" role="status" aria-live="polite" data-product-status></p>
       </form>
@@ -148,10 +145,10 @@
   </section>
   <section class="product-editorial"><h2>{{ section.settings.editorial_heading }}</h2></section>
 
-  <dialog class="size-guide-dialog" data-size-guide-dialog aria-labelledby="SizeGuideTitle-{{ section.id }}">
+  <aside class="site-drawer size-guide-drawer" data-size-guide-drawer aria-hidden="true" aria-labelledby="SizeGuideTitle-{{ section.id }}">
     <div class="size-guide-dialog__head"><h2 id="SizeGuideTitle-{{ section.id }}">Size Guide</h2><button type="button" data-close-size-guide>Close ×</button></div>
     <div class="size-guide-dialog__body"><img src="{{ 'fit-measurement-guide.svg' | asset_url }}" alt="Illustrative body measurement guide" width="520" height="760"><div>{% if product.metafields.custom.size_guide != blank %}{{ product.metafields.custom.size_guide | metafield_tag }}{% else %}<p>Final garment measurements and fit guidance are being prepared. The sample chart shown here is for layout review only.</p><table><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr></thead><tbody><tr><td>S</td><td>88</td><td>70</td><td>96</td></tr><tr><td>M</td><td>92</td><td>74</td><td>100</td></tr><tr><td>L</td><td>96</td><td>78</td><td>104</td></tr></tbody></table>{% endif %}</div></div>
-  </dialog>
+  </aside>
 </div>
 
 <script type="application/ld+json">{{ product | structured_data }}</script>

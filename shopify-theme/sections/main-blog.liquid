@@ -22,7 +22,7 @@
                 {{ 'image' | placeholder_svg_tag }}
               {% endif %}
             </span>
-            <span class="journal-meta"><span>World {% case forloop.index %}{% when 1 %}I{% when 2 %}II{% when 3 %}III{% else %}{{ forloop.index }}{% endcase %}</span><span>No. {{ forloop.index | prepend: '0' }}</span></span>
+            <span class="journal-meta">{% render 'journal-meta', article: article, position: forloop.index %}</span>
             <strong>{{ article.title }}</strong>
             <span class="journal-summary">{{ article.excerpt_or_content | strip_html | truncate: 150 }}</span>
             <span class="journal-read">Read note</span>
@@ -34,10 +34,10 @@
           {% for title in fallback_titles %}
             <article class="journal-card-v2">
               <span class="journal-image"><img src="{{ fallback_images[forloop.index0] | asset_url }}" alt="" loading="lazy" width="1200" height="1200"></span>
-              <span class="journal-meta"><span>World {% case forloop.index %}{% when 1 %}I{% when 2 %}II{% else %}III{% endcase %}</span><span>No. 0{{ forloop.index }}</span></span>
+              <span class="journal-meta"><span>Hour {% case forloop.index %}{% when 1 %}I{% when 2 %}II{% else %}VI{% endcase %}</span><span>№ 0{{ forloop.index }}</span></span>
               <strong>{{ title }}</strong>
               <span class="journal-summary">{{ fallback_summaries[forloop.index0] }}</span>
-              <span class="journal-read">Journal launch content pending</span>
+              <span class="journal-read">Preview</span>
             </article>
           {% endfor %}
         {% endfor %}

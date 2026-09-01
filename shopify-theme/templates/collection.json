@@ -1,6 +1,6 @@
 {
   "sections": {
-    "main": { "type": "main-collection-product-grid", "settings": { "eyebrow": "The first collection", "products_per_page": 12 } }
+    "main": { "type": "main-collection-product-grid", "settings": { "eyebrow": "Collection I", "heading": "Still Life", "intro": "Five pieces for morning, evening, and the hours between.", "products_per_page": 12, "empty_message": "Collection I is being prepared.", "show_closing_notes": false, "note_one_heading": "Quietly Available", "note_one_body": "Sold-out or coming-soon pieces will be shown calmly, with a Notify me option instead of urgency language.", "note_two_heading": "Five Pieces, Four Colours", "note_two_body": "Final colour names and first-run size availability remain editable while sampling is completed." } }
   },
   "order": ["main"]
 }

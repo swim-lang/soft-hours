@@ -12,6 +12,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .home-world { color: inherit; text-decoration: none; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
+/* Keep the approved header visible when shoppers reverse direction. */
+.nav { position: sticky; top: 0; z-index: 90; transition: transform .28s ease, background-color .25s ease, box-shadow .25s ease; }
+.nav.nav--scrolled { background: rgba(242,235,221,.97); box-shadow: 0 1px 0 var(--hairline); backdrop-filter: blur(10px); }
+.nav.nav--hidden { transform: translateY(-105%); }
+.nav.nav--hero { position: absolute; }
+.nav.nav--hero.nav--scrolled { position: fixed; background: rgba(242,235,221,.97); }
+.nav.nav--hero.nav--scrolled a, .nav.nav--hero.nav--scrolled .nav-action, .nav.nav--hero.nav--scrolled select { color: var(--ink); text-shadow: none; }
+.nav.nav--hero.nav--scrolled .wordmark-nav { filter: brightness(0); }
+.nav-localization select { padding: 4px 18px 4px 0; border: 0; background: transparent; color: inherit; font: 13px/17px var(--label); appearance: auto; cursor: pointer; }
+
 /* Keep the approved Vercel hero typography from being overridden by the
    earlier Shopify theme's generic `.home-hero h1` and `.home-hero p` rules. */
 .home-hero h1.home-hero-title {
@@ -39,6 +49,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .mobile-menu.is-open { visibility: visible; }
 .mobile-menu button { border: 0; background: transparent; color: inherit; cursor: pointer; }
 .mobile-menu-meta button { font: 13px/17px var(--label); letter-spacing: .08em; text-transform: uppercase; }
+.mobile-localization select { max-width: min(62vw, 250px); padding: 0 18px 0 0; border: 0; background: transparent; color: var(--ink); font: 13px/17px var(--label); letter-spacing: .04em; }
 .footer a, .footer button { transition: opacity .2s ease; }
 .footer a:hover, .footer button:hover { opacity: .62; }
 .footer button { padding: 0; border: 0; background: transparent; color: var(--footer-link); font: inherit; text-align: left; cursor: pointer; }
@@ -167,6 +178,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .collection-v2 .shop-filter { padding-inline: 0; }
 .collection-v2 .shop-cats { display: none; }
 .collection-v2 .shop-controls { width: 100%; justify-content: flex-end; }
+.collection-v2 .shop-filter { justify-content: space-between; }
+.shop-filter-trigger { min-height: 44px; padding: 0; border: 0; background: transparent; font: 14px/18px var(--label); text-transform: none; cursor: pointer; }
+.shop-filter-trigger span { display: inline-block; margin-left: 8px; }
 .collection-v2 .shop-select, .collection-v2 .shop-sort { position: relative; min-height: 52px; padding: 0 42px 0 18px; display: grid; grid-template-columns: auto minmax(76px,1fr); gap: 14px; border: 1px solid rgba(38,36,26,.28); cursor: pointer; transition: border-color .2s ease,background-color .2s ease; }
 .collection-v2 .shop-select { min-width: 182px; }
 .collection-v2 .shop-sort { min-width: 286px; }
@@ -188,6 +202,30 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .collection-v2 .shop-card-name { font-size: 19px; line-height: 23px; }
 .collection-v2 .shop-card-price { font-size: 16px; line-height: 20px; }
 .collection-v2 .shop-card-link { color: inherit; text-decoration: none; }
+.collection-filter-drawer { width: min(460px,100%); }
+.collection-filter-body { padding: 42px 32px; display: flex; flex-direction: column; gap: 34px; overflow-y: auto; }
+.collection-filter-body label { display: grid; gap: 12px; font: 14px/18px var(--label); }
+.collection-filter-body select { width: 100%; min-height: 48px; padding: 0 12px; border: 1px solid rgba(38,36,26,.28); background: transparent; color: inherit; font: 15px/20px var(--label); }
+.collection-filter-apply { min-height: 52px; margin-top: auto; border: 0; background: var(--ink); color: var(--cream); font: 15px/20px var(--label); cursor: pointer; }
+
+.shop-card-media { position: relative; }
+.shop-card-image-link { display: block; color: inherit; text-decoration: none; }
+.shop-card-wishlist { position: absolute; top: 14px; right: 14px; z-index: 2; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(242,235,221,.92); color: var(--ink); font: 22px/1 var(--label); cursor: pointer; }
+.shop-card-arrows { position: absolute; right: 14px; bottom: 14px; z-index: 2; display: flex; gap: 6px; opacity: 0; transition: opacity .2s ease; }
+.shop-card-media:hover .shop-card-arrows, .shop-card-arrows:focus-within { opacity: 1; }
+.shop-card-arrows button { width: 36px; height: 36px; border: 0; background: rgba(242,235,221,.92); color: var(--ink); font: 16px/1 var(--label); cursor: pointer; }
+.shop-card-quick { display: grid; gap: 12px; }
+.shop-card-quick fieldset { border: 0; }
+.shop-card-quick legend { margin-bottom: 8px; font: 12px/16px var(--label); color: #4F463C; }
+.shop-card-sizes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; }
+.shop-card-sizes button { min-height: 34px; border: 1px solid var(--hairline); background: transparent; font: 13px/17px var(--label); cursor: pointer; }
+.shop-card-sizes button[aria-pressed="true"] { border-color: var(--ink); background: rgba(38,36,26,.04); }
+.shop-card-sizes button:disabled { opacity: .35; cursor: not-allowed; }
+.shop-card-colour { font: 12px/16px var(--mono); color: #4F463C; }
+.shop-card-add { min-height: 42px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 13px/17px var(--label); cursor: pointer; display: grid; place-items: center; text-decoration: none; }
+.shop-card-add:not(:disabled):hover { background: var(--ink); color: var(--cream); }
+.shop-card-add:disabled { opacity: .45; cursor: not-allowed; }
+.shop-card-quick .prototype-status { min-height: 0; font: 12px/17px var(--mono); color: #854B3C; }
 .collection-v2 .collection-note { padding: 0 40px 110px; display: flex; justify-content: space-between; gap: 40px; border-top: 1px solid var(--hairline); }
 .collection-v2 .collection-note > div { padding-top: 26px; max-width: 460px; }
 .collection-v2 .collection-note h2 { margin-bottom: 12px; font: 200 32px/36px var(--display); }
@@ -195,13 +233,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Product */
 .product-v2 .pdp-hero { gap: 64px; padding: 80px 40px 96px; }
-.product-v2 .pdp-gallery { flex: 1; min-width: 0; max-width: 760px; }
-.product-v2 .pdp-main-img { height: 680px; background-position: 50% 32%; }
+.product-v2 .pdp-gallery { flex: 1; min-width: 0; max-width: 760px; display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 16px; align-items: start; }
+.product-v2 .pdp-main-img { grid-column: 2; grid-row: 1; width: 100%; height: auto; aspect-ratio: 4/5; background: #E9E1D3; }
+.product-v2 .pdp-main-img img { width: 100%; height: 100%; object-fit: contain; }
 .product-v2 .pdp-main-img { transition: opacity .2s ease; }
-.product-v2 .pdp-main-img.is-changing { opacity: .18; }
-.product-v2 .pdp-thumbs { height: 240px; }
-.product-v2 .pdp-thumb { height: 240px; cursor: pointer; }
-.product-v2 .pdp-info { width: 536px; }
+.product-v2 .pdp-main-img img.is-changing { opacity: .18; }
+.product-v2 .pdp-thumbs { grid-column: 1; grid-row: 1; height: auto; display: flex; flex-direction: column; gap: 10px; }
+.product-v2 .pdp-thumb { width: 88px; height: auto; aspect-ratio: 4/5; cursor: pointer; }
+.product-v2 .pdp-info { position: relative; width: 536px; }
+.pdp-product-wishlist { position: absolute; top: 0; right: 0; z-index: 2; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--hairline); border-radius: 50%; background: transparent; color: var(--ink); font: 23px/1 var(--label); cursor: pointer; }
+.pdp-product-wishlist[aria-pressed="true"] { background: rgba(38,36,26,.05); }
+.pdp-product-wishlist:hover { border-color: var(--ink); }
 .product-v2 .pdp-title { font-size: 40px; line-height: 44px; }
 .product-v2 .pdp-price { font-size: 18px; line-height: 22px; }
 .product-v2 .pdp-desc { font-size: 16px; line-height: 25px; }
@@ -277,12 +319,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Shopify interaction layer for the approved V2. */
 .pdp-size-guide,
 .pdp-fit-copy button.text-link { padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
-.size-guide-dialog { width: min(880px,calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 0; background: var(--cream); color: var(--ink); box-shadow: 0 24px 90px rgba(38,36,26,.22); }
-.size-guide-dialog::backdrop { background: rgba(38,36,26,.46); }
+.size-guide-drawer { width: min(680px,100%); }
 .size-guide-dialog__head { min-height: 78px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hairline); }
 .size-guide-dialog__head h2 { margin: 0; font: 200 30px/36px var(--display); text-transform: none; }
 .size-guide-dialog__head button { padding: 0; border: 0; background: transparent; font: 14px/18px var(--label); text-transform: uppercase; cursor: pointer; }
-.size-guide-dialog__body { padding: 32px; display: grid; grid-template-columns: minmax(220px,.75fr) minmax(0,1.25fr); gap: 36px; align-items: start; }
+.size-guide-dialog__body { padding: 32px; display: grid; grid-template-columns: minmax(190px,.75fr) minmax(0,1.25fr); gap: 30px; align-items: start; overflow-y: auto; }
 .size-guide-dialog__body img { width: 100%; height: auto; background: #E9E1D3; }
 .size-guide-dialog__body p { font: 15px/24px var(--mono); color: #5A4F44; }
 .size-guide-dialog__body table { width: 100%; margin-top: 24px; border-collapse: collapse; font: 13px/18px var(--label); }
@@ -293,6 +334,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .size-guide-dialog__body { grid-template-columns: 1fr; padding: 22px; }
   .size-guide-dialog__body img { max-height: 360px; object-fit: contain; }
 }
+
+/* Policies use the same readable editorial hierarchy as Journal and support pages. */
+.shopify-policy__body { font: 15px/26px var(--mono); color: #4F463C; }
+.shopify-policy__body p, .shopify-policy__body li { font-family: var(--mono) !important; font-size: 15px !important; line-height: 26px !important; color: inherit; text-transform: none; }
+.shopify-policy__body h2 { margin: 44px 0 18px; font: 200 34px/39px var(--display); color: var(--ink); text-transform: none; }
+.shopify-policy__body h3 { margin: 32px 0 14px; font: 200 26px/31px var(--display); color: var(--ink); text-transform: none; }
+.policy-toc { margin: 0 0 48px; padding: 22px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.policy-toc strong { display: block; margin-bottom: 12px; font: 13px/17px var(--label); }
+.policy-toc ol { margin: 0; padding-left: 20px; columns: 2; }
+.policy-toc a { color: inherit; font: 14px/22px var(--mono); text-underline-offset: 3px; }
 
 /* About keeps the coded clock and approved layout, with the homepage's readable scale. */
 .about-v2 .intro-body,
@@ -438,6 +489,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .home-proof-copy { padding: 72px 42px; }
 }
 
+@media (max-width: 900px) {
+  .nav-localization { display: none; }
+}
+
 @media (max-width: 760px) {
   .home-hero h1.home-hero-title { font-size: clamp(38px, 11vw, 52px); line-height: 1.08; }
   .home-hero p.home-hero-sub { max-width: 340px; font-size: 17px; line-height: 21px; }
@@ -486,6 +541,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .collection-v2 .shop-select, .collection-v2 .shop-sort { flex: 1; justify-content: space-between; min-width: 0; padding: 10px; }
   .collection-v2 .shop-select, .collection-v2 .shop-sort { min-height: 44px; padding: 0 30px 0 10px; gap: 8px; }
   .collection-v2 .shop-sort { grid-column: 1 / -1; }
+  .collection-v2 .shop-filter { display: flex; }
+  .collection-v2 .shop-sort { min-width: 0; width: auto; }
   .collection-v2 .shop-select::after, .collection-v2 .shop-sort::after { right: 11px; width: 7px; height: 7px; }
   .collection-v2 .shop-select span, .collection-v2 .shop-sort span { font-size: 13px; }
   .collection-v2 .shop-divider { display: none; }
@@ -495,10 +552,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .collection-v2 .shop-card-price { font-size: 14px; line-height: 18px; }
   .collection-v2 .collection-note { padding: 0 20px 80px; flex-direction: column; gap: 12px; }
   .product-v2 .pdp-hero { padding: 34px 20px 76px; gap: 42px; }
-  .product-v2 .pdp-gallery { max-width: none; }
-  .product-v2 .pdp-main-img { height: 500px; }
-  .product-v2 .pdp-thumbs { height: 118px; gap: 8px; }
-  .product-v2 .pdp-thumb { height: 118px; }
+  .product-v2 .pdp-gallery { max-width: none; display: flex; flex-direction: column; }
+  .product-v2 .pdp-main-img { width: 100%; height: auto; aspect-ratio: 4/5; }
+  .product-v2 .pdp-thumbs { height: auto; flex-direction: row; gap: 8px; order: 2; overflow-x: auto; }
+  .product-v2 .pdp-thumb { width: 92px; height: 115px; flex: 0 0 auto; }
   .product-v2 .pdp-info { width: 100%; }
   .product-v2 .pdp-title { font-size: 38px; line-height: 42px; }
   .product-v2 .pdp-desc { font-size: 15px; line-height: 24px; }
@@ -567,6 +624,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .account-form-wrap { padding-top: 24px; }
   .home-email-field-left input { min-width: 0; width: 100%; font-size: 15px; }
   .about-v2 .maker-caption { font-size: 13px; line-height: 17px; }
+  .shop-card-arrows { opacity: 1; }
+  .shop-card-wishlist { width: 34px; height: 34px; }
+  .policy-toc ol { columns: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

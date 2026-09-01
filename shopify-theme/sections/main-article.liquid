@@ -3,7 +3,6 @@
   {% if journal_article.handle == article.handle %}{% assign article_position = forloop.index %}{% endif %}
 {% endfor %}
 
-{% capture article_world %}{% case article_position %}{% when 1 %}I{% when 2 %}II{% when 3 %}III{% else %}{{ article_position }}{% endcase %}{% endcapture %}
 {% assign title_length = article.title | size %}
 {% assign title_modifier = '' %}
 {% if title_length > 84 %}
@@ -14,7 +13,7 @@
 
 <main class="article-v2 journal-article-v2">
   <header class="article-header{% if title_modifier != blank %} article-header--long{% endif %}">
-    <p class="page-eyebrow"><span>World {{ article_world | strip }}</span><span>No. {{ article_position | prepend: '0' }}</span></p>
+    <p class="page-eyebrow">{% render 'journal-meta', article: article, position: article_position %}</p>
     <h1 class="article-title{{ title_modifier }}">{{ article.title }}</h1>
     <p class="article-date">{{ article.published_at | date: '%d %B %Y' }} · {{ blog.title }}</p>
   </header>

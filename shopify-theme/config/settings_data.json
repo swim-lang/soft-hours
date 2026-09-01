@@ -5,7 +5,30 @@
     "color_ink": "#26241A",
     "color_muted": "#5A4F44",
     "footer_year": "MMXXVI",
-    "show_accelerated_checkout": true
+    "show_accelerated_checkout": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "primary_menu": "",
+          "secondary_menu": "",
+          "about_review_url": "/pages/contact-1?view=about-review"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_menu": "soft-hours-footer",
+          "about_review_url": "/pages/contact-1?view=about-review",
+          "size_guide_review_url": "/pages/contact-1?view=size-guide-review"
+        }
+      },
+      "cart-drawer-section": {
+        "type": "cart-drawer-section",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
