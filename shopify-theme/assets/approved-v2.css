@@ -37,6 +37,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: .02em;
   text-transform: none;
 }
+.home-hero-cta { transition: background-color .2s ease, color .2s ease; }
+.home-hero-cta span, .home-hero-cta .line { transition: color .2s ease, background-color .2s ease; }
+.home-hero-cta:hover { background: var(--cream); color: var(--ink); }
+.home-hero-cta:hover span:first-child { color: var(--ink); }
+.home-hero-cta:hover .line { background: var(--ink); }
 .nav-action { padding: 0; border: 0; background: none; font: 400 14px/18px var(--label); letter-spacing: .08em; text-transform: uppercase; color: inherit; cursor: pointer; }
 .nav-action { text-decoration: none; }
 .nav-action:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -305,6 +310,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .home-arrivals-row { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 20px; }
 .home-arrival { min-width: 0; }
 .home-arrival-img { height: auto; aspect-ratio: 4/5.4; background-position: 50%; }
+.home-edit-cta { position: relative; margin-top: 34px; padding: 13px 18px; border: 1px solid rgba(242,235,221,.86); color: var(--cream); font: 14px/18px var(--label); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; transition: background-color .2s ease, color .2s ease; }
+.home-edit-cta:hover { background: var(--cream); color: var(--ink); }
 .home-proof { display: grid; grid-template-columns: minmax(0,1.06fr) minmax(480px,.94fr); min-height: 760px; background: #E9E1D3; }
 .home-proof-image { min-height: 760px; background: url('fabric.jpg') 50% 38%/cover; }
 .home-proof-copy { padding: 92px 72px; display: flex; flex-direction: column; justify-content: center; }

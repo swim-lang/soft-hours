@@ -37,7 +37,7 @@
       <div class="footer-col"><h4>Soft Hours</h4><ul><li><a href="{{ about_url }}">About</a></li><li><a href="{{ journal.url | default: routes.root_url }}">Journal</a></li><li><a href="{{ routes.root_url }}#NewsletterSignup">Newsletter</a></li><li><a href="{{ routes.root_url }}pages/contact-1">Contact</a></li></ul></div>
       <div class="footer-col"><h4>Help</h4><ul><li><a href="{{ routes.root_url }}pages/faqs">FAQ</a></li><li><a href="{{ routes.root_url }}pages/shipping-returns">Delivery & Returns</a></li>{% if shop.privacy_policy.url != blank %}<li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>{% endif %}{% if shop.terms_of_service.url != blank %}<li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>{% endif %}</ul></div>
     {% endif %}
-    <div class="footer-col"><h4>Follow</h4><ul>{% if settings.instagram_url != blank %}<li><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram · @softhours</a></li>{% endif %}</ul></div>
+    {% if settings.instagram_url != blank or settings.linkedin_url != blank %}<div class="footer-col"><h4>Follow</h4><ul>{% if settings.instagram_url != blank %}<li><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>{% endif %}{% if settings.linkedin_url != blank %}<li><a href="{{ settings.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}</ul></div>{% endif %}
   </div></div>
   <div class="footer-wordmark-band"><a class="footer-wordmark" href="{{ routes.root_url }}" aria-label="Soft Hours"></a></div>
   <div class="footer-bottom">

@@ -1,7 +1,10 @@
+{% assign story_link = section.settings.link %}
+{% if story_link == blank %}{% assign story_link = routes.collections_url | append: '/collection-i' %}{% endif %}
 <section class="home-edit"{% if section.settings.image %} style="background-image:url({{ section.settings.image | image_url: width: 2200 }})"{% else %} style="background-image:url({{ '01KV8M6QDDQ6C7P21WFFWKVW6D.jpg' | asset_url }})"{% endif %}>
   <div class="home-edit-scrim"></div>
   <div class="home-edit-label"><span class="line"></span><span>{{ section.settings.eyebrow }}</span><span class="line"></span></div>
   <h2 class="home-edit-title">{{ section.settings.heading }}</h2>
+  <a class="home-edit-cta" href="{{ story_link }}">{{ section.settings.link_label }} <span aria-hidden="true">→</span></a>
 </section>
 {% schema %}
 {
@@ -9,7 +12,9 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collection I" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Hours Worth Dressing For" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Hours Worth Dressing For" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop Collection I" },
+    { "type": "url", "id": "link", "label": "Link" }
   ],
   "presets": [{ "name": "Collection editorial" }]
 }

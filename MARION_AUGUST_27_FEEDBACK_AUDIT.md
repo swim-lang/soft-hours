@@ -44,20 +44,23 @@ The public `Coming Soon- Anchovies` Shopify theme must remain unchanged. Impleme
 | Launch fallback taxonomy I, II, VI | Implemented as fallback only; real article metafields remain authoritative. |
 | Remove footer EN/CHF text | Implemented. |
 | Respect the Shopify footer menu | Implemented with safe nested-menu, flat-menu, and fallback behavior. |
+| Footer social presentation | Implemented as optional text links only. Instagram and LinkedIn stay hidden until Marion supplies destinations; no social icons are used. |
+| Clear route from `Hours Worth Dressing For` | Implemented with `Shop Collection I`, editable in the Shopify theme editor. |
 | Privacy headings and table of contents | Implemented. Body readability is 15px/26px and verified in preview. |
 | Newsletter and sitewide text hierarchy | Improved; long-form body text is readable and uppercase is limited to small metadata and controls. |
 
-## Straightforward next implementation work
+## Deliberately bounded remaining work
 
-These do not need a new concept, but they should be handled deliberately in the next coding pass.
+The remaining items are content, configuration, or launch inputs—not reasons to add more storefront features.
 
-1. Add a visible destination for saved products. Hearts currently persist for guests, but there is no Saved/Favorites drawer or page where a shopper can review them.
-2. Make the desktop PDP purchase panel sticky while the product gallery scrolls. The left/right composition exists, but the right panel is not yet sticky.
-3. Add a clear shop CTA to `Hours Worth Dressing For`.
-4. Add a concise, editable homepage brand-introduction block without restoring the removed making manifesto.
-5. Style and simplify Shopify's native cookie banner in Shopify Customer Privacy settings; do not replace consent behavior with a decorative theme-only banner.
-6. Confirm the actual `Soft Hours Footer` menu resource and connect social destinations. The theme now fails gracefully, but the current preview still falls back because the intended menu resource is not resolving.
-7. Add a Saved/Favorites count or state to navigation only after the guest wishlist destination exists.
+1. **Homepage brand introduction:** Marion should decide whether this is primarily a short copy statement, a photograph-led module, or both. Do not invent or restore a larger making manifesto while that direction is unresolved.
+2. **Footer destinations:** Instagram and LinkedIn fields are ready as quiet text links. They remain hidden until Marion supplies confirmed URLs. Confirm the actual `Soft Hours Footer` menu resource in Shopify Admin as part of final content entry.
+3. **Cookie consent:** Use Shopify's native Customer Privacy cookie banner and configure its copy, regions, and appearance in Shopify Admin. Do not create a decorative theme-only substitute. Because this is store-level configuration that may affect the public coming-soon storefront, defer the change until the launch configuration is approved.
+4. **Client-supplied media and facts:** Product-colour media, editorial imagery, videos, product facts, delivery terms, and policies remain editable placeholders until Marion approves them.
+
+No Favorites page, drawer, count, or navigation destination is planned for the five-product launch. The existing lightweight heart controls may remain as a subtle guest convenience, but they should not become a separate shopping journey.
+
+The desktop PDP keeps its natural approved layout rather than forcing a sticky information column. The current gallery is controlled with thumbnails rather than a long vertical image stack, and the complete purchase panel is taller than the viewport. A sticky treatment would therefore add an internal scrollbar without reducing the path to Add to Cart.
 
 ## Design or asset decisions
 
@@ -85,6 +88,7 @@ These need a focused design/content decision rather than a blind code change.
 
 ## Stakeholder choices to keep explicit
 
+- Do not build a full Favorites experience for the five-product launch. Keep the lightweight guest heart state only; revisit it if the catalogue becomes large enough for saved-product retrieval to be useful.
 - Marion entered an all-caps hero subtitle, while Sean's later readability direction limits all-caps to small eyebrows and utility labels. The current theme uses sentence case; keep that unless the team deliberately restores the exception.
 - Marion's August document specifies launch Hours I, II, and VI. Real article metafields should hold that taxonomy; position-based fallback is only staging behavior.
 - Ratings should not be shown until genuine review data exists.
@@ -97,5 +101,8 @@ These need a focused design/content decision rather than a blind code change.
 - Add to Cart was tested with The Slip / Pine Grove / Small; the cart drawer received the exact variant, then the test item was removed to restore the original preview cart.
 - Mobile at 390px: no horizontal overflow; desktop currency control is hidden; functional country/currency selector remains inside the mobile menu; collection remains two columns.
 - Collection filter drawer, PDP Size Guide, About clock, Journal links, Privacy table of contents, guest wishlist state, footer, and cart drawer were checked in the unpublished Shopify preview.
+- The homepage `Shop Collection I` CTA resolves to Collection I, has a working desktop hover state, remains visible at 390px, and introduces no horizontal overflow.
+- Empty social fields produce no empty Follow column. Social destinations will render as text links only after URLs are supplied.
+- Shopify's native privacy-banner script is present in the unpublished preview; store-level regions, copy, and appearance remain a launch configuration rather than theme code.
 - Remote pull-back confirms theme assets and sections match the local checkout; Shopify's auto-generated JSON comments are the only serialization difference.
 - Theme roles rechecked: `Coming Soon- Anchovies` is still live; `Soft Hours Ecommerce - Client Editor` is still unpublished.
