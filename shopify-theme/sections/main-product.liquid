@@ -76,10 +76,11 @@
                 <div class="pdp-opt-label">{{ option.name }} — <span data-option-label="{{ option_index }}">{{ option.selected_value }}</span></div>
                 <div class="pdp-swatches">
                   {% for value in option.values %}
+                    {% assign colour_handle = value | handleize %}
                     {% assign colour_image = blank %}
                     {% for colour_variant in product.variants %}{% if colour_variant.options contains value and colour_variant.featured_media != blank %}{% assign colour_image = colour_variant.featured_media.preview_image | image_url: width: 1800 %}{% break %}{% endif %}{% endfor %}
                     {% if colour_image == blank %}{% case forloop.index %}{% when 1 %}{% assign colour_image = primary_url %}{% when 2 %}{% assign colour_image = secondary_url %}{% when 3 %}{% assign colour_image = third_url %}{% else %}{% assign colour_image = secondary_url %}{% endcase %}{% endif %}
-                    <button type="button" class="pdp-swatch" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" data-colour-image="{{ colour_image }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" style="{% case value | handle %}{% when 'pine-grove' %}background:#2F4A3B{% when 'eggplant' %}background:#563747{% when 'burnished-lilac' %}background:#A77F86{% when 'oat-milk' %}background:#E3D8C2{% else %}background:#D7C8B0{% endcase %}"></button>
+                    <button type="button" class="pdp-swatch" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" data-colour-image="{{ colour_image }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" style="{% case colour_handle %}{% when 'pine-grove' %}background:#334A3B{% when 'eggplant' %}background:#4E3442{% when 'burnished-lilac' %}background:#A47F8C{% when 'oat-milk' %}background:#D9C9AA{% else %}background:#B8AA94{% endcase %}"></button>
                   {% endfor %}
                 </div>
               </div>
@@ -143,7 +144,10 @@
       {% endif %}
     </div>
   </section>
-  <section class="product-editorial"><h2>{{ section.settings.editorial_heading }}</h2></section>
+  {% if section.settings.show_editorial %}
+    {% if section.settings.editorial_image != blank %}{% assign editorial_image_url = section.settings.editorial_image | image_url: width: 2200 %}{% else %}{% assign editorial_image_url = '01KV8Q5YVKN4B291G463W18R4R.jpg' | asset_url %}{% endif %}
+    <section class="product-editorial" style="background-image:linear-gradient(rgba(38,36,26,.12),rgba(38,36,26,.42)),url('{{ editorial_image_url }}')"><h2>{{ section.settings.editorial_heading }}</h2></section>
+  {% endif %}
 
   <aside class="site-drawer size-guide-drawer" data-size-guide-drawer aria-hidden="true" aria-labelledby="SizeGuideTitle-{{ section.id }}">
     <div class="size-guide-dialog__head"><h2 id="SizeGuideTitle-{{ section.id }}">Size Guide</h2><button type="button" data-close-size-guide>Close ×</button></div>
@@ -163,6 +167,8 @@
     { "type": "textarea", "id": "fabric_placeholder", "label": "Fabric and care placeholder", "default": "Double-satin silk/modal blend. Final composition and care instructions remain subject to sampling and approval." },
     { "type": "textarea", "id": "delivery_placeholder", "label": "Delivery and returns placeholder", "default": "Delivery and returns details to be confirmed." },
     { "type": "text", "id": "related_heading", "label": "Related-products heading", "default": "Complete the set" },
+    { "type": "checkbox", "id": "show_editorial", "label": "Show closing editorial image", "default": true },
+    { "type": "image_picker", "id": "editorial_image", "label": "Closing editorial image" },
     { "type": "text", "id": "editorial_heading", "label": "Editorial heading", "default": "For the First Hour and the Last" }
   ]
 }

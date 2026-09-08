@@ -106,3 +106,12 @@ These need a focused design/content decision rather than a blind code change.
 - Shopify's native privacy-banner script is present in the unpublished preview; store-level regions, copy, and appearance remain a launch configuration rather than theme code.
 - Remote pull-back confirms theme assets and sections match the local checkout; Shopify's auto-generated JSON comments are the only serialization difference.
 - Theme roles rechecked: `Coming Soon- Anchovies` is still live; `Soft Hours Ecommerce - Client Editor` is still unpublished.
+
+## Storefront refinement completed September 8
+
+- Corrected the PDP colour-swatch rendering so Pine Grove, Eggplant, Burnished Lilac, and Oat Milk are visually distinct. All four controls update their selected state; placeholder image changes remain provisional until colour-specific product media is supplied.
+- Reduced the desktop primary-image stage to fit inside the initial viewport while retaining `object-fit: contain`. Mobile retains the approved 4:5 stage and has no horizontal overflow.
+- Repaired the closing `For the First Hour and the Last` editorial image and made the image and section visibility editable in Shopify.
+- Corrected the homepage country/currency control to use the cream overlay treatment with an explicit high-contrast arrow, returning to ink after the header scrolls.
+- Shopify Theme Check still reports zero offenses, and the changes were pushed only to unpublished theme `187861107061`.
+- Checkout color and header refinements were applied in Shopify's separate Checkout and Accounts editor: cream `#F2EBDD` for the main and header, ink `#26241A` for accents and buttons, and warm neutral `#E9E1D3` for the order summary. PayPal's provider-controlled button color remains unchanged.
