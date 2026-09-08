@@ -1,8 +1,8 @@
 {% liquid
   assign current_variant = product.selected_or_first_available_variant
   assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
-  assign fallback_secondary = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
-  assign fallback_third = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+  assign fallback_secondary = '01KV681M7KRQC6MXRB6F5HXFTN.png'
+  assign fallback_third = '01KV6G8W6PF4QRGG7B0V629Q18.png'
   assign fallback_position = '50% 32%'
   case product.handle
     when 'shorts'
@@ -13,17 +13,17 @@
     when 'button-down-shirt'
       assign fallback_primary = '01KV68456NW8SJZP5R6X551XAH.png'
       assign fallback_secondary = '01KV67YDSB1SS5XY3DYD75R8NX.png'
-      assign fallback_third = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+      assign fallback_third = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
       assign fallback_position = '50% 20%'
     when 'long-pants'
-      assign fallback_primary = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
-      assign fallback_secondary = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+      assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
+      assign fallback_secondary = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
       assign fallback_third = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
       assign fallback_position = '50% 24%'
     when 'dress'
       assign fallback_primary = '01KV684QM8FD71MTJ337JET3W2.jpg'
-      assign fallback_secondary = '01KV8Q5YVKN4B291G463W18R4R.jpg'
-      assign fallback_third = '01KV8M6QDDQ6C7P21WFFWKVW6D.jpg'
+      assign fallback_secondary = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
+      assign fallback_third = '01KV6816HE9450H72167DYES51.png'
       assign fallback_position = '22% 55%'
   endcase
   if product.images[0]
@@ -46,7 +46,7 @@
 <div class="product-v2" data-product-root>
   <section class="pdp-hero">
     <div class="pdp-gallery" data-gallery data-reveal>
-      <div class="pdp-main-img"><img src="{{ primary_url }}" alt="{{ product.title | escape }}" width="1400" height="1750" data-gallery-main></div>
+      <div class="pdp-main-img"><img src="{{ primary_url }}" alt="{{ product.title | escape }}" width="848" height="1264" data-gallery-main></div>
       <div class="pdp-thumbs" aria-label="Product gallery">
         <button class="pdp-thumb active" type="button" data-gallery-thumb="{{ primary_url }}" aria-label="View first product image" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};"></button>
         <button class="pdp-thumb" type="button" data-gallery-thumb="{{ secondary_url }}" aria-label="View second product image" style="background-image:url('{{ secondary_url }}');background-position:50% 30%;"></button>

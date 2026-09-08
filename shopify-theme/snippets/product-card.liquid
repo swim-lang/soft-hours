@@ -3,7 +3,7 @@
   assign primary_image = card_product.featured_image
   assign secondary_image = card_product.images[1]
   assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
-  assign fallback_hover = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
+  assign fallback_hover = '01KV681M7KRQC6MXRB6F5HXFTN.png'
   assign fallback_position = '50% 32%'
   case card_product.handle
     when 'shorts'
@@ -15,12 +15,12 @@
       assign fallback_hover = '01KV67YDSB1SS5XY3DYD75R8NX.png'
       assign fallback_position = '50% 20%'
     when 'long-pants'
-      assign fallback_primary = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
-      assign fallback_hover = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
+      assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
+      assign fallback_hover = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
       assign fallback_position = '50% 24%'
     when 'dress'
       assign fallback_primary = '01KV684QM8FD71MTJ337JET3W2.jpg'
-      assign fallback_hover = '01KV8Q5YVKN4B291G463W18R4R.jpg'
+      assign fallback_hover = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
       assign fallback_position = '22% 55%'
   endcase
   if primary_image

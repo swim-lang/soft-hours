@@ -4,7 +4,7 @@
   <div class="home-arrivals-rows"><div class="home-arrivals-row">
     {% for product in featured_collection.products limit: 5 %}
       {% liquid
-        assign main_asset = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg'
+        assign main_asset = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
         assign hover_asset = '01KV6816HE9450H72167DYES51.png'
         case product.handle
           when 'shorts'
@@ -14,11 +14,11 @@
             assign main_asset = '01KV68456NW8SJZP5R6X551XAH.png'
             assign hover_asset = '01KV67YDSB1SS5XY3DYD75R8NX.png'
           when 'long-pants'
-            assign main_asset = '01KV8PYRHCSVV1QXRGET4FSMV8.jpg'
-            assign hover_asset = '73NVMYR3STMMM9P9G1RHKZ4ZC0.jpg'
+            assign main_asset = '01KV6816HE9450H72167DYES51.png'
+            assign hover_asset = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
           when 'dress'
             assign main_asset = '01KV684QM8FD71MTJ337JET3W2.jpg'
-            assign hover_asset = '01KV8Q5YVKN4B291G463W18R4R.jpg'
+            assign hover_asset = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
         endcase
       %}
       <a href="{{ product.url }}" class="home-arrival">
@@ -27,7 +27,7 @@
       </a>
     {% else %}
       {% assign fallback_names = 'Camisole|Shorts|Button Down Shirt|Long Pants|Dress' | split: '|' %}
-      {% assign fallback_images = '01KV8PJTD4ZHJEREKVFKW4WWMZ.jpg|01KV680CPDKSC4FCTPKY900JK6.png|01KV68456NW8SJZP5R6X551XAH.png|01KV8PYRHCSVV1QXRGET4FSMV8.jpg|01KV684QM8FD71MTJ337JET3W2.jpg' | split: '|' %}
+      {% assign fallback_images = '01KV681D1WG30XPDZFP0QJ9CEB.jpg|01KV680CPDKSC4FCTPKY900JK6.png|01KV68456NW8SJZP5R6X551XAH.png|01KV6816HE9450H72167DYES51.png|01KV684QM8FD71MTJ337JET3W2.jpg' | split: '|' %}
       {% for name in fallback_names %}<div class="home-arrival"><div class="home-arrival-img" style="background-image:url({{ fallback_images[forloop.index0] | asset_url }})"></div><div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">{{ name }}</span><span class="home-arrival-price">Price pending</span></div></div></div>{% endfor %}
     {% endfor %}
   </div></div>
