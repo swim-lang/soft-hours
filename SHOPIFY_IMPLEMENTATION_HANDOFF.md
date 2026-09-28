@@ -1,5 +1,7 @@
 # Soft Hours Shopify implementation handoff
 
+> **Current setup note (September 28, 2026):** Start with `SOFT_HOURS_TEAMMATE_HANDOFF.md`. It contains the verified repository, branch, Shopify theme IDs, installation map, deployment guardrails, and new client-document intake procedure. This file remains useful as deeper historical architecture context, but its status and baseline details below are no longer the operational handoff.
+
 Status: a Shopify functional foundation exists locally, but the exact Paper V2 fidelity port is still in progress. Authenticated unpublished-theme upload and store-data QA remain. Do not publish or replace the live coming-soon site.
 
 ## Source of truth

@@ -1,5 +1,7 @@
 # Soft Hours Shopify theme build status
 
+> **Historical snapshot:** This August 14 status predates the uploaded Shopify review theme and later implementation passes. Use `SOFT_HOURS_TEAMMATE_HANDOFF.md` for the current source of truth and safe deployment target.
+
 Last updated: August 14, 2026
 
 ## Local implementation

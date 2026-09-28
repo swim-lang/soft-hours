@@ -1,34 +1,16 @@
-# Soft Hours — About 2 (desktop)
+# Soft Hours ecommerce
 
-A static, hand-coded port of the "Soft Hours — About 2" desktop page (1440px) designed in Paper.
+The active Soft Hours ecommerce implementation is the Shopify theme in [`shopify-theme/`](shopify-theme/).
 
-## Structure
+Start with [`SOFT_HOURS_TEAMMATE_HANDOFF.md`](SOFT_HOURS_TEAMMATE_HANDOFF.md). It identifies the correct repository, branch, Shopify theme, review links, legacy installations, client-input workflow, and safe deployment procedure.
 
-```
-index.html        # page markup
-styles.css        # all styling (CSS variables, layout, type)
-assets/           # images + fonts
-  fonts/          # PP Watch (display headlines)
-```
+## Current source of truth
 
-## Type
+- Repository: `https://github.com/swim-lang/soft-hours.git`
+- Branch: `codex/soft-hours-shopify`
+- Local checkout used for the current build: `/Users/seanashlow/Documents/Codex/2026-08-14/soft-hours-shopify`
+- Editable implementation: `shopify-theme/`
+- Shopify review theme: `Soft Hours Ecommerce - Client Editor` (`187861107061`)
+- Live Shopify theme: `Coming Soon- Anchovies` (`187724038517`) — **do not edit or publish over it**
 
-- **Display headlines** — PP Watch Extralight (bundled in `assets/fonts/`, with Jost as a web fallback).
-- **Labels & body** — Courier New.
-
-## Preview locally
-
-It's a fully static site — any static file server works. For example:
-
-```bash
-cd about2-site
-python3 -m http.server 8000
-# open http://localhost:8000
-```
-
-Or just open `index.html` directly in a browser.
-
-## Notes
-
-- The layout is a fixed 1440px-wide desktop reproduction.
-- `assets/fonts/PPWatch-Extralight.otf` is a licensed font — keep this repository private and do not redistribute the font file.
+The root-level static files, Vercel projects, Paper exports, Supabase review data, and ChatGPT Sites projects are reference material. They are not the active store implementation.
