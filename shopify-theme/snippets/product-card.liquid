@@ -1,11 +1,14 @@
 {% liquid
   assign card_product = product
-  assign primary_image = card_product.featured_image
-  assign secondary_image = card_product.images[1]
+  assign card_heading = heading_tag | default: 'h2'
+  assign card_id_suffix = id_suffix | default: 'card'
   assign fallback_primary = '01KV6816HE9450H72167DYES51.png'
   assign fallback_hover = '01KV681M7KRQC6MXRB6F5HXFTN.png'
   assign fallback_position = '50% 32%'
   case card_product.handle
+    when 'camisole'
+      assign fallback_primary = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
+      assign fallback_hover = '01KV681M7KRQC6MXRB6F5HXFTN.png'
     when 'shorts'
       assign fallback_primary = '01KV680CPDKSC4FCTPKY900JK6.png'
       assign fallback_hover = '01KV67Y135HYV9811QS1KQV6J7.png'
@@ -23,16 +26,20 @@
       assign fallback_hover = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
       assign fallback_position = '22% 55%'
   endcase
-  if primary_image
-    assign primary_url = primary_image | image_url: width: 1200
+  assign image_urls = ''
+  for card_image in card_product.images limit: 6
+    assign card_image_url = card_image | image_url: width: 1200
+    assign image_urls = image_urls | append: card_image_url | append: '|'
+  endfor
+  if image_urls == ''
+    assign fallback_primary_url = fallback_primary | asset_url
+    assign fallback_hover_url = fallback_hover | asset_url
+    assign image_urls = fallback_primary_url | append: '|' | append: fallback_hover_url
+    assign image_position = fallback_position
   else
-    assign primary_url = fallback_primary | asset_url
+    assign image_position = '50% 50%'
   endif
-  if secondary_image
-    assign hover_url = secondary_image | image_url: width: 1200
-  else
-    assign hover_url = fallback_hover | asset_url
-  endif
+  assign image_list = image_urls | split: '|'
   assign size_option = blank
   assign quick_colour = blank
   for option in card_product.options_with_values
@@ -44,22 +51,56 @@
     endif
   endfor
 %}
-<article class="shop-card" data-product-card data-product-handle="{{ card_product.handle }}" data-name="{{ card_product.title | escape }}" data-price="{{ card_product.price }}" data-colours="{% for option in card_product.options_with_values %}{% if option.name == 'Color' or option.name == 'Colour' %}{% for value in option.values %}{{ value | handle }} {% endfor %}{% endif %}{% endfor %}" data-sizes="{% for option in card_product.options_with_values %}{% if option.name == 'Size' %}{% for value in option.values %}{{ value | handle }} {% endfor %}{% endif %}{% endfor %}">
-  <div class="shop-card-media">
-    <a href="{{ card_product.url }}" class="shop-card-image-link" aria-label="View {{ card_product.title | escape }}"><div class="shop-card-img" role="img" aria-label="{{ primary_image.alt | default: card_product.title | escape }}" data-card-image data-primary-image="{{ primary_url }}" data-secondary-image="{{ hover_url }}" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};--hover-image:url('{{ hover_url }}');"></div></a>
-    <button class="shop-card-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ card_product.handle }}" aria-pressed="false" aria-label="Save {{ card_product.title | escape }} to wishlist"><span aria-hidden="true">♡</span></button>
-    <div class="shop-card-arrows" aria-label="Browse product images"><button type="button" data-card-image-prev aria-label="Previous image">←</button><button type="button" data-card-image-next aria-label="Next image">→</button></div>
+<article class="shop-card" data-product-card data-product-handle="{{ card_product.handle }}" data-name="{{ card_product.title | escape }}" data-price="{{ card_product.price }}" data-colours="{% for option in card_product.options_with_values %}{% if option.name == 'Color' or option.name == 'Colour' %}{% for value in option.values %}{{ value | handle }} {% endfor %}{% endif %}{% endfor %}" data-sizes="{% for option in card_product.options_with_values %}{% if option.name == 'Size' %}{% for value in option.values %}{% capture size_label %}{% render 'size-label', size: value %}{% endcapture %}{{ size_label | handle }} {% endfor %}{% endif %}{% endfor %}">
+  <div class="shop-card-media" data-card-media>
+    <a href="{{ card_product.url }}" class="shop-card-image-link" aria-label="View {{ card_product.title | escape }}" tabindex="-1"><div class="shop-card-img" role="img" aria-label="{{ card_product.featured_image.alt | default: card_product.title | escape }}" data-card-image data-image-index="0" data-images="{{ image_list | json | escape }}" style="background-image:url('{{ image_list[0] }}');background-position:{{ image_position }};{% if image_list[1] %}--hover-image:url('{{ image_list[1] }}');{% endif %}"></div></a>
+    {% if image_list.size > 1 %}
+      <button class="shop-card-arrow shop-card-arrow--prev" type="button" data-card-image-prev aria-label="Previous image of {{ card_product.title | escape }}"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="M10 2 2 12l8 10" fill="none" stroke="currentColor" stroke-width="1"/></svg></button>
+      <button class="shop-card-arrow shop-card-arrow--next" type="button" data-card-image-next aria-label="Next image of {{ card_product.title | escape }}"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="m2 2 8 10-8 10" fill="none" stroke="currentColor" stroke-width="1"/></svg></button>
+    {% endif %}
+    <button class="shop-card-quick-toggle" type="button" aria-expanded="false" aria-controls="QuickAdd-{{ card_id_suffix }}-{{ card_product.id }}" aria-label="Quick add {{ card_product.title | escape }}" data-quick-toggle><span aria-hidden="true">+</span></button>
+    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-card-quick" id="QuickAdd-{{ card_id_suffix }}-{{ card_product.id }}" data-product-form data-quick-add-form>
+      <input type="hidden" name="id" value="{% if size_option == blank %}{{ card_product.selected_or_first_available_variant.id }}{% endif %}" data-quick-variant>
+      {% if size_option != blank %}
+        <fieldset>
+          <legend>Quick add{% if quick_colour != blank %}<span class="visually-hidden">, {{ quick_colour }}</span>{% endif %}</legend>
+          <div class="shop-card-sizes">
+            {% for size_value in size_option.values %}
+              {% liquid
+                assign size_variant = blank
+                for variant in card_product.variants
+                  if variant.options contains size_value
+                    if quick_colour == blank or variant.options contains quick_colour
+                      assign size_variant = variant
+                      break
+                    endif
+                  endif
+                endfor
+              %}
+              {% capture size_text %}{% render 'size-label', size: size_value %}{% endcapture %}
+              {% if size_variant == blank %}
+                <button type="button" disabled aria-label="{{ size_text }} unavailable">{{ size_text }}</button>
+              {% elsif size_variant.available %}
+                <button type="button" data-card-size data-variant-id="{{ size_variant.id }}" aria-label="Add {{ card_product.title | escape }}{% if quick_colour != blank %}, {{ quick_colour | escape }}{% endif %}, size {{ size_text }} to Cart">{{ size_text }}</button>
+              {% else %}
+                <button type="button" class="is-sold-out" data-card-notify data-variant-id="{{ size_variant.id }}" data-product-handle="{{ card_product.handle }}" data-notify-label="{{ card_product.title | escape }}{% if quick_colour != blank %} — {{ quick_colour | escape }}{% endif %} — {{ size_text }}" aria-haspopup="dialog" aria-label="{{ size_text }} sold out. Notify me when available">{{ size_text }}</button>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </fieldset>
+      {% elsif card_product.available %}
+        <button class="shop-card-add" type="submit">Add to Cart</button>
+      {% else %}
+        <button class="shop-card-add" type="button" data-card-notify data-variant-id="{{ card_product.selected_or_first_available_variant.id }}" data-product-handle="{{ card_product.handle }}" data-notify-label="{{ card_product.title | escape }}" aria-haspopup="dialog">Notify me</button>
+      {% endif %}
+    </form>
   </div>
   <div class="shop-card-info">
-    <a href="{{ card_product.url }}" class="shop-card-link"><div class="shop-card-row"><h2 class="shop-card-name">{{ card_product.title }}</h2><span class="shop-card-price">{{ card_product.price | money_with_currency }}</span></div></a>
-    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-card-quick" data-product-form data-quick-add-form>
-      <input type="hidden" name="id" value="{% unless size_option != blank %}{{ card_product.selected_or_first_available_variant.id }}{% endunless %}" data-quick-variant>
-      {% if size_option != blank %}<fieldset><legend>Select size</legend><div class="shop-card-sizes">
-        {% for size_value in size_option.values %}{% assign size_variant = blank %}{% for variant in card_product.variants %}{% if variant.available and variant.options contains size_value and size_variant == blank %}{% if quick_colour == blank or variant.options contains quick_colour %}{% assign size_variant = variant %}{% endif %}{% endif %}{% endfor %}<button type="button" data-card-size data-variant-id="{{ size_variant.id }}"{% if size_variant == blank %} disabled{% endif %}>{{ size_value | replace: 'Small', 'S' | replace: 'Medium', 'M' | replace: 'Large', 'L' }}</button>{% endfor %}
-      </div></fieldset>{% endif %}
-      {% if quick_colour != blank %}<p class="shop-card-colour">Colour: {{ quick_colour }}</p>{% endif %}
-      {% if card_product.available %}<button class="shop-card-add" type="submit"{% if size_option != blank %} disabled{% endif %}>Add to Cart</button>{% else %}<a class="shop-card-add" href="{{ card_product.url }}#Notify">Notify me</a>{% endif %}
-      <p class="prototype-status" role="status" aria-live="polite" data-product-status></p>
-    </form>
+    <div class="shop-card-row">
+      <a href="{{ card_product.url }}" class="shop-card-link"><{{ card_heading }} class="shop-card-name">{{ card_product.title }}</{{ card_heading }}></a>
+      <button class="shop-card-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ card_product.handle }}" aria-pressed="false" aria-label="Save {{ card_product.title | escape }} to favourites"><svg viewBox="0 0 24 22" aria-hidden="true" focusable="false"><path d="M12 20.5s-8.5-5.2-10-10.4C.9 6.3 3.4 2 7.2 2c2.2 0 3.8 1.2 4.8 2.9C13 3.2 14.6 2 16.8 2c3.8 0 6.3 4.3 5.2 8.1-1.5 5.2-10 10.4-10 10.4Z" stroke="currentColor" stroke-width="1.1"/></svg></button>
+    </div>
+    <p class="shop-card-price">{% if card_product.price_varies %}From {% endif %}{{ card_product.price | money_with_currency }}</p>
+    <p class="shop-card-status" role="status" aria-live="polite" data-product-status></p>
   </div>
 </article>

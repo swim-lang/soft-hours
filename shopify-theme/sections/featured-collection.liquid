@@ -1,30 +1,9 @@
 {% assign featured_collection = section.settings.collection | default: collections['collection-i'] %}
 <section class="home-arrivals">
-  <div class="home-arrivals-head"><h2 class="home-arrivals-title">{{ section.settings.heading }}</h2><p>{{ section.settings.body }}</p></div>
-  <div class="home-arrivals-rows"><div class="home-arrivals-row">
+  <div class="home-arrivals-head"><h2 class="home-arrivals-title">{% if featured_collection != blank %}<a href="{{ featured_collection.url }}">{{ section.settings.heading }}</a>{% else %}{{ section.settings.heading }}{% endif %}</h2><p>{{ section.settings.body }}</p></div>
+  <div class="home-arrivals-rows"><div class="home-arrivals-row home-arrivals-row--cards">
     {% for product in featured_collection.products limit: 5 %}
-      {% liquid
-        assign main_asset = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
-        assign hover_asset = '01KV6816HE9450H72167DYES51.png'
-        case product.handle
-          when 'shorts'
-            assign main_asset = '01KV680CPDKSC4FCTPKY900JK6.png'
-            assign hover_asset = '01KV67Y135HYV9811QS1KQV6J7.png'
-          when 'button-down-shirt'
-            assign main_asset = '01KV68456NW8SJZP5R6X551XAH.png'
-            assign hover_asset = '01KV67YDSB1SS5XY3DYD75R8NX.png'
-          when 'long-pants'
-            assign main_asset = '01KV6816HE9450H72167DYES51.png'
-            assign hover_asset = '01KV681D1WG30XPDZFP0QJ9CEB.jpg'
-          when 'dress'
-            assign main_asset = '01KV684QM8FD71MTJ337JET3W2.jpg'
-            assign hover_asset = '01KV684H0VDRG3GVFXEF0EHZYG.jpg'
-        endcase
-      %}
-      <a href="{{ product.url }}" class="home-arrival">
-        <div class="home-arrival-img" style="background-image:url({% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% else %}{{ main_asset | asset_url }}{% endif %});--hover-image:url({% if product.images[1] %}{{ product.images[1] | image_url: width: 900 }}{% else %}{{ hover_asset | asset_url }}{% endif %});"></div>
-        <div class="home-arrival-info"><div class="home-arrival-row"><span class="home-arrival-name">{{ product.title }}</span><span class="home-arrival-price">{{ product.price | money }}</span></div></div>
-      </a>
+      {% render 'product-card', product: product, heading_tag: 'h3', id_suffix: 'home' %}
     {% else %}
       {% assign fallback_names = 'Camisole|Shorts|Button Down Shirt|Long Pants|Dress' | split: '|' %}
       {% assign fallback_images = '01KV681D1WG30XPDZFP0QJ9CEB.jpg|01KV680CPDKSC4FCTPKY900JK6.png|01KV68456NW8SJZP5R6X551XAH.png|01KV6816HE9450H72167DYES51.png|01KV684QM8FD71MTJ337JET3W2.jpg' | split: '|' %}

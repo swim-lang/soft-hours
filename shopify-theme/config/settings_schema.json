@@ -16,6 +16,8 @@
       { "type": "color", "id": "color_cream", "label": "Cream", "default": "#F2EBDD" },
       { "type": "color", "id": "color_ink", "label": "Ink", "default": "#26241A" },
       { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#5A4F44" },
+      { "type": "color", "id": "color_paper", "label": "Paper", "default": "#FBF8F2", "info": "A lighter third tone for product photography." },
+      { "type": "checkbox", "id": "paper_shop_surfaces", "label": "Use paper tone on shop surfaces", "default": false, "info": "Applies the Paper tone to the collection, product pages, and Cart drawer. Brand pages stay cream." },
       { "type": "image_picker", "id": "favicon", "label": "Favicon" },
       { "type": "text", "id": "instagram_url", "label": "Instagram URL" },
       { "type": "text", "id": "linkedin_url", "label": "LinkedIn URL" },

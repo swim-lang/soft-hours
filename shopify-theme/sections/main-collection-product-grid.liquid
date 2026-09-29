@@ -5,23 +5,87 @@
     {% if section.settings.intro != blank %}<p class="shop-intro">{{ section.settings.intro }}</p>{% elsif collection.description != blank %}<div class="shop-intro rte">{{ collection.description }}</div>{% endif %}
   </section>
 
-  <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
-    <button class="shop-filter-trigger" type="button" data-open-collection-filter>Filter <span aria-hidden="true">+</span></button>
-    <label class="shop-sort"><span>Sort</span><select name="sort_by" aria-label="Sort {{ collection.title }}" onchange="this.form.submit()">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}{% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></label>
-  </form>
-  <aside class="site-drawer collection-filter-drawer" aria-hidden="true" aria-labelledby="CollectionFilterTitle" data-collection-filter-drawer>
-    <div class="drawer-head"><h2 id="CollectionFilterTitle">Filter</h2><button type="button" data-close-collection-filter>Close ×</button></div>
-    <div class="collection-filter-body">
-      <label><span>Colour</span><select aria-label="Filter by colour" data-collection-filter="colour"><option value="all">All colours</option><option value="pine-grove">Pine Grove</option><option value="eggplant">Eggplant</option><option value="burnished-lilac">Burnished Lilac</option><option value="oat-milk">Oat Milk</option></select></label>
-      <label><span>Size</span><select aria-label="Filter by size" data-collection-filter="size"><option value="all">All sizes</option><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select></label>
-      <button class="collection-filter-apply" type="button" data-close-collection-filter>View pieces</button>
-    </div>
-  </aside>
-  <p class="visually-hidden" data-collection-status aria-live="polite"></p>
-
   {% paginate collection.products by section.settings.products_per_page %}
+    {% liquid
+      assign filter_sizes = ''
+      assign filter_colours = ''
+      for product in collection.products
+        for option in product.options_with_values
+          if option.name == 'Size'
+            for value in option.values
+              capture size_label
+                render 'size-label', size: value
+              endcapture
+              assign filter_sizes = filter_sizes | append: size_label | append: '|'
+            endfor
+          elsif option.name == 'Color' or option.name == 'Colour'
+            for value in option.values
+              assign filter_colours = filter_colours | append: value | append: '|'
+            endfor
+          endif
+        endfor
+      endfor
+      assign filter_sizes = filter_sizes | split: '|' | uniq
+      assign filter_colours = filter_colours | split: '|' | uniq
+      assign sort_by = collection.sort_by | default: collection.default_sort_by
+    %}
+
+    <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
+      <button class="shop-filter-trigger" type="button" aria-controls="CollectionFilterDrawer" data-open-collection-filter>Filter<span class="shop-filter-count" data-filter-active-count hidden></span></button>
+      <label class="shop-sort"><span>Sort:</span><select name="sort_by" aria-label="Sort {{ collection.title | escape }}" onchange="this.form.submit()">{% for option in collection.sort_options %}{% unless option.value contains 'created' %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endunless %}{% endfor %}</select></label>
+    </form>
+    <aside class="site-drawer collection-filter-drawer" id="CollectionFilterDrawer" aria-hidden="true" aria-labelledby="CollectionFilterTitle" data-collection-filter-drawer>
+      <div class="drawer-head"><h2 id="CollectionFilterTitle">Filter</h2><button type="button" data-close-collection-filter>Close ×</button></div>
+      <div class="collection-filter-body">
+        <div class="filter-active" data-filter-active hidden><div class="filter-chips" data-filter-chips></div><button class="button-reset text-link" type="button" data-filter-clear>Clear all</button></div>
+        {% if filter_sizes.size > 0 %}
+          <fieldset class="filter-group">
+            <legend>Size</legend>
+            <div class="filter-sizes">{% for size in filter_sizes %}<button type="button" aria-pressed="false" data-filter-option data-filter-group="size" data-value="{{ size | handle }}" data-label="{{ size | escape }}">{{ size }}</button>{% endfor %}</div>
+          </fieldset>
+        {% endif %}
+        {% if filter_colours.size > 0 %}
+          <fieldset class="filter-group">
+            <legend>Colour</legend>
+            <div class="filter-checks">{% for colour in filter_colours %}<label class="filter-check"><input type="checkbox" data-filter-option data-filter-group="colour" data-value="{{ colour | handle }}" data-label="{{ colour | escape }}"><span>{{ colour }}</span><span class="filter-count" data-filter-count></span></label>{% endfor %}</div>
+          </fieldset>
+        {% endif %}
+      </div>
+      <div class="collection-filter-foot"><button class="collection-filter-apply" type="button" data-close-collection-filter>Show results (<span data-filter-result-count>{{ collection.products.size }}</span>)</button></div>
+    </aside>
+    <p class="visually-hidden" data-collection-status aria-live="polite"></p>
+
     <section class="shop-grid" data-collection-grid>
-      {% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<div class="collection-empty"><p>{{ section.settings.empty_message }}</p></div>{% endfor %}
+      {% for product in collection.products %}
+        {% render 'product-card', product: product, id_suffix: section.id %}
+        {% assign product_position = forloop.index %}
+        {% for block in section.blocks %}
+          {% if block.settings.position == product_position %}
+            <figure class="shop-campaign{% if block.settings.width == 'wide' %} shop-campaign--wide{% endif %}" data-campaign-tile {{ block.shopify_attributes }}>
+              {% if block.settings.link != blank %}<a class="shop-campaign-link" href="{{ block.settings.link }}">{% endif %}
+              <div class="shop-campaign-media">
+                {% if block.settings.video != blank %}
+                  {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1600x' }}
+                {% elsif block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1800', sizes: '(min-width: 1100px) 50vw, 100vw', alt: block.settings.image.alt | default: block.settings.heading }}
+                {% else %}
+                  <div class="shop-campaign-placeholder" style="background-image:url('{{ '53B80KH9VEMMP3QMNSJ3FRC7C4.jpg' | asset_url }}')"></div>
+                {% endif %}
+              </div>
+              {% if block.settings.heading != blank or block.settings.link_label != blank %}
+                <figcaption class="shop-campaign-caption">
+                  {% if block.settings.heading != blank %}<span class="shop-campaign-heading">{{ block.settings.heading }}</span>{% endif %}
+                  {% if block.settings.link_label != blank %}<span class="shop-campaign-cta">{{ block.settings.link_label }}</span>{% endif %}
+                </figcaption>
+              {% endif %}
+              {% if block.settings.link != blank %}</a>{% endif %}
+            </figure>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div class="collection-empty"><p>{{ section.settings.empty_message }}</p></div>
+      {% endfor %}
+      <p class="collection-empty" data-filter-empty hidden>No pieces match these filters. <button class="button-reset text-link" type="button" data-filter-clear>Clear all</button></p>
     </section>
     {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
   {% endpaginate %}
@@ -40,7 +104,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collection I" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Still Life" },
     { "type": "textarea", "id": "intro", "label": "Introduction", "default": "Five pieces for morning, evening, and the hours between. Designed to move easily from first light to the final hour." },
-    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 24, "step": 3, "default": 12 },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
     { "type": "text", "id": "empty_message", "label": "Empty collection message", "default": "Collection I is being prepared." },
     { "type": "checkbox", "id": "show_closing_notes", "label": "Show closing notes", "default": false },
     { "type": "header", "content": "Closing notes" },
@@ -48,6 +112,22 @@
     { "type": "textarea", "id": "note_one_body", "label": "First body", "default": "Sold-out or coming-soon pieces will be shown calmly, with a Notify me option instead of urgency language." },
     { "type": "text", "id": "note_two_heading", "label": "Second heading", "default": "Five Pieces, Four Colours" },
     { "type": "textarea", "id": "note_two_body", "label": "Second body", "default": "Final colour names and first-run size availability remain editable while sampling is completed." }
+  ],
+  "blocks": [
+    {
+      "type": "campaign",
+      "name": "Campaign tile",
+      "settings": [
+        { "type": "paragraph", "content": "Places a campaign image or video inside the product grid. Tiles are hidden while shoppers use filters." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "video", "id": "video", "label": "Video", "info": "Optional. Plays muted and looping; the image is not needed when a video is chosen." },
+        { "type": "range", "id": "position", "label": "Show after product", "min": 1, "max": 24, "step": 1, "default": 2 },
+        { "type": "select", "id": "width", "label": "Width", "options": [{ "value": "single", "label": "One product" }, { "value": "wide", "label": "Two products" }], "default": "wide" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop now" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
   ]
 }
 {% endschema %}

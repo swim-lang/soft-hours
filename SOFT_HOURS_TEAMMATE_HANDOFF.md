@@ -92,6 +92,7 @@ When the document arrives:
 
 Useful existing context:
 
+- `MARION_SEPTEMBER_20_DECISION_REGISTER.md` — decision register for Marion's September 20 “Website Take II” document (original saved in `client-feedback/2026-09-20-website-comments-ii/`).
 - `MARION_AUGUST_27_FEEDBACK_AUDIT.md` — latest consolidated client-feedback audit currently in the repository.
 - `CLIENT_CONTENT_EDITOR_GUIDE.md` — concise client-facing guide to editing the unpublished theme.
 - `SHOPIFY_IMPLEMENTATION_HANDOFF.md` — deeper architecture and historical implementation notes.

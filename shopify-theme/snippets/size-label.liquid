@@ -1,0 +1,18 @@
+{%- comment -%} Customer-facing size abbreviation. Usage: render 'size-label', size: value {%- endcomment -%}
+{%- liquid
+  assign size_key = size | downcase | remove: ' ' | remove: '-'
+  case size_key
+    when 'extrasmall', 'xsmall', 'xs'
+      echo 'XS'
+    when 'small', 's'
+      echo 'S'
+    when 'medium', 'm'
+      echo 'M'
+    when 'large', 'l'
+      echo 'L'
+    when 'extralarge', 'xlarge', 'xl'
+      echo 'XL'
+    else
+      echo size
+  endcase
+-%}

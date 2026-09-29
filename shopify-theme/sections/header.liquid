@@ -8,7 +8,23 @@
   <div class="nav-side nav-left"><a class="wordmark-nav" href="{{ routes.root_url }}" aria-label="{{ shop.name }}"></a></div>
   <nav class="nav-links" aria-label="Primary">
     {% if primary_menu != blank %}
-      {% for link in primary_menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endfor %}
+      {% for link in primary_menu.links %}
+        {% if link.links != blank %}
+          <div class="nav-dropdown" data-nav-dropdown>
+            <a href="{{ link.url }}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>{{ link.title }}</a><button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="NavDropdown-{{ forloop.index }}" aria-label="Show {{ link.title | escape }} menu" data-nav-dropdown-toggle><svg viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="m1 1 4 4 4-4" fill="none" stroke="currentColor"/></svg></button>
+            <div class="nav-dropdown-panel" id="NavDropdown-{{ forloop.index }}" data-nav-dropdown-panel>
+              {% for childlink in link.links %}
+                <div class="nav-dropdown-group">
+                  <a href="{{ childlink.url }}"{% if childlink.current %} aria-current="page"{% endif %}>{{ childlink.title }}</a>
+                  {% if childlink.links != blank %}<ul>{% for grandchildlink in childlink.links %}<li><a href="{{ grandchildlink.url }}"{% if grandchildlink.current %} aria-current="page"{% endif %}>{{ grandchildlink.title }}</a></li>{% endfor %}</ul>{% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {% endif %}
+      {% endfor %}
     {% else %}
       <a href="{{ routes.collections_url }}/collection-i">Shop</a><a href="{% if journal != blank %}{{ journal.url }}{% else %}{{ routes.root_url }}#JournalPreview{% endif %}">Journal</a><a href="{{ about_url }}">About</a>
     {% endif %}
@@ -20,14 +36,18 @@
         {% for country in localization.available_countries %}<option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>{{ country.name }} — {{ country.currency.iso_code }}</option>{% endfor %}
       </select>
     {% endform %}
-    <button class="nav-action" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>
+    {% if section.settings.cart_display == 'icon' %}
+      <button class="nav-action nav-cart-icon" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart><span class="visually-hidden">Cart, <span data-cart-count>{{ cart.item_count }}</span> items</span><svg viewBox="0 0 20 22" aria-hidden="true" focusable="false"><path d="M3.5 6.5h13l1 14h-15l1-14Z" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M7 8.5V5a3 3 0 0 1 6 0v3.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg><span class="nav-cart-count" aria-hidden="true" data-cart-count>{{ cart.item_count }}</span></button>
+    {% else %}
+      <button class="nav-action" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>
+    {% endif %}
   </div>
   <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="MobileMenu" data-open-menu><span></span><span></span></button>
 </header>
 <div class="mobile-menu" id="MobileMenu" aria-hidden="true" data-mobile-menu>
   <div class="mobile-menu-head"><span>{{ settings.brand_name | default: shop.name }}</span><button class="mobile-menu-close" type="button" data-close-menu>Close ×</button></div>
   <nav class="mobile-menu-links" aria-label="Mobile primary">
-    {% if primary_menu != blank %}{% for link in primary_menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endfor %}
+    {% if primary_menu != blank %}{% for link in primary_menu.links %}{% if link.links != blank %}<details class="mobile-menu-group"><summary>{{ link.title }}</summary><div><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>All {{ link.title }}</a>{% for childlink in link.links %}<a href="{{ childlink.url }}"{% if childlink.current %} aria-current="page"{% endif %}>{{ childlink.title }}</a>{% for grandchildlink in childlink.links %}<a class="mobile-menu-sublink" href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a>{% endfor %}{% endfor %}</div></details>{% else %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endif %}{% endfor %}
     {% else %}<a href="{{ routes.collections_url }}/collection-i">Shop</a><a href="{% if journal != blank %}{{ journal.url }}{% else %}{{ routes.root_url }}#JournalPreview{% endif %}">Journal</a><a href="{{ about_url }}">About</a>{% endif %}
     {% if secondary_menu != blank %}{% for link in secondary_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% endif %}
   </nav>
@@ -48,6 +68,8 @@
     { "type": "paragraph", "content": "The approved Soft Hours wordmark and navigation styling are fixed. Manage links in Content > Menus." },
     { "type": "link_list", "id": "primary_menu", "label": "Primary menu" },
     { "type": "link_list", "id": "secondary_menu", "label": "Mobile-only secondary menu" },
+    { "type": "paragraph", "content": "Nested links become a dropdown. Example: add Collection I, Tops, and Bottoms under Shop in Content > Menus, then select that menu above." },
+    { "type": "select", "id": "cart_display", "label": "Cart display", "options": [{ "value": "text", "label": "Text: Cart (1)" }, { "value": "icon", "label": "Bag icon with count" }], "default": "text" },
     { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." }
   ]
 }

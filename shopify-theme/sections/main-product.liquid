@@ -88,7 +88,7 @@
               <div class="pdp-size">
                 <div class="pdp-size-head"><span class="pdp-opt-label">Size <span class="visually-hidden">selected:</span> <span data-option-label="{{ option_index }}">Select a size</span></span><button type="button" class="pdp-size-guide" data-open-size-guide>Size Guide</button></div>
                 <div class="pdp-sizes">
-                  {% for value in option.values %}<button type="button" class="pdp-size-opt" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" aria-pressed="false">{{ value | replace: 'Small', 'S' | replace: 'Medium', 'M' | replace: 'Large', 'L' }}</button>{% endfor %}
+                  {% for value in option.values %}<button type="button" class="pdp-size-opt" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" aria-pressed="false">{% render 'size-label', size: value %}</button>{% endfor %}
                 </div>
               </div>
             {% else %}
@@ -138,9 +138,9 @@
     <div class="pdp-related-head"><h2 class="pdp-related-title">{{ section.settings.related_heading }}</h2><a href="{{ routes.collections_url }}/collection-i" class="pdp-view-all">Shop all →</a></div>
     <div class="pdp-related-grid">
       {% if related_products != blank %}
-        {% for related_product in related_products limit: 3 %}{% render 'product-card', product: related_product %}{% endfor %}
+        {% for related_product in related_products limit: 3 %}{% render 'product-card', product: related_product, id_suffix: 'related' %}{% endfor %}
       {% else %}
-        {% assign related_count = 0 %}{% for related_product in collection_products %}{% unless related_product.id == product.id %}{% if related_count < 3 %}{% render 'product-card', product: related_product %}{% assign related_count = related_count | plus: 1 %}{% endif %}{% endunless %}{% endfor %}
+        {% assign related_count = 0 %}{% for related_product in collection_products %}{% unless related_product.id == product.id %}{% if related_count < 3 %}{% render 'product-card', product: related_product, id_suffix: 'related' %}{% assign related_count = related_count | plus: 1 %}{% endif %}{% endunless %}{% endfor %}
       {% endif %}
     </div>
   </section>

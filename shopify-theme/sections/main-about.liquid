@@ -18,7 +18,10 @@
 
   <section class="founder">
     <div class="founder-text"><h2 class="founder-title">{{ section.settings.founder_heading }}</h2><div class="founder-body">{{ section.settings.founder_body }}</div></div>
-    <div class="founder-image"{% if section.settings.founder_image %} style="background-image:url('{{ section.settings.founder_image | image_url: width: 1600 }}')"{% endif %} role="img" aria-label="{{ section.settings.founder_image_alt | escape }}"></div>
+    <div class="founder-media">
+      <div class="founder-image"{% if section.settings.founder_image %} style="background-image:url('{{ section.settings.founder_image | image_url: width: 1600 }}')"{% endif %} role="img" aria-label="{{ section.settings.founder_image_alt | escape }}"></div>
+      {% if section.settings.founder_video != blank %}<div class="founder-video">{{ section.settings.founder_video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1600x' }}</div>{% endif %}
+    </div>
   </section>
 
   <section class="patience">
@@ -49,6 +52,7 @@
     { "type": "header", "content": "Founder" },
     { "type": "image_picker", "id": "founder_image", "label": "Founder image" },
     { "type": "text", "id": "founder_image_alt", "label": "Founder image description", "default": "Founder in a meadow" },
+    { "type": "video", "id": "founder_video", "label": "Founder video", "info": "Optional. Plays muted and looping; the founder image is shown first and for visitors who prefer reduced motion." },
     { "type": "text", "id": "founder_heading", "label": "Founder heading", "default": "Our Founder" },
     { "type": "richtext", "id": "founder_body", "label": "Founder story", "default": "<p>Soft Hours started with a frustration that we just couldn't shake. Our founder, Marion Voldan, had spent several years in the apparel industry surrounded by beautiful cloth made into clothes for going out. Pieces meant for home were always an afterthought: thin, disposable, made down to a cheap price that reflected the lack of quality.</p><p>The hours at the edges of the day are some of our most honest, so she set out to make the thing that did not exist: clothing for the private hours, approached with the same intention as everything worn beyond the front door.</p>" },
     { "type": "header", "content": "Making" },

@@ -1,0 +1,15 @@
+<dialog class="notify-dialog" aria-labelledby="NotifyDialogTitle" data-notify-dialog>
+  {% form 'customer', class: 'notify-dialog__form', id: 'NotifyDialogForm' %}
+    <div class="notify-dialog__head"><h2 id="NotifyDialogTitle">Notify me when available</h2><button type="button" data-close-notify>Close ×</button></div>
+    {% if form.posted_successfully? %}
+      <p class="notify-dialog__note" data-notify-success>Thank you. We will let you know when it is available.</p>
+    {% else %}
+      <p class="notify-dialog__note" data-notify-product></p>
+      <input type="hidden" name="contact[tags]" value="notify-me" data-notify-tags>
+      <label for="NotifyDialogEmail">Email address</label>
+      <input id="NotifyDialogEmail" type="email" name="contact[email]" autocomplete="email" required>
+      {% if form.errors %}<div class="notify-dialog__error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+      <button class="prototype-button prototype-button--dark" type="submit">Notify me</button>
+    {% endif %}
+  {% endform %}
+</dialog>

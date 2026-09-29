@@ -1,5 +1,6 @@
 <section class="home-hero">
   <div class="home-hero-photo"{% if section.settings.image %} style="background-image:url({{ section.settings.image | image_url: width: 2400 }})"{% else %} style="background-image:url({{ '53B80KH9VEMMP3QMNSJ3FRC7C4.jpg' | asset_url }})"{% endif %}></div>
+  {% if section.settings.video != blank %}<div class="home-hero-video">{{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '2400x' }}</div>{% endif %}
   <div class="home-hero-tint"></div><div class="home-hero-navscrim"></div>
   <div class="home-hero-content">
     <div class="home-hero-text"><h1 class="home-hero-title">{{ section.settings.heading }}</h1><p class="home-hero-sub">{{ section.settings.subheading }}</p></div>
@@ -10,7 +11,8 @@
 {
   "name": "Home hero",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Also used as the still frame before a video loads, and for visitors who prefer reduced motion." },
+    { "type": "video", "id": "video", "label": "Hero video", "info": "Optional. Upload in Shopify; plays muted and looping over the image." },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Time Well Kept" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pyjamas for morning, evening, and the hours between." },
     { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop Collection I" },
