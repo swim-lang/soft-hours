@@ -88,3 +88,4 @@ Before this round, the Shopify copy of `templates/index.json` held editor change
 - Console: the only failed requests are Shopify's `sf_private_access_tokens` (401) and one platform 404; no theme errors.
 - The test cart was emptied afterwards (`/cart/clear.js`, this browser session only).
 - Not exercised: a real sold-out variant, nested menu rendering (no nested primary menu is assigned yet), the cart icon option, the paper tone, and hero/founder/campaign video uploads. These depend on editor or admin content, and each has a safe default.
+- September 29 follow-up (Kira): the collection `Filter` control read as plain text. It is now an outlined button with a filter icon (ink fill on hover, only on devices that support hover). Sort stays on the same row on mobile. Drawer triggers now reset `aria-expanded` when a drawer closes. Verified at 1440px and 375px.

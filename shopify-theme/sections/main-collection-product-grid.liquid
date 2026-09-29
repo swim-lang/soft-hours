@@ -31,7 +31,7 @@
     %}
 
     <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
-      <button class="shop-filter-trigger" type="button" aria-controls="CollectionFilterDrawer" data-open-collection-filter>Filter<span class="shop-filter-count" data-filter-active-count hidden></span></button>
+      <button class="shop-filter-trigger" type="button" aria-controls="CollectionFilterDrawer" data-open-collection-filter><svg viewBox="0 0 16 12" aria-hidden="true" focusable="false"><path d="M0 2h16M0 10h16" stroke="currentColor"/><circle cx="5" cy="2" r="1.6" fill="var(--cream)" stroke="currentColor"/><circle cx="11" cy="10" r="1.6" fill="var(--cream)" stroke="currentColor"/></svg><span>Filter</span><span class="shop-filter-count" data-filter-active-count hidden></span></button>
       <label class="shop-sort"><span>Sort:</span><select name="sort_by" aria-label="Sort {{ collection.title | escape }}" onchange="this.form.submit()">{% for option in collection.sort_options %}{% unless option.value contains 'created' %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endunless %}{% endfor %}</select></label>
     </form>
     <aside class="site-drawer collection-filter-drawer" id="CollectionFilterDrawer" aria-hidden="true" aria-labelledby="CollectionFilterTitle" data-collection-filter-drawer>

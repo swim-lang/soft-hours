@@ -24,7 +24,7 @@
       panel.setAttribute('aria-hidden', 'true');
       panel.classList.remove('is-open');
     });
-    setExpanded('[data-open-cart], [data-open-menu]', false);
+    setExpanded('[data-open-cart], [data-open-menu], [data-open-collection-filter], [data-open-size-guide]', false);
     overlay.hidden = true;
     lockPage(false);
     if (lastTrigger?.isConnected) lastTrigger.focus();

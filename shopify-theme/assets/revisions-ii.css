@@ -104,7 +104,15 @@
 
 /* P7, P8 · Quieter filter and sort controls */
 .collection-v2 .shop-filter { align-items: center; min-height: 44px; }
-.collection-v2 .shop-filter-trigger { font: var(--type-control)/17px var(--label); letter-spacing: .06em; text-transform: uppercase; }
+.collection-v2 .shop-filter-trigger { min-height: 40px; padding: 0 16px; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: var(--type-control)/17px var(--label); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; transition: background-color .2s ease, color .2s ease; }
+.collection-v2 .shop-filter-trigger svg { width: 16px; height: 12px; flex-shrink: 0; }
+.collection-v2 .shop-filter-trigger svg circle { transition: fill .2s ease; }
+.collection-v2 .shop-filter-trigger span { margin: 0; }
+@media (hover: hover) {
+  .collection-v2 .shop-filter-trigger:hover { background: var(--ink); color: var(--cream); }
+  .collection-v2 .shop-filter-trigger:hover svg circle { fill: var(--ink); stroke: var(--cream); }
+}
+.paper-shop-surfaces .collection-v2 .shop-filter-trigger svg circle { fill: var(--paper); }
 .collection-v2 .shop-sort { position: relative; min-width: 0; min-height: 44px; padding: 0 16px 0 0; display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; }
 .collection-v2 .shop-sort:hover, .collection-v2 .shop-sort:focus-within { border: 0; background: none; }
 .collection-v2 .shop-sort::after { right: 2px; width: 6px; height: 6px; }
@@ -260,7 +268,10 @@
   .shop-card-quick .shop-card-sizes button { min-width: 32px; min-height: 36px; }
   .shop-card-arrow { width: 32px; }
   .collection-v2 .shop-filter { margin: 0 16px; }
-  .collection-v2 .shop-sort, .collection-v2 .shop-select { flex: 0 1 auto; min-height: 44px; padding: 0 14px 0 0; }
+  .collection-v2 .shop-filter { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 12px; }
+  .collection-v2 .shop-filter-trigger { flex-shrink: 0; }
+  .collection-v2 .shop-sort, .collection-v2 .shop-select { grid-column: auto; flex: 0 1 auto; min-width: 0; min-height: 44px; padding: 0 14px 0 0; }
+  .collection-v2 .shop-sort select { min-width: 0; max-width: 132px; text-overflow: ellipsis; }
   .collection-filter-drawer .collection-filter-body { padding: 24px 16px; }
   .collection-filter-foot { padding: 14px 16px 18px; }
   .cart-drawer-panel .drawer-head, .collection-filter-drawer .drawer-head { height: 60px; padding: 0 16px; }
