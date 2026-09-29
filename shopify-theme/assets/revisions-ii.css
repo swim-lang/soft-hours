@@ -214,6 +214,9 @@
 /* F2 · Footer bottom bar holds only the copyright */
 .footer-bottom { justify-content: flex-start; }
 
+/* Footer wordmark uses the brand cream (#F2EBDD, same as footer links) rather than near-white. */
+.footer-wordmark { background-image: url('footer-wordmark.svg?v=20260929-cream'); filter: none; }
+
 /* F3 · Support pages (Size Guide, Contact, FAQ): one readable hierarchy */
 .page-hero { padding: 64px var(--page-pad) 44px; }
 .page-hero .eyebrow, .support-layout .eyebrow { font: var(--type-meta)/16px var(--label); letter-spacing: .08em; color: var(--muted); }
