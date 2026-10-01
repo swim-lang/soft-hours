@@ -288,3 +288,35 @@
   .support-layout { padding: 36px 20px 72px; }
   .size-table__row { font-size: 12px; }
 }
+
+/* ---------- Iteration 3 (Marion, October 1) — see MARION_OCTOBER_1_STATUS.md ---------- */
+
+/* #2 · Card arrows in cream so they read on photography */
+.shop-card-arrow { color: var(--cream); filter: drop-shadow(0 0 3px rgba(38,36,26,.55)); }
+
+/* #8 · Slightly more transparent size bar */
+.shop-card-quick { background: rgba(242,235,221,.8); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.paper-shop-surfaces .shop-card-quick { background: color-mix(in srgb, var(--paper) 80%, transparent); }
+
+/* #9 · Product-page heart matches the product cards */
+.product-v2 .pdp-product-wishlist { width: 32px; height: 32px; border: 0; border-radius: 0; background: none; color: var(--ink); cursor: pointer; }
+.product-v2 .pdp-product-wishlist[aria-pressed="true"] { background: none; }
+.product-v2 .pdp-product-wishlist svg { width: 20px; height: 19px; fill: none; transition: fill .2s ease; }
+.product-v2 .pdp-product-wishlist[aria-pressed="true"] svg { fill: currentColor; }
+.product-v2 .pdp-product-wishlist:hover svg { opacity: .7; }
+
+/* #11 · "Complete the set" in the regular weight */
+.product-v2 .pdp-related-title { font-weight: 400; }
+
+/* #15 · Sort opens from the whole control, as a brand-styled menu */
+.collection-v2 .shop-sort { position: relative; padding: 0; }
+.collection-v2 .shop-sort::after { content: none; }
+.shop-sort-toggle { min-height: 44px; padding: 0; display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--ink); font: var(--type-control)/17px var(--label); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.shop-sort-toggle .shop-sort-prefix { color: var(--muted); }
+.shop-sort-toggle svg { width: 10px; height: 6px; margin-left: 4px; transition: transform .2s ease; }
+.shop-sort.is-open .shop-sort-toggle svg { transform: rotate(180deg); }
+.shop-sort-menu { position: absolute; top: 100%; right: 0; z-index: 20; min-width: 240px; margin: 4px 0 0; padding: 8px 0; list-style: none; border: 1px solid var(--hairline); background: var(--cream); box-shadow: 0 18px 40px rgba(38,36,26,.1); }
+.paper-shop-surfaces .shop-sort-menu { background: var(--paper); }
+.shop-sort-menu a { display: block; padding: 11px 20px; color: var(--ink); font: var(--type-control)/18px var(--label); letter-spacing: .04em; text-decoration: none; }
+.shop-sort-menu a:hover, .shop-sort-menu a:focus-visible { background: rgba(38,36,26,.05); outline: none; }
+.shop-sort-menu a[aria-current="true"] { text-decoration: underline; text-underline-offset: 4px; }

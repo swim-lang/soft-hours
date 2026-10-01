@@ -410,6 +410,43 @@
 
   qsa('.collection-v2').forEach((root) => { if (qs('[data-filter-option]', root)) applyCollectionFilters(root); });
 
+  const closeSortMenus = (except) => qsa('[data-sort-menu].is-open').forEach((menu) => {
+    if (menu === except) return;
+    menu.classList.remove('is-open');
+    qs('[data-sort-toggle]', menu)?.setAttribute('aria-expanded', 'false');
+    const list = qs('.shop-sort-menu', menu);
+    if (list) list.hidden = true;
+  });
+  document.addEventListener('click', (event) => {
+    const menu = event.target.closest('[data-sort-menu]');
+    closeSortMenus(menu);
+    const toggle = event.target.closest('[data-sort-toggle]');
+    if (!toggle) return;
+    const willOpen = !menu.classList.contains('is-open');
+    menu.classList.toggle('is-open', willOpen);
+    toggle.setAttribute('aria-expanded', String(willOpen));
+    qs('.shop-sort-menu', menu).hidden = !willOpen;
+    if (willOpen) (qs('.shop-sort-menu a[aria-current="true"]', menu) || qs('.shop-sort-menu a', menu))?.focus();
+  });
+  document.addEventListener('keydown', (event) => {
+    const menu = event.target.closest?.('[data-sort-menu].is-open');
+    if (!menu) return;
+    const links = qsa('.shop-sort-menu a', menu);
+    const index = links.indexOf(document.activeElement);
+    if (event.key === 'Escape') {
+      closeSortMenus();
+      qs('[data-sort-toggle]', menu)?.focus();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      const next = event.key === 'ArrowDown' ? index + 1 : index - 1;
+      links[(next + links.length) % links.length]?.focus();
+    }
+  });
+  document.addEventListener('focusout', (event) => {
+    const menu = event.target.closest?.('[data-sort-menu].is-open');
+    if (menu && event.relatedTarget && !menu.contains(event.relatedTarget)) closeSortMenus();
+  });
+
   const closeNavDropdowns = (except) => qsa('[data-nav-dropdown].is-open').forEach((dropdown) => {
     if (dropdown === except) return;
     dropdown.classList.remove('is-open');

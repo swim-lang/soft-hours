@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -17,10 +26,10 @@
         "sampling": {
           "type": "maker",
           "settings": {
+            "image": "shopify://shop_images/IMG_0536.heic",
             "fallback_image": "fabric",
             "image_position": "50% 35%",
             "image_alt": "Green fabric being cut",
-            "image": "shopify://shop_images/IMG_0536.heic",
             "caption": "Product design · Details to be confirmed",
             "heading": "Product Design",
             "body": "<p>Fit, fall, finish, measurements, and care remain editable while the first collection is sampled.</p>"
@@ -38,12 +47,16 @@
           }
         }
       },
-      "block_order": ["fabric", "sampling", "identity"],
+      "block_order": [
+        "fabric",
+        "sampling",
+        "identity"
+      ],
       "settings": {
         "hero_heading": "For the First Hour & the Last",
         "intro_eyebrow": "About Soft Hours",
         "intro_body": "<p>Soft Hours is built around a single idea: what you wear when you enter and exit the day should be treated with care, intention, and patience.</p><p>The spark for Soft Hours arrived on a phone call between two women, eight thousand kilometres and an hour apart, talking about business ventures.</p><p>What followed: how to make something exact enough to be worn out of the bedroom and soft enough to stay in it. How to design for the most private hours of her day, without making her disappear into them.</p>",
-        "bedspread_image": "shopify://shop_images/DSCF1259_2.jpg",
+        "bedspread_image": "shopify://shop_images/DSCF1258.jpg",
         "bedspread_label": "For Chosen Solitude",
         "bedspread_heading": "Time Well Kept",
         "founder_image": "shopify://shop_images/Marion_resized.jpg",
@@ -55,5 +68,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

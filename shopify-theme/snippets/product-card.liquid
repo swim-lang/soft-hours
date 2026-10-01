@@ -58,12 +58,12 @@
       <button class="shop-card-arrow shop-card-arrow--prev" type="button" data-card-image-prev aria-label="Previous image of {{ card_product.title | escape }}"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="M10 2 2 12l8 10" fill="none" stroke="currentColor" stroke-width="1"/></svg></button>
       <button class="shop-card-arrow shop-card-arrow--next" type="button" data-card-image-next aria-label="Next image of {{ card_product.title | escape }}"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="m2 2 8 10-8 10" fill="none" stroke="currentColor" stroke-width="1"/></svg></button>
     {% endif %}
-    <button class="shop-card-quick-toggle" type="button" aria-expanded="false" aria-controls="QuickAdd-{{ card_id_suffix }}-{{ card_product.id }}" aria-label="Quick add {{ card_product.title | escape }}" data-quick-toggle><span aria-hidden="true">+</span></button>
+    <button class="shop-card-quick-toggle" type="button" aria-expanded="false" aria-controls="QuickAdd-{{ card_id_suffix }}-{{ card_product.id }}" aria-label="Select size for {{ card_product.title | escape }}" data-quick-toggle><span aria-hidden="true">+</span></button>
     <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-card-quick" id="QuickAdd-{{ card_id_suffix }}-{{ card_product.id }}" data-product-form data-quick-add-form>
       <input type="hidden" name="id" value="{% if size_option == blank %}{{ card_product.selected_or_first_available_variant.id }}{% endif %}" data-quick-variant>
       {% if size_option != blank %}
         <fieldset>
-          <legend>Quick add{% if quick_colour != blank %}<span class="visually-hidden">, {{ quick_colour }}</span>{% endif %}</legend>
+          <legend>Select size{% if quick_colour != blank %}<span class="visually-hidden">, {{ quick_colour }}</span>{% endif %}</legend>
           <div class="shop-card-sizes">
             {% for size_value in size_option.values %}
               {% liquid

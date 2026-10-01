@@ -32,7 +32,20 @@
 
     <form class="shop-filter" method="get" aria-label="Collection controls" data-collection-form>
       <button class="shop-filter-trigger" type="button" aria-controls="CollectionFilterDrawer" data-open-collection-filter><svg viewBox="0 0 16 12" aria-hidden="true" focusable="false"><path d="M0 2h16M0 10h16" stroke="currentColor"/><circle cx="5" cy="2" r="1.6" fill="var(--cream)" stroke="currentColor"/><circle cx="11" cy="10" r="1.6" fill="var(--cream)" stroke="currentColor"/></svg><span>Filter</span><span class="shop-filter-count" data-filter-active-count hidden></span></button>
-      <label class="shop-sort"><span>Sort:</span><select name="sort_by" aria-label="Sort {{ collection.title | escape }}" onchange="this.form.submit()">{% for option in collection.sort_options %}{% unless option.value contains 'created' %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endunless %}{% endfor %}</select></label>
+      {% liquid
+        assign sort_label = ''
+        for option in collection.sort_options
+          if option.value == sort_by
+            assign sort_label = option.name
+          endif
+        endfor
+      %}
+      <div class="shop-sort" data-sort-menu>
+        <button class="shop-sort-toggle" type="button" aria-expanded="false" aria-controls="SortMenu-{{ section.id }}" data-sort-toggle><span class="shop-sort-prefix">Sort:</span> <span>{{ sort_label | default: 'Featured' }}</span><svg viewBox="0 0 10 6" aria-hidden="true" focusable="false"><path d="m1 1 4 4 4-4" fill="none" stroke="currentColor"/></svg></button>
+        <ul class="shop-sort-menu" id="SortMenu-{{ section.id }}" aria-label="Sort {{ collection.title | escape }}" hidden>
+          {% for option in collection.sort_options %}{% unless option.value contains 'created' %}<li><a href="{{ collection.url }}?sort_by={{ option.value }}"{% if option.value == sort_by %} aria-current="true"{% endif %}>{{ option.name }}</a></li>{% endunless %}{% endfor %}
+        </ul>
+      </div>
     </form>
     <aside class="site-drawer collection-filter-drawer" id="CollectionFilterDrawer" aria-hidden="true" aria-labelledby="CollectionFilterTitle" data-collection-filter-drawer>
       <div class="drawer-head"><h2 id="CollectionFilterTitle">Filter</h2><button type="button" data-close-collection-filter>Close ×</button></div>
