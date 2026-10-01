@@ -1,0 +1,27 @@
+{%- liquid
+  assign learn_more_url = section.settings.learn_more_url
+  if learn_more_url == blank
+    assign learn_more_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
+  endif
+-%}
+<div class="cookie-bar" role="region" aria-label="Cookie consent" data-cookie-bar hidden>
+  <p class="cookie-bar__text">{{ section.settings.message }} <a href="{{ learn_more_url }}">{{ section.settings.learn_more_label }}</a></p>
+  <div class="cookie-bar__actions">
+    <button class="cookie-bar__decline" type="button" data-cookie-consent="decline">{{ section.settings.decline_label }}</button>
+    <button class="cookie-bar__accept" type="button" data-cookie-consent="accept">{{ section.settings.accept_label }}</button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cookie bar",
+  "settings": [
+    { "type": "paragraph", "content": "A slim, on-brand cookie bar. It records the visitor's choice through Shopify's Customer Privacy API, appears only where Shopify's privacy settings require consent, and replaces Shopify's own banner in this theme only." },
+    { "type": "text", "id": "message", "label": "Message", "default": "We use cookies to give you the best experience on our website." },
+    { "type": "text", "id": "learn_more_label", "label": "Learn more label", "default": "Learn more" },
+    { "type": "url", "id": "learn_more_url", "label": "Learn more link", "info": "Defaults to the Privacy policy." },
+    { "type": "text", "id": "decline_label", "label": "Decline label", "default": "Decline" },
+    { "type": "text", "id": "accept_label", "label": "Accept label", "default": "Accept" }
+  ]
+}
+{% endschema %}

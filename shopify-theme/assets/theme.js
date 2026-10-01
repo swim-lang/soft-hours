@@ -632,6 +632,43 @@
   syncMotionVideos();
   reducedMotion.addEventListener?.('change', syncMotionVideos);
 
+  // Cookie bar: Shopify's Customer Privacy API decides whether consent is needed and stores the choice.
+  const cookieBar = qs('[data-cookie-bar]');
+  if (cookieBar) {
+    const previewBar = () => qs('#PBarNextFrameWrapper');
+    const placeCookieBar = () => {
+      const bar = previewBar();
+      cookieBar.style.setProperty('--cookie-bar-offset', bar ? `${Math.max(0, window.innerHeight - bar.getBoundingClientRect().top)}px` : '0px');
+    };
+    const showCookieBar = () => {
+      placeCookieBar();
+      cookieBar.hidden = false;
+      window.addEventListener('resize', placeCookieBar, { passive: true });
+    };
+    const initCookieBar = () => {
+      const privacy = window.Shopify?.customerPrivacy;
+      if (!privacy) return;
+      const needsBanner = typeof privacy.shouldShowBanner === 'function' ? privacy.shouldShowBanner() : (typeof privacy.shouldShowGDPRBanner === 'function' && privacy.shouldShowGDPRBanner());
+      if (needsBanner) showCookieBar();
+    };
+    cookieBar.addEventListener('click', (event) => {
+      const choice = event.target.closest('[data-cookie-consent]');
+      if (!choice) return;
+      const accepted = choice.dataset.cookieConsent === 'accept';
+      const done = () => { cookieBar.hidden = true; };
+      try {
+        window.Shopify.customerPrivacy.setTrackingConsent({ analytics: accepted, marketing: accepted, preferences: accepted, sale_of_data: accepted }, done);
+      } catch (_) {
+        done();
+      }
+    });
+    if (window.Shopify?.customerPrivacy) {
+      initCookieBar();
+    } else if (typeof window.Shopify?.loadFeatures === 'function') {
+      window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], (error) => { if (!error) initCookieBar(); });
+    }
+  }
+
   const policyBody = qs('.shopify-policy__body');
   if (policyBody) {
     const headings = qsa('h2', policyBody);

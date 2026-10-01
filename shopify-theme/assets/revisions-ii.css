@@ -342,3 +342,20 @@
   .nav-right a.nav-favourites { display: inline-grid; padding: 0; }
   .favourites-page .favourites-status { padding: 0 16px; }
 }
+
+/* #1 · Slim on-brand cookie bar. Shopify's own banner is hidden in this theme only; the live theme keeps it. */
+#shopify-pc__banner { display: none !important; }
+.cookie-bar { position: fixed; left: 0; right: 0; bottom: var(--cookie-bar-offset, 0px); z-index: 110; padding: 10px var(--page-pad) calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; border-top: 1px solid var(--hairline); background: var(--cream); color: var(--ink); }
+.cookie-bar[hidden] { display: none; }
+.cookie-bar__text { margin: 0; font: var(--type-meta)/18px var(--mono); color: var(--muted); }
+.cookie-bar__text a { color: var(--ink); text-underline-offset: 3px; }
+.cookie-bar__actions { flex-shrink: 0; display: flex; align-items: center; gap: 16px; }
+.cookie-bar__decline, .cookie-bar__accept { min-height: 34px; padding: 0 16px; border: 1px solid var(--ink); background: none; color: var(--ink); font: var(--type-meta)/16px var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.cookie-bar__decline { padding: 0; border-color: transparent; text-decoration: underline; text-underline-offset: 3px; }
+.cookie-bar__accept { background: var(--ink); color: var(--cream); }
+.cookie-bar__accept:hover { background: #443F34; }
+
+@media (max-width: 760px) {
+  .cookie-bar { padding-inline: 16px; flex-wrap: wrap; }
+  .cookie-bar__actions { width: 100%; justify-content: flex-end; }
+}

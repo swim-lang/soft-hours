@@ -113,3 +113,13 @@ If the plan is confirmed as Plus, the Checkout Branding API allows a **custom he
 - **Checkout display (checked in Chromium, desktop):** "Express checkout" appears at the top of checkout with **Shop Pay, PayPal and Google Pay**, then "OR" and the Contact form. Shopify controls the order and styling of these buttons.
 - **Still to check on eligible devices:** Apple Pay appears only in Safari on an iPhone, iPad or Mac with a card in Apple Wallet, so it needs a manual check there. PayPal is showing even though Marion's verification is pending on her side; payouts and verification are hers to complete.
 - **Question for Marion:** **Shop Pay** also appears. It wasn't on her list, but Shopify shows it automatically when Shop Pay is enabled. If she doesn't want it, she can turn it off in Settings → Payments → Shopify Payments → Shop Pay.
+
+### #1 Cookie bar (approved by Kira, October 1)
+
+Marion asked for this in all three rounds (brand colour, small bar, "Learn more", Paynter as reference).
+- New section `sections/cookie-banner.liquid`, rendered from `layout/theme.liquid`. It is a slim cream bar at the bottom: one short line with a "Learn more" link (defaults to the Privacy policy), a quiet "Decline" and a black "Accept". All wording and the link are editable in the theme editor (Cookie bar).
+- It uses Shopify's Customer Privacy API. `shouldShowBanner()` decides whether the visitor's region needs consent, following the store's Customer privacy settings, and `setTrackingConsent()` records Accept or Decline for analytics, marketing, preferences and sale of data.
+- Shopify's own banner (`#shopify-pc__banner`) is hidden by CSS **in this theme only**. The store-wide banner setting is untouched, so the live coming-soon site keeps Shopify's banner. At launch, the team can switch the Admin setting to a custom banner.
+- In the preview, the bar sits just above Shopify's preview bar so it isn't hidden while Marion reviews.
+- Verified: this browser is detected as Colorado, USA (`USCO`), where no banner is required, so the bar correctly stays hidden. With the bar shown manually and the save call replaced by a stand-in, Accept sent all four consent categories as true and Decline sent them as false, and both closed the bar. Desktop and 375px mobile fit with no overflow. Real consent was never changed.
+- Still to confirm in Admin: Settings → Customer privacy → regions where the banner is required (e.g. Switzerland, EU, UK). Then test from one of those regions.
