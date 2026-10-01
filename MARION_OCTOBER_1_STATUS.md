@@ -155,3 +155,11 @@ Files: `sections/main-product.liquid`, `assets/theme.js`, `assets/revisions-ii.c
   - **Possible on Basic:** a heading font and a body font from Shopify's library, colours, logo, background and accent. These are already set: cream and ink, logo, body Courier New. Headings are currently **Assistant**, the bold sans in Marion's screenshot, which is the main mismatch.
 - **Recommendation:** change checkout headings from Assistant to **Michroma**. It's a light, wide geometric face and the closest library match to PP Watch. It was previewed in the checkout editor and **not saved**, because checkout settings are store-wide and live. Lexend Zetta was also previewed but renders too heavy. Applying it is one setting (Settings → Checkout → Edit → Typography → Headings) once Sean or Marion approves.
 - Upgrading to Plus would unlock both requests, but the cost isn't justified for these alone.
+
+### Favourites page created in Admin (October 1)
+
+- Online Store → Pages → **"Favourites"** (handle `favourites`, page ID 703571165557) was created and saved as **Hidden**, with the default template.
+- Why it is hidden: Shopify's page editor only lists templates from the **live** theme (the coming-soon theme), so `page.favourites` can't be attached until the ecommerce theme is published. Hidden pages also return 404 even in theme preview, and making it visible now would add a blank "Favourites" page to the live coming-soon site. The public `/pages/favourites` returns 404, as intended.
+- The preview keeps using the staging route `/pages/contact-1?view=favourites`, which works.
+- `sections/header.liquid` handles the launch switch automatically. When the page is visible, the header links to `/pages/favourites`, adding `?view=favourites` until the template is set to `page.favourites`.
+- **Launch checklist:** after publishing the ecommerce theme, open the Favourites page in Admin, set Template to `favourites`, and set Visibility to Visible.

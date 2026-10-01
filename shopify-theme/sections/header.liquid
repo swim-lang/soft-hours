@@ -6,7 +6,7 @@
 {% if about_page != blank %}{% assign about_url = about_page.url %}{% endif %}
 {% assign favourites_page = pages['favourites'] %}
 {% assign favourites_url = section.settings.favourites_url | default: '/pages/contact-1?view=favourites' %}
-{% if favourites_page != blank %}{% assign favourites_url = favourites_page.url %}{% endif %}
+{% if favourites_page != blank %}{% if favourites_page.template_suffix == 'favourites' %}{% assign favourites_url = favourites_page.url %}{% else %}{% assign favourites_url = favourites_page.url | append: '?view=favourites' %}{% endif %}{% endif %}
 <header class="nav{% if template.name == 'index' %} nav--hero{% endif %}" data-site-header>
   <div class="nav-side nav-left"><a class="wordmark-nav" href="{{ routes.root_url }}" aria-label="{{ shop.name }}"></a></div>
   <nav class="nav-links" aria-label="Primary">
@@ -75,7 +75,7 @@
     { "type": "link_list", "id": "secondary_menu", "label": "Mobile-only secondary menu" },
     { "type": "paragraph", "content": "Nested links become a dropdown. Example: add Collection I, Tops, and Bottoms under Shop in Content > Menus, then select that menu above." },
     { "type": "select", "id": "cart_display", "label": "Cart display", "options": [{ "value": "text", "label": "Text: Cart (1)" }, { "value": "icon", "label": "Bag icon with count" }], "default": "text" },
-    { "type": "text", "id": "favourites_url", "label": "Favourites link", "default": "/pages/contact-1?view=favourites", "info": "Staging route. Once a page with the handle 'favourites' exists (template: page.favourites), the header links to it automatically." },
+    { "type": "text", "id": "favourites_url", "label": "Favourites link", "default": "/pages/contact-1?view=favourites", "info": "Staging route. The Favourites page exists in Admin but is hidden until launch; once it is made visible, the header links to it automatically (with the Favourites view until its template is set to page.favourites)." },
     { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." }
   ]
 }
