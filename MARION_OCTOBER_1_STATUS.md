@@ -145,3 +145,13 @@ The colours stay as options on one product, and the product page switches the ph
 **Built (review theme):** click or tap the main product photo to open a full-screen cream viewer of the current colour's photos. It shows "1 / 5", arrows (or ← →) and Close (or Esc). Clicking the photo zooms in about 2.4× around that point, and moving the mouse or a finger pans; clicking again zooms out. Verified on desktop and at 375px with no overflow. Photos look best uploaded at least 2000px on the long side; the viewer requests a 2800px version.
 
 Files: `sections/main-product.liquid`, `assets/theme.js`, `assets/revisions-ii.css`.
+
+### #16 Plan check — the store is on Shopify **Basic**, not Plus (checked in Admin, October 1)
+
+- Admin → Settings → Plan shows **Basic, £25/month**.
+- What that means for Marion's checkout request:
+  - **Own headline font (PP Watch):** not possible. Uploading a custom font to checkout needs the Checkout Branding API, which is Plus-only.
+  - **Square order-summary thumbnails:** not possible. The Basic checkout editor has no corner or image-shape setting; that is also Plus-only (Branding API).
+  - **Possible on Basic:** a heading font and a body font from Shopify's library, colours, logo, background and accent. These are already set: cream and ink, logo, body Courier New. Headings are currently **Assistant**, the bold sans in Marion's screenshot, which is the main mismatch.
+- **Recommendation:** change checkout headings from Assistant to **Michroma**. It's a light, wide geometric face and the closest library match to PP Watch. It was previewed in the checkout editor and **not saved**, because checkout settings are store-wide and live. Lexend Zetta was also previewed but renders too heavy. Applying it is one setting (Settings → Checkout → Edit → Typography → Headings) once Sean or Marion approves.
+- Upgrading to Plus would unlock both requests, but the cost isn't justified for these alone.
