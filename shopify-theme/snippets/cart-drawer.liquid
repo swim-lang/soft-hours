@@ -47,7 +47,6 @@
       <div class="cart-subtotal"><span>Subtotal</span><strong>{{ cart.total_price | money_with_currency }}</strong></div>
       {% if settings.cart_operational_note != blank %}<p class="cart-note">{{ settings.cart_operational_note }}</p>{% endif %}
       <form action="{{ routes.cart_url }}" method="post"><button class="prototype-button prototype-button--dark" type="submit" name="checkout">Checkout</button></form>
-      {% if settings.show_accelerated_checkout and additional_checkout_buttons %}<div class="accelerated-checkout"><span class="cart-or"><span>or pay with</span></span><div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div></div>{% endif %}
       <button class="button-reset text-link cart-continue" type="button" data-close-cart>Continue Shopping</button>
       <p class="cart-availability">Delivery, duties, taxes, and dispatch timing are still being confirmed.</p>
     </div>

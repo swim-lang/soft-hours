@@ -29,8 +29,7 @@
     "name": "Cart",
     "settings": [
       { "type": "header", "content": "Checkout entry" },
-      { "type": "paragraph", "content": "Keep operational language blank until shipping, duties, taxes, and returns are confirmed. Eligible wallet buttons are rendered by Shopify." },
-      { "type": "checkbox", "id": "show_accelerated_checkout", "label": "Show eligible accelerated checkout buttons", "default": true },
+      { "type": "paragraph", "content": "Keep operational language blank until shipping, duties, taxes, and returns are confirmed. Express payments (Shop Pay, PayPal, Apple Pay, Google Pay) appear only at Shopify checkout, not in the Cart drawer." },
       { "type": "text", "id": "cart_operational_note", "label": "Operational note", "info": "Leave blank until shipping, duties, and taxes language is approved." }
     ]
   }

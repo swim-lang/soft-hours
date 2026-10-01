@@ -4,6 +4,9 @@
 {% assign about_page = pages['about'] %}
 {% assign about_url = section.settings.about_review_url %}
 {% if about_page != blank %}{% assign about_url = about_page.url %}{% endif %}
+{% assign favourites_page = pages['favourites'] %}
+{% assign favourites_url = section.settings.favourites_url | default: '/pages/contact-1?view=favourites' %}
+{% if favourites_page != blank %}{% assign favourites_url = favourites_page.url %}{% endif %}
 <header class="nav{% if template.name == 'index' %} nav--hero{% endif %}" data-site-header>
   <div class="nav-side nav-left"><a class="wordmark-nav" href="{{ routes.root_url }}" aria-label="{{ shop.name }}"></a></div>
   <nav class="nav-links" aria-label="Primary">
@@ -36,6 +39,7 @@
         {% for country in localization.available_countries %}<option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>{{ country.name }} — {{ country.currency.iso_code }}</option>{% endfor %}
       </select>
     {% endform %}
+    <a class="nav-favourites" href="{{ favourites_url }}" data-favourites-link aria-label="Favourites"><svg viewBox="0 0 24 22" aria-hidden="true" focusable="false"><path d="M12 20.5s-8.5-5.2-10-10.4C.9 6.3 3.4 2 7.2 2c2.2 0 3.8 1.2 4.8 2.9C13 3.2 14.6 2 16.8 2c3.8 0 6.3 4.3 5.2 8.1-1.5 5.2-10 10.4-10 10.4Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg><span class="nav-favourites-count" data-favourites-count hidden></span></a>
     {% if section.settings.cart_display == 'icon' %}
       <button class="nav-action nav-cart-icon" type="button" aria-controls="CartDrawer" aria-expanded="false" data-open-cart><span class="visually-hidden">Cart, <span data-cart-count>{{ cart.item_count }}</span> items</span><svg viewBox="0 0 20 22" aria-hidden="true" focusable="false"><path d="M3.5 6.5h13l1 14h-15l1-14Z" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M7 8.5V5a3 3 0 0 1 6 0v3.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg><span class="nav-cart-count" aria-hidden="true" data-cart-count>{{ cart.item_count }}</span></button>
     {% else %}
@@ -58,6 +62,7 @@
         {% for country in localization.available_countries %}<option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>{{ country.name }} — {{ country.currency.iso_code }}</option>{% endfor %}
       </select>
     {% endform %}
+    <a class="mobile-menu-favourites" href="{{ favourites_url }}" data-favourites-link>Favourites<span data-favourites-count-text></span></a>
     <button type="button" data-open-cart>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</button>
   </div>
 </div>
@@ -70,6 +75,7 @@
     { "type": "link_list", "id": "secondary_menu", "label": "Mobile-only secondary menu" },
     { "type": "paragraph", "content": "Nested links become a dropdown. Example: add Collection I, Tops, and Bottoms under Shop in Content > Menus, then select that menu above." },
     { "type": "select", "id": "cart_display", "label": "Cart display", "options": [{ "value": "text", "label": "Text: Cart (1)" }, { "value": "icon", "label": "Bag icon with count" }], "default": "text" },
+    { "type": "text", "id": "favourites_url", "label": "Favourites link", "default": "/pages/contact-1?view=favourites", "info": "Staging route. Once a page with the handle 'favourites' exists (template: page.favourites), the header links to it automatically." },
     { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." }
   ]
 }

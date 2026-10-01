@@ -9,6 +9,94 @@
     try { return new Set(JSON.parse(window.localStorage.getItem('soft-hours-wishlist') || '[]')); } catch (_) { return new Set(); }
   }
 
+  function updateFavouriteCounts(saved) {
+    const count = saved.size;
+    qsa('[data-favourites-count]').forEach((node) => {
+      node.textContent = String(count);
+      node.hidden = count === 0;
+    });
+    qsa('[data-favourites-count-text]').forEach((node) => { node.textContent = count ? ` (${count})` : ''; });
+    qsa('.nav-favourites').forEach((link) => link.setAttribute('aria-label', count ? `Favourites, ${count} saved` : 'Favourites'));
+  }
+
+  let toastTimer;
+  function showFavouriteToast(added) {
+    let toast = qs('[data-favourite-toast]');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'favourite-toast';
+      toast.setAttribute('data-favourite-toast', '');
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.append(toast);
+    }
+    const link = qs('[data-favourites-link]');
+    const onFavouritesPage = Boolean(qs('[data-favourites-page]'));
+    toast.innerHTML = '';
+    toast.append(document.createTextNode(added ? 'Saved to Favourites' : 'Removed from Favourites'));
+    if (added && link && !onFavouritesPage) {
+      const view = document.createElement('a');
+      view.href = link.getAttribute('href');
+      view.textContent = 'View';
+      toast.append(view);
+    }
+    toast.classList.add('is-visible');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 3500);
+  }
+
+  function showFavouritesEmpty(page, isEmpty) {
+    const empty = qs('[data-favourites-empty]', page);
+    const status = qs('[data-favourites-status]', page);
+    if (empty) empty.hidden = !isEmpty;
+    if (status) status.textContent = isEmpty ? '' : status.textContent;
+  }
+
+  function removeFavouriteCard(handle, saved) {
+    const page = qs('[data-favourites-page]');
+    if (!page) return;
+    qsa(`[data-favourites-grid] [data-product-card][data-product-handle="${handle}"]`, page).forEach((card) => card.remove());
+    const status = qs('[data-favourites-status]', page);
+    if (status) status.textContent = saved.size ? `${saved.size} saved ${saved.size === 1 ? 'piece' : 'pieces'}` : '';
+    showFavouritesEmpty(page, saved.size === 0);
+  }
+
+  async function renderFavouritesPage(saved) {
+    const page = qs('[data-favourites-page]');
+    if (!page) return;
+    const grid = qs('[data-favourites-grid]', page);
+    const status = qs('[data-favourites-status]', page);
+    const handles = [...saved].reverse(); // Most recently saved first.
+    if (!handles.length) {
+      if (status) status.textContent = '';
+      showFavouritesEmpty(page, true);
+      return;
+    }
+    const cards = await Promise.all(handles.map(async (handle) => {
+      try {
+        const response = await fetch(`${root}products/${encodeURIComponent(handle)}?view=card`, { headers: { Accept: 'text/html' } });
+        if (response.status === 404) return { handle, missing: true };
+        if (!response.ok) return { handle };
+        const card = new DOMParser().parseFromString(await response.text(), 'text/html').querySelector('[data-product-card]');
+        return { handle, card };
+      } catch (_) {
+        return { handle };
+      }
+    }));
+    // Forget pieces that no longer exist in the store.
+    const missing = cards.filter((entry) => entry.missing).map((entry) => entry.handle);
+    if (missing.length) {
+      missing.forEach((handle) => saved.delete(handle));
+      try { window.localStorage.setItem('soft-hours-wishlist', JSON.stringify([...saved])); } catch (_) {}
+      updateFavouriteCounts(saved);
+    }
+    const found = cards.filter((entry) => entry.card);
+    grid.replaceChildren(...found.map((entry) => entry.card));
+    qsa('[data-wishlist-toggle]', grid).forEach((button) => setWishlistState(button, true));
+    if (status) status.textContent = found.length ? `${found.length} saved ${found.length === 1 ? 'piece' : 'pieces'}` : (saved.size ? 'Your favourites could not be loaded. Please refresh the page.' : '');
+    showFavouritesEmpty(page, saved.size === 0);
+  }
+
   function setWishlistState(button, saved) {
     button.setAttribute('aria-pressed', String(saved));
     const glyph = button.querySelector('span');
@@ -316,6 +404,9 @@
       if (saved.has(handle)) saved.delete(handle); else saved.add(handle);
       try { window.localStorage.setItem('soft-hours-wishlist', JSON.stringify([...saved])); } catch (_) {}
       qsa(`[data-wishlist-toggle][data-product-handle="${handle}"]`).forEach((button) => setWishlistState(button, saved.has(handle)));
+      updateFavouriteCounts(saved);
+      showFavouriteToast(saved.has(handle));
+      if (!saved.has(handle)) removeFavouriteCard(handle, saved);
     }
 
     const notifyTrigger = event.target.closest('[data-card-notify]');
@@ -512,6 +603,14 @@
 
   const savedWishlist = readWishlist();
   qsa('[data-wishlist-toggle]').forEach((button) => setWishlistState(button, savedWishlist.has(button.dataset.productHandle)));
+  updateFavouriteCounts(savedWishlist);
+  renderFavouritesPage(savedWishlist);
+  window.addEventListener('storage', (event) => {
+    if (event.key !== 'soft-hours-wishlist') return;
+    const saved = readWishlist();
+    qsa('[data-wishlist-toggle]').forEach((button) => setWishlistState(button, saved.has(button.dataset.productHandle)));
+    updateFavouriteCounts(saved);
+  });
 
   if (notifyDialog) {
     notifyDialog.addEventListener('close', () => notifyDialog.returnFocus?.focus());

@@ -88,3 +88,28 @@ Marion highlighted #1, #5, #6 and #7. Of those, only #1 is outstanding work. #5 
 1. #1 on-brand cookie bar (Customer Privacy API), ecommerce theme only.
 2. #13 colour-per-product structure plus a full gallery, combined with #12 zoom.
 3. #4 Favourites page and header count (if option (a) is chosen).
+
+## Follow-up — October 1 (later)
+
+### #4 Favourites (approved by Kira)
+
+Built and pushed to the review theme:
+- **Header heart** with a count beside Cart, on desktop and mobile; "Favourites (n)" in the mobile menu. It reads well on the homepage hero photo.
+- **Confirmation** after tapping any heart: "Saved to Favourites · View" (or "Removed from Favourites"). It shows just under the header so it is never hidden behind Shopify's preview bar.
+- **Favourites page**, newest first, using the normal product cards, so Select size and Add to Cart work there. Removing a heart takes the card off the page; an empty state links back to the shop. Pieces that no longer exist in the store are forgotten automatically.
+- Favourites are still saved **per device/browser**, with no account needed. The page says "kept on this device".
+- Staging address: `/pages/contact-1?view=favourites`, the same pattern as the About review route. **Admin step before launch:** create a page titled "Favourites" with the handle `favourites` and template `page.favourites`. The header then links to it automatically, and the browser tab title reads "Favourites" instead of "Contact".
+- Files: `sections/main-favourites.liquid`, `templates/page.favourites.json`, `templates/product.card.liquid` (card markup fetched per saved product), `sections/header.liquid`, `assets/theme.js`, `assets/revisions-ii.css`.
+- Verified at 1440px and 375px: saving updates the count and aria label ("Favourites, 2 saved"); the page renders saved cards with filled hearts; quick add from the page opened the Cart drawer (test line removed afterwards); removing every heart shows the empty state and hides the count. Test favourites were cleared afterwards.
+
+### #16 Checkout, now that the store is believed to be on Shopify Plus
+
+If the plan is confirmed as Plus, the Checkout Branding API allows a **custom headline font** (PP Watch uploaded as a font file) and **square order-summary thumbnails** (corner radius set to none). That makes #16 feasible. It is configured with the Admin API (or an app such as a checkout branding editor), not through the theme. Next step: confirm Plus in Admin → Settings → Plan, then schedule the branding change.
+
+### Express payments: checkout only (new task from Kira)
+
+- Marion wants PayPal, Apple Pay and Google Pay **at checkout only**, not in the slide-out cart.
+- **Done:** the wallet buttons are removed from the Cart drawer, along with the theme setting that controlled them and their styles. The theme renders wallets nowhere else: not on the full Cart page and not on product pages. The drawer now shows Subtotal, a black Checkout button and Continue Shopping only. Files: `snippets/cart-drawer.liquid`, `config/settings_schema.json`, `assets/revisions-ii.css`, `assets/base.css.liquid`.
+- **Checkout display (checked in Chromium, desktop):** "Express checkout" appears at the top of checkout with **Shop Pay, PayPal and Google Pay**, then "OR" and the Contact form. Shopify controls the order and styling of these buttons.
+- **Still to check on eligible devices:** Apple Pay appears only in Safari on an iPhone, iPad or Mac with a card in Apple Wallet, so it needs a manual check there. PayPal is showing even though Marion's verification is pending on her side; payouts and verification are hers to complete.
+- **Question for Marion:** **Shop Pay** also appears. It wasn't on her list, but Shopify shows it automatically when Shop Pay is enabled. If she doesn't want it, she can turn it off in Settings → Payments → Shopify Payments → Shop Pay.
