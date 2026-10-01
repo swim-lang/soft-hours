@@ -359,3 +359,29 @@
   .cookie-bar { padding-inline: 16px; flex-wrap: wrap; }
   .cookie-bar__actions { width: 100%; justify-content: flex-end; }
 }
+
+/* #12, #13 · Product gallery per colour, click to open a full-screen zoom viewer */
+.product-v2 button.pdp-main-img { display: block; padding: 0; border: 0; cursor: zoom-in; }
+.product-v2 .pdp-thumb[hidden] { display: none; }
+.product-v2 .pdp-thumb { border: 1px solid transparent; }
+.product-v2 .pdp-thumb.active { border-color: var(--ink); }
+.zoom-viewer { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: var(--cream); color: var(--ink); overflow: hidden; }
+.zoom-viewer::backdrop { background: var(--cream); }
+.zoom-viewer__bar { position: absolute; top: 0; left: 0; right: 0; z-index: 3; height: 64px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font: var(--type-control)/17px var(--label); letter-spacing: .08em; text-transform: uppercase; }
+.zoom-viewer__hint { color: var(--muted); }
+.zoom-viewer__bar button { padding: 0; border: 0; background: none; color: var(--ink); font: inherit; letter-spacing: inherit; text-transform: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.zoom-viewer__stage { position: absolute; inset: 64px 72px 24px; overflow: hidden; cursor: zoom-in; touch-action: pan-y; }
+.zoom-viewer__stage img { width: 100%; height: 100%; object-fit: contain; transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%); transition: transform .3s ease; user-select: none; -webkit-user-drag: none; }
+.zoom-viewer.is-zoomed .zoom-viewer__stage { cursor: zoom-out; touch-action: none; }
+.zoom-viewer.is-zoomed .zoom-viewer__stage img { transform: scale(2.4); transition: transform .3s ease, transform-origin .08s linear; }
+.zoom-viewer__nav { position: absolute; top: 50%; z-index: 3; width: 56px; height: 88px; padding: 0; display: grid; place-items: center; border: 0; background: none; color: var(--ink); cursor: pointer; transform: translateY(-50%); }
+.zoom-viewer__nav svg { width: 12px; height: 24px; }
+.zoom-viewer__nav--prev { left: 8px; }
+.zoom-viewer__nav--next { right: 8px; }
+.zoom-viewer__nav[hidden] { display: none; }
+@media (max-width: 760px) {
+  .zoom-viewer__bar { padding: 0 16px; }
+  .zoom-viewer__hint { display: none; }
+  .zoom-viewer__stage { inset: 64px 0 64px; }
+  .zoom-viewer__nav { top: auto; bottom: 0; transform: none; height: 64px; }
+}

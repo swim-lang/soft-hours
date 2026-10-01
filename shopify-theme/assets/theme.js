@@ -9,6 +9,86 @@
     try { return new Set(JSON.parse(window.localStorage.getItem('soft-hours-wishlist') || '[]')); } catch (_) { return new Set(); }
   }
 
+  // Product gallery: each colour shows its own photos (tagged by alt text or variant), plus untagged shared photos.
+  function showGalleryImage(thumb) {
+    const gallery = thumb.closest('[data-gallery]');
+    const main = qs('[data-gallery-main]', gallery);
+    qsa('[data-gallery-thumb]', gallery).forEach((button) => button.classList.toggle('active', button === thumb));
+    if (main && main.getAttribute('src') !== thumb.dataset.galleryThumb) {
+      main.classList.add('is-changing');
+      window.setTimeout(() => {
+        main.src = thumb.dataset.galleryThumb;
+        main.alt = thumb.dataset.alt || '';
+        main.classList.remove('is-changing');
+      }, 140);
+    }
+  }
+
+  function filterGallery(gallery, colourHandle) {
+    if (!gallery) return;
+    const thumbs = qsa('[data-gallery-thumb]', gallery);
+    const coloursOf = (thumb) => (thumb.dataset.colours || '').split(/\s+/).filter(Boolean);
+    const matching = thumbs.filter((thumb) => coloursOf(thumb).includes(colourHandle));
+    const visible = matching.length ? thumbs.filter((thumb) => !coloursOf(thumb).length || coloursOf(thumb).includes(colourHandle)) : thumbs;
+    thumbs.forEach((thumb) => { thumb.hidden = !visible.includes(thumb); });
+    if (visible[0]) showGalleryImage(visible[0]);
+  }
+
+  const zoomViewer = qs('[data-zoom-viewer]');
+  let zoomList = [];
+  let zoomIndex = 0;
+  function renderZoom() {
+    const image = qs('[data-zoom-image]', zoomViewer);
+    const thumb = zoomList[zoomIndex];
+    if (!image || !thumb) return;
+    zoomViewer.classList.remove('is-zoomed');
+    image.src = thumb.dataset.zoomSrc || thumb.dataset.galleryThumb;
+    image.alt = thumb.dataset.alt || '';
+    const count = qs('[data-zoom-count]', zoomViewer);
+    if (count) count.textContent = `${zoomIndex + 1} / ${zoomList.length}`;
+    qsa('[data-zoom-prev], [data-zoom-next]', zoomViewer).forEach((button) => { button.hidden = zoomList.length < 2; });
+  }
+  function openZoom(gallery) {
+    if (!zoomViewer || !gallery) return;
+    zoomList = qsa('[data-gallery-thumb]', gallery).filter((thumb) => !thumb.hidden);
+    zoomIndex = Math.max(0, zoomList.findIndex((thumb) => thumb.classList.contains('active')));
+    renderZoom();
+    zoomViewer.showModal();
+  }
+  function stepZoom(step) {
+    if (!zoomList.length) return;
+    zoomIndex = (zoomIndex + step + zoomList.length) % zoomList.length;
+    renderZoom();
+  }
+  if (zoomViewer) {
+    const stage = qs('[data-zoom-stage]', zoomViewer);
+    const panTo = (event) => {
+      const rect = stage.getBoundingClientRect();
+      const x = Math.min(100, Math.max(0, ((event.clientX - rect.left) / rect.width) * 100));
+      const y = Math.min(100, Math.max(0, ((event.clientY - rect.top) / rect.height) * 100));
+      stage.style.setProperty('--zoom-x', `${x}%`);
+      stage.style.setProperty('--zoom-y', `${y}%`);
+    };
+    stage.addEventListener('click', (event) => {
+      panTo(event);
+      zoomViewer.classList.toggle('is-zoomed');
+    });
+    stage.addEventListener('pointermove', (event) => { if (zoomViewer.classList.contains('is-zoomed')) panTo(event); });
+    zoomViewer.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') stepZoom(1);
+      if (event.key === 'ArrowLeft') stepZoom(-1);
+    });
+    zoomViewer.addEventListener('close', () => {
+      zoomViewer.classList.remove('is-zoomed');
+      qs('[data-zoom-open]')?.focus();
+    });
+  }
+
+  qsa('[data-product-root]').forEach((scope) => {
+    const swatch = qs('[data-colour-handle][aria-pressed="true"]', scope);
+    if (swatch) filterGallery(qs('[data-gallery]', scope), swatch.dataset.colourHandle);
+  });
+
   function updateFavouriteCounts(saved) {
     const count = saved.size;
     qsa('[data-favourites-count]').forEach((node) => {
@@ -302,17 +382,7 @@
         select.value = optionButton.dataset.optionValue;
         qsa(`[data-option-button][data-option-index="${index}"]`, scope).forEach((button) => button.setAttribute('aria-pressed', String(button === optionButton)));
         qsa(`[data-option-label="${index}"]`, scope).forEach((label) => { label.textContent = optionButton.textContent.trim() || optionButton.dataset.optionValue; });
-        if (optionButton.dataset.colourImage) {
-          const main = qs('[data-gallery-main]', scope);
-          if (main) {
-            main.classList.add('is-changing');
-            window.setTimeout(() => {
-              if (main.tagName === 'IMG') main.src = optionButton.dataset.colourImage;
-              else main.style.backgroundImage = `url("${optionButton.dataset.colourImage}")`;
-              main.classList.remove('is-changing');
-            }, 160);
-          }
-        }
+        if (optionButton.dataset.colourHandle) filterGallery(qs('[data-gallery]', scope), optionButton.dataset.colourHandle);
         select.dispatchEvent(new Event('change', { bubbles: true }));
         const selectedVariantId = new URL(window.location.href).searchParams.get('variant');
         const variantInput = qs('[name="id"]', optionButton.closest('[data-product-form]') || scope);
@@ -324,15 +394,12 @@
     }
 
     const thumb = event.target.closest('[data-gallery-thumb]');
-    if (thumb) {
-      const gallery = thumb.closest('[data-gallery]');
-      const main = qs('[data-gallery-main]', gallery);
-      qsa('[data-gallery-thumb]', gallery).forEach((button) => button.classList.toggle('active', button === thumb));
-      if (main) {
-        if (main.tagName === 'IMG') main.src = thumb.dataset.galleryThumb;
-        else main.style.backgroundImage = `url("${thumb.dataset.galleryThumb}")`;
-      }
-    }
+    if (thumb) showGalleryImage(thumb);
+
+    if (event.target.closest('[data-zoom-open]')) openZoom(event.target.closest('[data-gallery]'));
+    if (event.target.closest('[data-zoom-close]')) zoomViewer?.close();
+    if (event.target.closest('[data-zoom-prev]')) stepZoom(-1);
+    if (event.target.closest('[data-zoom-next]')) stepZoom(1);
 
     const accordionButton = event.target.closest('[data-accordion-button]');
     if (accordionButton) {

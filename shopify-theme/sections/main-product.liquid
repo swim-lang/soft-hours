@@ -45,12 +45,46 @@
 
 <div class="product-v2" data-product-root>
   <section class="pdp-hero">
+    {%- liquid
+      assign colour_option = blank
+      for option in product.options_with_values
+        if option.name == 'Color' or option.name == 'Colour'
+          assign colour_option = option
+        endif
+      endfor
+    -%}
     <div class="pdp-gallery" data-gallery data-reveal>
-      <div class="pdp-main-img"><img src="{{ primary_url }}" alt="{{ product.title | escape }}" width="848" height="1264" data-gallery-main></div>
+      <button class="pdp-main-img" type="button" data-zoom-open aria-label="Zoom image"><img src="{{ primary_url }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="848" height="1264" data-gallery-main></button>
       <div class="pdp-thumbs" aria-label="Product gallery">
-        <button class="pdp-thumb active" type="button" data-gallery-thumb="{{ primary_url }}" aria-label="View first product image" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};"></button>
-        <button class="pdp-thumb" type="button" data-gallery-thumb="{{ secondary_url }}" aria-label="View second product image" style="background-image:url('{{ secondary_url }}');background-position:50% 30%;"></button>
-        <button class="pdp-thumb" type="button" data-gallery-thumb="{{ third_url }}" aria-label="View third product image" style="background-image:url('{{ third_url }}');background-position:50% 40%;"></button>
+        {%- if product.images.size > 0 -%}
+          {%- for image in product.images -%}
+            {%- liquid
+              assign image_colours = ''
+              if colour_option != blank
+                assign image_alt = image.alt | downcase
+                for value in colour_option.values
+                  assign value_down = value | downcase
+                  assign value_handle = value | handle
+                  if image_alt contains value_down
+                    assign image_colours = image_colours | append: value_handle | append: ' '
+                  else
+                    for image_variant in image.variants
+                      if image_variant.options contains value
+                        assign image_colours = image_colours | append: value_handle | append: ' '
+                        break
+                      endif
+                    endfor
+                  endif
+                endfor
+              endif
+            -%}
+            <button class="pdp-thumb{% if forloop.first %} active{% endif %}" type="button" data-gallery-thumb="{{ image | image_url: width: 1800 }}" data-zoom-src="{{ image | image_url: width: 2800 }}" data-alt="{{ image.alt | default: product.title | escape }}" data-colours="{{ image_colours | strip }}" aria-label="View image {{ forloop.index }}" style="background-image:url('{{ image | image_url: width: 300 }}');background-position:50% 50%;"></button>
+          {%- endfor -%}
+        {%- else -%}
+          <button class="pdp-thumb active" type="button" data-gallery-thumb="{{ primary_url }}" data-zoom-src="{{ primary_url }}" data-alt="{{ product.title | escape }}" data-colours="" aria-label="View image 1" style="background-image:url('{{ primary_url }}');background-position:{{ fallback_position }};"></button>
+          <button class="pdp-thumb" type="button" data-gallery-thumb="{{ secondary_url }}" data-zoom-src="{{ secondary_url }}" data-alt="{{ product.title | escape }}" data-colours="" aria-label="View image 2" style="background-image:url('{{ secondary_url }}');background-position:50% 30%;"></button>
+          <button class="pdp-thumb" type="button" data-gallery-thumb="{{ third_url }}" data-zoom-src="{{ third_url }}" data-alt="{{ product.title | escape }}" data-colours="" aria-label="View image 3" style="background-image:url('{{ third_url }}');background-position:50% 40%;"></button>
+        {%- endif -%}
       </div>
     </div>
 
@@ -77,10 +111,7 @@
                 <div class="pdp-swatches">
                   {% for value in option.values %}
                     {% assign colour_handle = value | handleize %}
-                    {% assign colour_image = blank %}
-                    {% for colour_variant in product.variants %}{% if colour_variant.options contains value and colour_variant.featured_media != blank %}{% assign colour_image = colour_variant.featured_media.preview_image | image_url: width: 1800 %}{% break %}{% endif %}{% endfor %}
-                    {% if colour_image == blank %}{% case forloop.index %}{% when 1 %}{% assign colour_image = primary_url %}{% when 2 %}{% assign colour_image = secondary_url %}{% when 3 %}{% assign colour_image = third_url %}{% else %}{% assign colour_image = secondary_url %}{% endcase %}{% endif %}
-                    <button type="button" class="pdp-swatch" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" data-colour-image="{{ colour_image }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" style="{% case colour_handle %}{% when 'pine-grove' %}background:#334A3B{% when 'eggplant' %}background:#4E3442{% when 'burnished-lilac' %}background:#A47F8C{% when 'oat-milk' %}background:#D9C9AA{% else %}background:#B8AA94{% endcase %}"></button>
+                    <button type="button" class="pdp-swatch" data-option-button data-option-index="{{ option_index }}" data-option-value="{{ value | escape }}" data-colour-handle="{{ colour_handle }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" style="{% case colour_handle %}{% when 'pine-grove' %}background:#334A3B{% when 'eggplant' %}background:#4E3442{% when 'burnished-lilac' %}background:#A47F8C{% when 'oat-milk' %}background:#D9C9AA{% else %}background:#B8AA94{% endcase %}"></button>
                   {% endfor %}
                 </div>
               </div>
@@ -147,6 +178,13 @@
     {% if section.settings.editorial_image != blank %}{% assign editorial_image_url = section.settings.editorial_image | image_url: width: 2200 %}{% else %}{% assign editorial_image_url = '01KV8Q5YVKN4B291G463W18R4R.jpg' | asset_url %}{% endif %}
     <section class="product-editorial" style="background-image:linear-gradient(rgba(38,36,26,.12),rgba(38,36,26,.42)),url('{{ editorial_image_url }}')"><h2>{{ section.settings.editorial_heading }}</h2></section>
   {% endif %}
+
+  <dialog class="zoom-viewer" aria-label="{{ product.title | escape }} images" data-zoom-viewer>
+    <div class="zoom-viewer__bar"><span class="zoom-viewer__count" data-zoom-count></span><span class="zoom-viewer__hint">Click the image to zoom</span><button type="button" data-zoom-close>Close ×</button></div>
+    <div class="zoom-viewer__stage" data-zoom-stage><img alt="" width="1800" height="2700" data-zoom-image></div>
+    <button class="zoom-viewer__nav zoom-viewer__nav--prev" type="button" data-zoom-prev aria-label="Previous image"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="M10 2 2 12l8 10" fill="none" stroke="currentColor"/></svg></button>
+    <button class="zoom-viewer__nav zoom-viewer__nav--next" type="button" data-zoom-next aria-label="Next image"><svg viewBox="0 0 12 24" aria-hidden="true" focusable="false"><path d="m2 2 8 10-8 10" fill="none" stroke="currentColor"/></svg></button>
+  </dialog>
 
   <aside class="site-drawer size-guide-drawer" data-size-guide-drawer aria-hidden="true" aria-labelledby="SizeGuideTitle-{{ section.id }}">
     <div class="size-guide-dialog__head"><h2 id="SizeGuideTitle-{{ section.id }}">Size Guide</h2><button type="button" data-close-size-guide>Close ×</button></div>

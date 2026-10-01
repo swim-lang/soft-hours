@@ -123,3 +123,25 @@ Marion asked for this in all three rounds (brand colour, small bar, "Learn more"
 - In the preview, the bar sits just above Shopify's preview bar so it isn't hidden while Marion reviews.
 - Verified: this browser is detected as Colorado, USA (`USCO`), where no banner is required, so the bar correctly stays hidden. With the bar shown manually and the save call replaced by a stand-in, Accept sent all four consent categories as true and Decline sent them as false, and both closed the bar. Desktop and 375px mobile fit with no overflow. Real consent was never changed.
 - Still to confirm in Admin: Settings → Customer privacy → regions where the banner is required (e.g. Switzerland, EU, UK). Then test from one of those regions.
+
+### #13 Colours — decision: keep colours as options on one product (Kira, after checking with her boss)
+
+The colours stay as options on one product, and the product page switches the photos when a colour is chosen.
+
+**Built (review theme):**
+- The product gallery now shows **every** photo (it showed only the first three before), with a thumbnail for each.
+- **Colour photo sets:** a photo belongs to a colour when its alt text (Products → photo → "Add alt text") contains the colour name, e.g. "Pine Grove – front", or when it is linked to that colour's variant. Choosing a colour shows that colour's photos plus any untagged shared photos. If a colour has no tagged photos yet, all photos show, so nothing ever looks empty.
+- The old positional fallback ("colour 2 → photo 2") is removed. That was the cause of the jumping Marion saw.
+- Tested in a browser only, by tagging Shorts photos 1–2 as Pine Grove and 3–4 as Eggplant: Eggplant showed 3, 4 and the shared 5; Pine Grove showed 1, 2 and 5; an untagged colour showed all 5. **The real photos are not tagged yet**, so today every colour shows all photos until Marion adds the alt text.
+
+**Suggested copy for Marion:**
+
+> We'd recommend keeping each piece as a single product with the colours as options, rather than a separate product per colour. Customers find a piece once and then try it in every colour on the same page, without losing their size or scroll position. The collection stays calm (one card per piece instead of four near-identical ones), and the colour filter still lets people see everything available in, say, Eggplant. Behind the scenes it is also simpler for you: one product to update for price, description, size guide and stock, instead of four copies that can drift apart.
+>
+> To make the photos switch with the colour, give each photo a short description that includes its colour (for example "Pine Grove – front" or "Eggplant – detail"). Open the product in Shopify, click a photo, and use "Add alt text". When a customer chooses a colour, the page then shows that colour's full set of photos. Photos without a colour, such as a campaign image, appear with every colour. The descriptions also help visually impaired customers and search engines.
+
+### #12 Zoom (approved)
+
+**Built (review theme):** click or tap the main product photo to open a full-screen cream viewer of the current colour's photos. It shows "1 / 5", arrows (or ← →) and Close (or Esc). Clicking the photo zooms in about 2.4× around that point, and moving the mouse or a finger pans; clicking again zooms out. Verified on desktop and at 375px with no overflow. Photos look best uploaded at least 2000px on the long side; the viewer requests a 2800px version.
+
+Files: `sections/main-product.liquid`, `assets/theme.js`, `assets/revisions-ii.css`.
