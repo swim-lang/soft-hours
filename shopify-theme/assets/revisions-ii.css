@@ -379,9 +379,8 @@
 .zoom-viewer__hint { color: var(--muted); }
 .zoom-viewer__bar button { padding: 0; border: 0; background: none; color: var(--ink); font: inherit; letter-spacing: inherit; text-transform: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .zoom-viewer__stage { position: absolute; inset: 64px 72px 24px; overflow: hidden; cursor: zoom-in; touch-action: pan-y; }
-.zoom-viewer__stage img { width: 100%; height: 100%; object-fit: contain; transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%); transition: transform .3s ease; user-select: none; -webkit-user-drag: none; }
+.zoom-viewer__stage img { width: 100%; height: 100%; object-fit: contain; transform-origin: 0 0; will-change: transform; backface-visibility: hidden; user-select: none; -webkit-user-drag: none; }
 .zoom-viewer.is-zoomed .zoom-viewer__stage { cursor: zoom-out; touch-action: none; }
-.zoom-viewer.is-zoomed .zoom-viewer__stage img { transform: scale(2.4); transition: transform .3s ease, transform-origin .08s linear; }
 .zoom-viewer__nav { position: absolute; top: 50%; z-index: 3; width: 56px; height: 88px; padding: 0; display: grid; place-items: center; border: 0; background: none; color: var(--ink); cursor: pointer; transform: translateY(-50%); }
 .zoom-viewer__nav svg { width: 12px; height: 24px; }
 .zoom-viewer__nav--prev { left: 8px; }

@@ -41,7 +41,7 @@
     const image = qs('[data-zoom-image]', zoomViewer);
     const thumb = zoomList[zoomIndex];
     if (!image || !thumb) return;
-    zoomViewer.classList.remove('is-zoomed');
+    resetZoom();
     image.src = thumb.dataset.zoomSrc || thumb.dataset.galleryThumb;
     image.alt = thumb.dataset.alt || '';
     const count = qs('[data-zoom-count]', zoomViewer);
@@ -60,26 +60,66 @@
     zoomIndex = (zoomIndex + step + zoomList.length) % zoomList.length;
     renderZoom();
   }
+  // Zoom viewer: the photo moves as one GPU layer; zoom and pan ease toward the pointer each frame.
+  const ZOOM_SCALE = 2.4;
+  const zoomState = { s: 1, ts: 1, fx: 0.5, fy: 0.5, tfx: 0.5, tfy: 0.5, frame: null };
+  const zoomInstant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resetZoom() {
+    Object.assign(zoomState, { s: 1, ts: 1, fx: 0.5, fy: 0.5, tfx: 0.5, tfy: 0.5 });
+    const image = zoomViewer && qs('[data-zoom-image]', zoomViewer);
+    if (image) image.style.transform = '';
+    zoomViewer?.classList.remove('is-zoomed');
+  }
   if (zoomViewer) {
     const stage = qs('[data-zoom-stage]', zoomViewer);
-    const panTo = (event) => {
+    const image = qs('[data-zoom-image]', zoomViewer);
+    const axis = (scale, stageSize, contentSize, offset, fraction) => {
+      const scaled = contentSize * scale;
+      const contentStart = scaled > stageSize ? -(scaled - stageSize) * fraction : (stageSize - scaled) / 2;
+      return contentStart - offset * scale;
+    };
+    const draw = () => {
+      const k = zoomInstant ? 1 : 0.16;
+      zoomState.s += (zoomState.ts - zoomState.s) * k;
+      zoomState.fx += (zoomState.tfx - zoomState.fx) * k;
+      zoomState.fy += (zoomState.tfy - zoomState.fy) * k;
+      const w = stage.clientWidth;
+      const h = stage.clientHeight;
+      const ratio = image.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight : w / h;
+      const cw = Math.min(w, h * ratio);
+      const ch = Math.min(h, w / ratio);
+      const tx = axis(zoomState.s, w, cw, (w - cw) / 2, zoomState.fx);
+      const ty = axis(zoomState.s, h, ch, (h - ch) / 2, zoomState.fy);
+      image.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${zoomState.s.toFixed(4)})`;
+      const settled = Math.abs(zoomState.ts - zoomState.s) < 0.001 && Math.abs(zoomState.tfx - zoomState.fx) < 0.0005 && Math.abs(zoomState.tfy - zoomState.fy) < 0.0005;
+      zoomState.frame = settled ? null : window.requestAnimationFrame(draw);
+    };
+    const animateZoom = () => { if (!zoomState.frame) zoomState.frame = window.requestAnimationFrame(draw); };
+    const aimAt = (event) => {
       const rect = stage.getBoundingClientRect();
-      const x = Math.min(100, Math.max(0, ((event.clientX - rect.left) / rect.width) * 100));
-      const y = Math.min(100, Math.max(0, ((event.clientY - rect.top) / rect.height) * 100));
-      stage.style.setProperty('--zoom-x', `${x}%`);
-      stage.style.setProperty('--zoom-y', `${y}%`);
+      zoomState.tfx = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      zoomState.tfy = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
     };
     stage.addEventListener('click', (event) => {
-      panTo(event);
-      zoomViewer.classList.toggle('is-zoomed');
+      const zoomingIn = zoomState.ts === 1;
+      aimAt(event);
+      if (zoomingIn) { zoomState.fx = zoomState.tfx; zoomState.fy = zoomState.tfy; }
+      zoomState.ts = zoomingIn ? ZOOM_SCALE : 1;
+      zoomViewer.classList.toggle('is-zoomed', zoomingIn);
+      animateZoom();
     });
-    stage.addEventListener('pointermove', (event) => { if (zoomViewer.classList.contains('is-zoomed')) panTo(event); });
+    stage.addEventListener('pointermove', (event) => {
+      if (zoomState.ts === 1) return;
+      aimAt(event);
+      animateZoom();
+    });
+    window.addEventListener('resize', () => { if (zoomViewer.open) animateZoom(); }, { passive: true });
     zoomViewer.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') stepZoom(1);
       if (event.key === 'ArrowLeft') stepZoom(-1);
     });
     zoomViewer.addEventListener('close', () => {
-      zoomViewer.classList.remove('is-zoomed');
+      resetZoom();
       qs('[data-zoom-open]')?.focus();
     });
   }
