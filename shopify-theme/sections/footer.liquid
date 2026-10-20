@@ -39,7 +39,7 @@
     {% endif %}
     {% if settings.instagram_url != blank or settings.linkedin_url != blank %}<div class="footer-col"><h4>Follow</h4><ul>{% if settings.instagram_url != blank %}<li><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>{% endif %}{% if settings.linkedin_url != blank %}<li><a href="{{ settings.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}</ul></div>{% endif %}
   </div></div>
-  <div class="footer-wordmark-band"><a class="footer-wordmark" href="{{ routes.root_url }}" aria-label="Soft Hours"></a></div>
+  <div class="footer-wordmark-band"><a class="footer-wordmark" href="{{ routes.root_url }}" aria-label="Soft Hours">{{ 'footer-wordmark-letters.svg' | inline_asset_content }}</a></div>
   <div class="footer-bottom">
     <span>© Soft Hours · {{ settings.footer_year }}</span>
   </div>

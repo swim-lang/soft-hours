@@ -575,6 +575,52 @@
     const list = qs('.shop-sort-menu', menu);
     if (list) list.hidden = true;
   });
+  // Sort in place: swap in the re-sorted grid without a full reload, keeping scroll position and active filters.
+  async function applySort(link) {
+    const root = link.closest('.collection-v2');
+    const sectionId = link.closest('.shopify-section')?.id.replace(/^shopify-section-/, '');
+    const grid = qs('[data-collection-grid]', root);
+    if (!root || !sectionId || !grid) return false;
+    const url = new URL(link.href, window.location.origin);
+    const sectionUrl = new URL(url);
+    sectionUrl.searchParams.set('section_id', sectionId);
+    grid.setAttribute('aria-busy', 'true');
+    try {
+      const response = await fetch(sectionUrl, { headers: { Accept: 'text/html' } });
+      if (!response.ok) throw new Error();
+      const parsed = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const incomingGrid = qs('[data-collection-grid]', parsed);
+      if (!incomingGrid) throw new Error();
+      grid.replaceWith(incomingGrid);
+      const incomingMenu = qs('[data-sort-menu]', parsed);
+      const currentMenu = qs('[data-sort-menu]', root);
+      if (incomingMenu && currentMenu) currentMenu.replaceWith(incomingMenu);
+      const incomingPagination = qs('.pagination', parsed);
+      const currentPagination = qs('.pagination', root);
+      if (currentPagination) currentPagination.replaceWith(incomingPagination || document.createComment(''));
+      const saved = readWishlist();
+      qsa('[data-wishlist-toggle]', incomingGrid).forEach((button) => setWishlistState(button, saved.has(button.dataset.productHandle)));
+      if (qs('[data-filter-option]', root)) applyCollectionFilters(root);
+      window.history.replaceState({}, '', url);
+      const status = qs('[data-collection-status]', root);
+      if (status) status.textContent = `Sorted by ${link.textContent.trim()}.`;
+      qs('[data-sort-toggle]', root)?.focus({ preventScroll: true });
+      return true;
+    } catch (_) {
+      grid.removeAttribute('aria-busy');
+      return false;
+    }
+  }
+
+  document.addEventListener('click', async (event) => {
+    const sortLink = event.target.closest('.shop-sort-menu a[href]');
+    if (sortLink && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+      event.preventDefault();
+      closeSortMenus();
+      if (!(await applySort(sortLink))) window.location.href = sortLink.href;
+    }
+  });
+
   document.addEventListener('click', (event) => {
     const menu = event.target.closest('[data-sort-menu]');
     closeSortMenus(menu);

@@ -18,7 +18,7 @@
 
   <section class="founder">
     <div class="founder-text"><h2 class="founder-title">{{ section.settings.founder_heading }}</h2><div class="founder-body">{{ section.settings.founder_body }}</div></div>
-    <div class="founder-media">
+    <div class="founder-media{% if section.settings.founder_video != blank %} founder-media--video{% endif %}">
       <div class="founder-image"{% if section.settings.founder_image %} style="background-image:url('{{ section.settings.founder_image | image_url: width: 1600 }}')"{% endif %} role="img" aria-label="{{ section.settings.founder_image_alt | escape }}"></div>
       {% if section.settings.founder_video != blank %}<div class="founder-video">{{ section.settings.founder_video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1600x' }}</div>{% endif %}
     </div>
