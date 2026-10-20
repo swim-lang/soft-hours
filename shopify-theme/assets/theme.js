@@ -389,7 +389,9 @@
     const purchasePanel = qs('[data-purchase-panel]', scope);
     const notifyPanel = qs('[data-notify-panel]', scope);
     if (!variant) {
-      if (button) { button.disabled = true; button.textContent = 'Unavailable'; }
+      // No size picked yet is not the same as unavailable.
+      const sizeMissing = selectedOptions.some((value) => !value);
+      if (button) { button.disabled = true; button.textContent = sizeMissing ? 'Select a size' : 'Unavailable'; }
       return;
     }
     if (idInput) {

@@ -163,3 +163,21 @@ Files: `sections/main-product.liquid`, `assets/theme.js`, `assets/revisions-ii.c
 - The preview keeps using the staging route `/pages/contact-1?view=favourites`, which works.
 - `sections/header.liquid` handles the launch switch automatically. When the page is visible, the header links to `/pages/favourites`, adding `?view=favourites` until the template is set to `page.favourites`.
 - **Launch checklist:** after publishing the ecommerce theme, open the Favourites page in Admin, set Template to `favourites`, and set Visibility to Visible.
+
+### Colour photo mapping — done for the current photos (October 20, 2026)
+
+Alt text set in Shopify Admin on 15 distinct product photos (shared photos carry their tag on every product):
+
+| Product | Photo tags (PG = Pine Grove, EG = Eggplant, OM = Oat Milk, -- = untagged, shows with every colour) |
+|---|---|
+| The Slip | 1 PG · 2 PG · 3 OM · 4 -- · 5 OM · 6 OM · 7 EG · 8 EG · 9 PG · 10 PG |
+| Long Pants | 1 -- · 2 PG · 3 EG · 4 -- · 5 -- |
+| Button Down Shirt | 1 PG · 2 OM · 3 OM · 4 OM |
+| Shorts | 1 EG · 2 -- · 3 OM · 4 OM · 5 OM · 6 OM |
+| Camisole | 1 OM · 2 OM · 3 OM · 4 -- |
+
+Left untagged on purpose: pale blue set (Long Pants 1, 4), dark brown set (The Slip 4 / Long Pants 5), brown T-shirt (Shorts 2), campaign hallway shot (Camisole 4). There are no Burnished Lilac photos, so that colour shows all photos. Verified in the preview: on The Slip, Eggplant shows 7, 8 and the shared 4; Oat Milk shows 3, 5, 6 and 4.
+
+Going forward: a colour in the file name (e.g. `long-pants_pine-grove_01.jpg`) links the photo automatically (`main-product.liquid`); alt text and variant images also work. See CLIENT_CONTENT_EDITOR_GUIDE.md.
+
+Also fixed: after picking only a colour, the product button said "Unavailable"; it now says "Select a size" until a size is chosen.
