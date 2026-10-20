@@ -353,7 +353,7 @@
 
 /* #1 · Slim on-brand cookie bar. Shopify's own banner is hidden in this theme only; the live theme keeps it. */
 #shopify-pc__banner { display: none !important; }
-.cookie-bar { position: fixed; left: 0; right: 0; bottom: var(--cookie-bar-offset, 0px); z-index: 110; padding: 10px var(--page-pad) calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; border-top: 1px solid var(--hairline); background: var(--cream); color: var(--ink); }
+.cookie-bar { position: fixed; left: 0; right: 0; bottom: var(--cookie-bar-offset, 0px); transition: bottom .2s ease; z-index: 110; padding: 10px var(--page-pad) calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; border-top: 1px solid var(--hairline); background: var(--cream); color: var(--ink); }
 .cookie-bar[hidden] { display: none; }
 .cookie-bar__text { margin: 0; font: var(--type-meta)/18px var(--mono); color: var(--muted); }
 .cookie-bar__text a { color: var(--ink); text-underline-offset: 3px; }
