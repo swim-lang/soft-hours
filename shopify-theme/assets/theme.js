@@ -65,7 +65,8 @@
   const zoomState = { s: 1, ts: 1, fx: 0.5, fy: 0.5, tfx: 0.5, tfy: 0.5, frame: null };
   const zoomInstant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function resetZoom() {
-    Object.assign(zoomState, { s: 1, ts: 1, fx: 0.5, fy: 0.5, tfx: 0.5, tfy: 0.5 });
+    if (zoomState.frame) window.cancelAnimationFrame(zoomState.frame);
+    Object.assign(zoomState, { s: 1, ts: 1, fx: 0.5, fy: 0.5, tfx: 0.5, tfy: 0.5, frame: null });
     const image = zoomViewer && qs('[data-zoom-image]', zoomViewer);
     if (image) image.style.transform = '';
     zoomViewer?.classList.remove('is-zoomed');
