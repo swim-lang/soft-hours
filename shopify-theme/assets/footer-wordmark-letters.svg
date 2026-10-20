@@ -1,4 +1,11 @@
 <svg class="footer-wordmark__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410.68 49.06" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="FooterWordmarkGlow" gradientUnits="userSpaceOnUse" cx="-200" cy="24.5" r="0" data-footer-glow>
+      <stop class="footer-wordmark__glow-core" offset="0"/>
+      <stop class="footer-wordmark__glow-mid" offset="0.45"/>
+      <stop class="footer-wordmark__glow-edge" offset="1"/>
+    </radialGradient>
+  </defs>
   <g>
     <g>
       <g>

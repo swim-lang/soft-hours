@@ -214,12 +214,12 @@
 .footer-wordmark { display: block; background: none; filter: none; color: var(--footer-link, #F2EBDD); }
 /* Footer wordmark: inline SVG so each letter dims on its own when the cursor is over it. */
 .footer-wordmark__svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.footer-wordmark__glyph { fill: currentColor; transition: fill .25s ease; }
+.footer-wordmark__glyph { fill: url(#FooterWordmarkGlow) currentColor; }
 .footer .footer-wordmark:hover { opacity: 1; }
-@media (hover: hover) {
-  .footer-wordmark__glyph:hover { fill: #8C8476; }
-}
-.footer-wordmark:focus-visible .footer-wordmark__glyph { fill: #8C8476; }
+/* A soft dark glow follows the cursor across the letters (theme.js moves the gradient). */
+.footer-wordmark__glow-core { stop-color: #7E776B; }
+.footer-wordmark__glow-mid { stop-color: #B5AD9F; }
+.footer-wordmark__glow-edge { stop-color: currentColor; }
 
 /* F3 · Support pages (Size Guide, Contact, FAQ): one readable hierarchy */
 .page-hero { padding: 64px var(--page-pad) 44px; }

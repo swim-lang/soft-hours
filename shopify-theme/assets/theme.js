@@ -782,6 +782,54 @@
     }
   }
 
+  // Footer wordmark: a soft radial glow follows the cursor and bleeds across neighbouring letters.
+  const wordmark = qs('.footer-wordmark');
+  const glow = qs('[data-footer-glow]', wordmark || document);
+  const wordmarkSvg = wordmark && qs('svg', wordmark);
+  if (wordmark && glow && wordmarkSvg && window.matchMedia('(hover: hover)').matches) {
+    const GLOW_RADIUS = 78; // in wordmark units; the full wordmark is about 411 wide.
+    const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const state = { x: -200, y: 24.5, r: 0, tx: -200, ty: 24.5, tr: 0 };
+    let frame = null;
+    const render = () => {
+      const ease = instant ? 1 : 0.14;
+      state.x += (state.tx - state.x) * ease;
+      state.y += (state.ty - state.y) * ease;
+      state.r += (state.tr - state.r) * (instant ? 1 : 0.1);
+      glow.setAttribute('cx', state.x.toFixed(2));
+      glow.setAttribute('cy', state.y.toFixed(2));
+      glow.setAttribute('r', Math.max(0, state.r).toFixed(2));
+      const settled = Math.abs(state.tx - state.x) < 0.1 && Math.abs(state.ty - state.y) < 0.1 && Math.abs(state.tr - state.r) < 0.1;
+      frame = settled ? null : window.requestAnimationFrame(render);
+    };
+    const animate = () => { if (!frame) frame = window.requestAnimationFrame(render); };
+    const toWordmarkPoint = (event) => {
+      const matrix = wordmarkSvg.getScreenCTM();
+      if (!matrix) return null;
+      const point = wordmarkSvg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      return point.matrixTransform(matrix.inverse());
+    };
+    wordmark.addEventListener('pointerenter', (event) => {
+      const point = toWordmarkPoint(event);
+      if (point && state.r < 1) { state.x = point.x; state.y = point.y; }
+      state.tr = GLOW_RADIUS;
+      animate();
+    });
+    wordmark.addEventListener('pointermove', (event) => {
+      if (event.pointerType === 'touch') return;
+      const point = toWordmarkPoint(event);
+      if (!point) return;
+      state.tx = point.x;
+      state.ty = point.y;
+      animate();
+    });
+    wordmark.addEventListener('pointerleave', () => { state.tr = 0; animate(); });
+    wordmark.addEventListener('focus', () => { state.tx = state.x = 205; state.ty = state.y = 24.5; state.tr = 230; animate(); });
+    wordmark.addEventListener('blur', () => { state.tr = 0; animate(); });
+  }
+
   const policyBody = qs('.shopify-policy__body');
   if (policyBody) {
     const headings = qsa('h2', policyBody);
