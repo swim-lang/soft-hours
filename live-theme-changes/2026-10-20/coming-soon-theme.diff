@@ -1,0 +1,35 @@
+--- index.before.liquid	2026-10-20 08:55:22
++++ live-edit/templates/index.liquid	2026-10-20 08:56:23
+@@ -21,7 +21,7 @@
+         </div>
+     <div class="cs-hero__corners">
+       <div class="l reveal" data-delay="4"><span class="dim" data-cms="coming-soon.hero.corner_l_top">No. 01</span><span data-cms="coming-soon.hero.corner_l_bot">The Making</span></div>
+-      <div class="r reveal" data-delay="4"><span class="dim" data-cms="coming-soon.hero.corner_r_top">Launching</span><span data-cms="coming-soon.hero.corner_r_bot">MMXXVI</span></div>
++      <div class="r reveal" data-delay="4"><span class="dim" data-cms="coming-soon.hero.corner_r_top">Launching</span><span>MMXXVII</span></div>
+     </div>
+   </section>
+ 
+@@ -101,7 +101,7 @@
+   <footer class="cs-footer">
+     <div class="cs-footer__mark reveal"></div>
+     <div class="cs-footer__row">
+-      <span data-cms="coming-soon.footer.copyright">© {{ shop.name }} — MMXXVI</span>
++      <span>© {{ shop.name }} — MMXXVII</span>
+       <div class="cs-footer__social">
+         <a href="https://www.instagram.com/softhours.rest/" target="_blank" rel="noopener noreferrer">Instagram</a>
+         <a href="https://www.linkedin.com/company/soft-hours/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+--- coming-soon.before.liquid	2026-10-20 08:55:22
++++ live-edit/layout/coming-soon.liquid	2026-10-20 08:56:23
+@@ -4,6 +4,12 @@
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="theme-color" content="#26241A">
++  {%- if settings.favicon != blank -%}
++  <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
++  <link rel="icon" type="image/png" sizes="96x96" href="{{ settings.favicon | image_url: width: 96, height: 96 }}">
++  <link rel="icon" type="image/png" sizes="192x192" href="{{ settings.favicon | image_url: width: 192, height: 192 }}">
++  <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
++  {%- endif -%}
+   <title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+     <link rel="canonical" href="{{ canonical_url }}">

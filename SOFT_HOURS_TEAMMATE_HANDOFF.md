@@ -92,6 +92,7 @@ When the document arrives:
 
 Useful existing context:
 
+- `live-theme-changes/` — record of approved edits made directly to the live coming-soon theme (October 20, 2026: launch year MMXXVII and favicon). The live theme is not otherwise tracked in Git.
 - `MARION_OCTOBER_1_STATUS.md` — point-by-point status for Marion's October 1 "Iteration 3" document (original in `client-feedback/2026-10-01-website-iteration-3/`).
 - `MARION_SEPTEMBER_20_DECISION_REGISTER.md` — decision register for Marion's September 20 “Website Take II” document (original saved in `client-feedback/2026-09-20-website-comments-ii/`).
 - `MARION_AUGUST_27_FEEDBACK_AUDIT.md` — latest consolidated client-feedback audit currently in the repository.
