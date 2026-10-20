@@ -4,7 +4,8 @@
     "color_cream": "#F2EBDD",
     "color_ink": "#26241A",
     "color_muted": "#5A4F44",
-    "footer_year": "MMXXVI",
+    "footer_year": "MMXXVII",
+    "favicon": "shopify://shop_images/Logo-Black.png",
     "show_accelerated_checkout": true,
     "sections": {
       "header": {

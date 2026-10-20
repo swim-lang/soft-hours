@@ -22,7 +22,7 @@
       { "type": "text", "id": "instagram_url", "label": "Instagram URL" },
       { "type": "text", "id": "linkedin_url", "label": "LinkedIn URL" },
       { "type": "text", "id": "support_email", "label": "Support email" },
-      { "type": "text", "id": "footer_year", "label": "Footer year", "default": "MMXXVI" }
+      { "type": "text", "id": "footer_year", "label": "Footer year", "default": "MMXXVII" }
     ]
   },
   {

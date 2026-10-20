@@ -385,3 +385,6 @@
   .zoom-viewer__stage { inset: 64px 0 64px; }
   .zoom-viewer__nav { top: auto; bottom: 0; transform: none; height: 64px; }
 }
+
+/* About clock: the original face was 4500px square, which loaded slowly; use a 1600px version (preloaded on About pages). */
+.clock-face { background-image: url('circle-1600.png'); }
