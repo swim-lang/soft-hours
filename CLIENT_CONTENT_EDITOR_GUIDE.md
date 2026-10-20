@@ -29,6 +29,16 @@ Use **Customize** for the Homepage, About page, collection presentation, product
 
 Use **Products** for product names, descriptions, photography, prices, colors, sizes, inventory, and the supporting product fields: short description, details, fit notes, measurements, model information, fabric, care, maker story, dispatch estimate, delivery and returns summary, and related products.
 
+### Matching photos to colours
+
+When a customer picks a colour on a product page, the page shows that colour's photos. A photo is linked to a colour in any of these three ways. Use whichever is easiest:
+
+1. **Easiest: put the colour in the file name before uploading.** For example `long-pants_pine-grove_01.jpg` or `Long Pants Oat Milk 2.jpg`. The page links it automatically, and there's nothing to fill in after uploading. Spaces, hyphens or underscores all work.
+2. **For photos already uploaded: add the colour to the photo's description.** In the product, click a photo, choose **Add alt text**, and include the colour, such as "Pine Grove – front". This also helps visually impaired visitors and search engines.
+3. **Link it to a variant.** In the product's variant list, give a colour variant an image. That photo becomes part of the colour's set.
+
+Photos with no colour, such as campaign or detail shots that suit every colour, appear with all colours. If a colour has no photos linked yet, all photos are shown, so the page never looks empty. Upload photos at least 2000px on the long side so the zoom stays sharp.
+
 ### Content and policies
 
 Use **Content** for Journal posts and menus. Use **Settings > Policies** for approved privacy, terms, shipping, and returns language.

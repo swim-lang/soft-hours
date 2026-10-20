@@ -62,10 +62,13 @@
               assign image_colours = ''
               if colour_option != blank
                 assign image_alt = image.alt | downcase
+                assign image_file = image.src | split: '?' | first | split: '/' | last | downcase | replace: '_', '-' | replace: ' ', '-' | replace: '%20', '-'
+                assign image_file_flat = image_file | remove: '-'
                 for value in colour_option.values
                   assign value_down = value | downcase
                   assign value_handle = value | handle
-                  if image_alt contains value_down
+                  assign value_flat = value_handle | remove: '-'
+                  if image_alt contains value_down or image_file contains value_handle or image_file_flat contains value_flat
                     assign image_colours = image_colours | append: value_handle | append: ' '
                   else
                     for image_variant in image.variants
