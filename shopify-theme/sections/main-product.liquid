@@ -165,6 +165,17 @@
     </div>
   </section>
 
+  {%- assign campaign_images = product.metafields.custom.campaign_images.value -%}
+  {%- if section.settings.show_campaign and campaign_images != blank -%}
+    {%- assign campaign_count = campaign_images.size | at_most: 2 -%}
+    <section class="pdp-campaign pdp-campaign--{{ campaign_count }}" aria-label="{{ product.title | escape }} campaign">
+      {%- for campaign_image in campaign_images limit: 2 -%}
+        <figure class="pdp-campaign__item" style="--campaign-ratio: {{ campaign_image.aspect_ratio | default: 1.5 }};">{{ campaign_image | image_url: width: 2200 | image_tag: loading: 'lazy', widths: '800, 1200, 1600, 2200', sizes: '(min-width: 761px) 50vw, 100vw', alt: campaign_image.alt | default: product.title }}</figure>
+      {%- endfor -%}
+      {%- if product.metafields.custom.campaign_caption != blank -%}<p class="pdp-campaign__caption">{{ product.metafields.custom.campaign_caption }}</p>{%- endif -%}
+    </section>
+  {%- endif -%}
+
   {% assign related_products = product.metafields.custom.related_products.value %}
   {% assign collection_products = collections['collection-i'].products %}
   <section class="pdp-related" data-reveal>
@@ -206,6 +217,9 @@
     { "type": "textarea", "id": "details_placeholder", "label": "Details placeholder", "default": "Sampling is still in progress. Final construction details, model information, and colour names will remain editable until approved." },
     { "type": "textarea", "id": "fabric_placeholder", "label": "Fabric and care placeholder", "default": "Double-satin silk/modal blend. Final composition and care instructions remain subject to sampling and approval." },
     { "type": "textarea", "id": "delivery_placeholder", "label": "Delivery and returns placeholder", "default": "Delivery and returns details to be confirmed." },
+    { "type": "header", "content": "Campaign images" },
+    { "type": "paragraph", "content": "Each product can show up to two campaign images between its details and Complete the set. Choose them in Products > [product] > Campaign images (and an optional Campaign caption)." },
+    { "type": "checkbox", "id": "show_campaign", "label": "Show product campaign images", "default": true },
     { "type": "text", "id": "related_heading", "label": "Related-products heading", "default": "Complete the set" },
     { "type": "checkbox", "id": "show_editorial", "label": "Show closing editorial image", "default": true },
     { "type": "image_picker", "id": "editorial_image", "label": "Closing editorial image" },

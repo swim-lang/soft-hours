@@ -17,11 +17,6 @@
   if about_page != blank
     assign about_url = about_page.url
   endif
-  assign size_guide_page = pages['size-guide']
-  assign size_guide_url = section.settings.size_guide_review_url
-  if size_guide_page != blank
-    assign size_guide_url = size_guide_page.url
-  endif
   assign journal = blogs['founders-journal'] | default: blogs['journal']
 %}
 <footer class="footer" id="FooterNewsletter">
@@ -33,7 +28,7 @@
         <div class="footer-col"><h4>Explore</h4><ul>{% for link in footer_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul></div>
       {% endif %}
     {% else %}
-      <div class="footer-col"><h4>Shop</h4><ul><li><a href="{{ routes.collections_url }}/collection-i">Collection I</a></li>{% if all_products['soft-hours-gift-card'] != blank %}<li><a href="{{ all_products['soft-hours-gift-card'].url }}">Gift Card</a></li>{% endif %}<li><a href="{{ size_guide_url }}">Size Guide</a></li></ul></div>
+      <div class="footer-col"><h4>Shop</h4><ul><li><a href="{{ routes.collections_url }}/collection-i">Collection I</a></li>{% if all_products['soft-hours-gift-card'] != blank %}<li><a href="{{ all_products['soft-hours-gift-card'].url }}">Gift Card</a></li>{% endif %}</ul></div>
       <div class="footer-col"><h4>Soft Hours</h4><ul><li><a href="{{ about_url }}">About</a></li><li><a href="{{ journal.url | default: routes.root_url }}">Journal</a></li><li><a href="{{ routes.root_url }}#NewsletterSignup">Newsletter</a></li><li><a href="{{ routes.root_url }}pages/contact-1">Contact</a></li></ul></div>
       <div class="footer-col"><h4>Help</h4><ul><li><a href="{{ routes.root_url }}pages/faqs">FAQ</a></li><li><a href="{{ routes.root_url }}pages/shipping-returns">Delivery & Returns</a></li>{% if shop.privacy_policy.url != blank %}<li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>{% endif %}{% if shop.terms_of_service.url != blank %}<li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>{% endif %}</ul></div>
     {% endif %}
@@ -50,8 +45,7 @@
   "settings": [
     { "type": "paragraph", "content": "The approved oversized wordmark footer is fixed. Manage links in Content > Menus." },
     { "type": "link_list", "id": "footer_menu", "label": "Footer menu", "info": "Use nested links to create columns. If blank, the theme uses the Soft Hours Footer menu or safe fallback links." },
-    { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." },
-    { "type": "text", "id": "size_guide_review_url", "label": "Size Guide link", "default": "/pages/contact-1?view=size-guide-review", "info": "Staging route while the Size Guide page is unpublished. Change to /pages/size-guide before launch." }
+    { "type": "text", "id": "about_review_url", "label": "About link", "default": "/pages/contact-1?view=about-review", "info": "Staging route while the About page is unpublished. Change to /pages/about before launch." }
   ]
 }
 {% endschema %}
