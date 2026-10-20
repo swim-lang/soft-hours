@@ -414,3 +414,29 @@
   .pdp-campaign--2 { grid-template-columns: 1fr; }
   .pdp-campaign--1 .pdp-campaign__item { width: 100%; }
 }
+
+/* Notify me: say plainly that signing up also subscribes to Soft Hours emails (needed for restock emails). */
+.notify-dialog__consent, .pdp-notify-consent { margin: 4px 0 0; font: var(--type-meta)/17px var(--mono); color: var(--muted); }
+
+/* Full Cart page (/cart): bring it in line with the drawer's type scale */
+.main-cart__head h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.05; }
+.main-cart__head span { font: var(--type-control)/18px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.main-cart .cart-line__top { font: 400 15px/20px var(--label); }
+.main-cart .cart-line__top span { font: 14px/18px var(--label); }
+.main-cart .cart-line__options { font: var(--type-control)/18px var(--label); text-transform: none; }
+.main-cart .cart-line__actions .text-link { font: var(--type-meta)/16px var(--label); letter-spacing: .04em; }
+.main-cart .cart-summary { font: 14px/18px var(--label); letter-spacing: .02em; }
+.main-cart .cart-summary strong { font-weight: 400; }
+.main-cart__summary { display: flex; flex-direction: column; gap: 12px; }
+.main-cart__summary .button { min-height: 50px; font: var(--type-control)/17px var(--label); letter-spacing: .1em; }
+
+/* Mobile polish: comfortable tap targets, and 16px form fields so iPhone Safari doesn't zoom on focus */
+@media (max-width: 760px) {
+  input[type="email"], input[type="text"], input[type="tel"], input[type="number"], input[type="search"], textarea, select { font-size: 16px !important; }
+  .product-v2 .pdp-swatch { position: relative; }
+  .product-v2 .pdp-swatch::after { content: ''; position: absolute; inset: -9px; }
+  .product-v2 .pdp-size-guide { min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-right .nav-action { min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-right .nav-favourites { width: 44px; height: 44px; }
+  .main-cart .cart-line { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+}

@@ -405,6 +405,8 @@
     }
     if (purchasePanel) purchasePanel.hidden = !variant.available;
     if (notifyPanel) notifyPanel.hidden = variant.available;
+    const notifyTags = qs('[data-notify-variant-tags]', scope);
+    if (notifyTags) notifyTags.value = `notify-me,${notifyTags.dataset.productHandle},variant-${variant.id}`;
     const url = new URL(window.location.href);
     url.searchParams.set('variant', variant.id);
     window.history.replaceState({}, '', url);

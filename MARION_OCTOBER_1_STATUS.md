@@ -200,3 +200,20 @@ Also fixed: after picking only a colour, the product button said "Unavailable"; 
 
 - Marion approved trying **Michroma** for checkout headings. Set in Settings → Checkout → Edit ("Mein Shop-Konfiguration") → Typography → Headings: Assistant → **Michroma**; body stays Courier New. Saved; verified on the live checkout (headings render in Michroma once the session refreshes). This is a store-wide checkout setting; to revert, set Headings back to Assistant.
 - **Shop Pay** stays visible at checkout (Marion: leave for now). No change.
+
+### Restock emails and mobile pass (October 20, 2026)
+
+**Restock ("Notify me") without a paid app is possible** with Shopify's own free tools:
+- **Shopify Flow** trigger "Product variant inventory quantity changed", with a condition that stock went from 0 to more than 0.
+- Then "Get customer data" for customers tagged `variant-<id>`, then Shopify Messaging **"Send marketing email"**, then remove the tag so nobody is emailed twice.
+- Limits: Send marketing email only reaches customers subscribed to email marketing, and its template can't easily show which product is back (a generic "a piece you were waiting for is back" email, or a customer metafield workaround).
+- Theme prepared: the Notify me pop-up and the product-page sold-out form now say that signing up also subscribes to Soft Hours emails. The product-page form now tags the exact variant (`notify-me,<handle>,variant-<id>`), matching the card pop-up.
+- **Not yet set up:** installing Flow and creating the Messaging template need Kira's or Marion's OK.
+
+**Mobile audit at 375px:** home, collection, product, About, Journal, Contact, FAQ and Cart. No horizontal overflow anywhere. Fixed:
+- Full Cart page: had 8–10px legacy text; now matches the drawer.
+- All form fields: 16px on mobile, so iPhone Safari doesn't zoom when a field is tapped.
+- Colour swatches: 44px tap area, still 26px visually.
+- Size Guide link and header Cart link: 44px tall.
+
+An unused legacy search drawer still has tiny text, but it is never opened.

@@ -143,9 +143,10 @@
       <div data-notify-panel{% if current_variant.available %} hidden{% endif %}>
         <p class="pdp-sold-out">Sold out</p>
         {% form 'customer', class: 'pdp-notify' %}
-          <input type="hidden" name="contact[tags]" value="notify-me,{{ product.handle }}">
+          <input type="hidden" name="contact[tags]" value="notify-me,{{ product.handle }},variant-{{ current_variant.id }}" data-notify-variant-tags data-product-handle="{{ product.handle }}">
           <label for="NotifyEmail-{{ section.id }}">Email address</label>
           <div><input id="NotifyEmail-{{ section.id }}" type="email" name="contact[email]" required placeholder="your.name@example.com"><button type="submit">Notify me</button></div>
+          <p class="pdp-notify-consent">We will email you when it is back. You will also receive occasional news from Soft Hours, and can unsubscribe at any time.</p>
           {% if form.posted_successfully? %}<p class="prototype-status">We will keep you informed.</p>{% endif %}
           {% if form.errors %}<div class="prototype-status">{{ form.errors | default_errors }}</div>{% endif %}
         {% endform %}

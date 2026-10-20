@@ -10,6 +10,7 @@
       <input id="NotifyDialogEmail" type="email" name="contact[email]" autocomplete="email" required>
       {% if form.errors %}<div class="notify-dialog__error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
       <button class="prototype-button prototype-button--dark" type="submit">Notify me</button>
+      <p class="notify-dialog__consent">We will email you when it is back. You will also receive occasional news from Soft Hours, and can unsubscribe at any time.</p>
     {% endif %}
   {% endform %}
 </dialog>
