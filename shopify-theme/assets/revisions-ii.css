@@ -217,8 +217,8 @@
 .footer-wordmark__glyph { fill: url(#FooterWordmarkGlow) currentColor; }
 .footer .footer-wordmark:hover { opacity: 1; }
 /* A soft dark glow follows the cursor across the letters (theme.js moves the gradient). */
-.footer-wordmark__glow-core { stop-color: #7E776B; }
-.footer-wordmark__glow-mid { stop-color: #B5AD9F; }
+.footer-wordmark__glow-core { stop-color: #6A6458; }
+.footer-wordmark__glow-mid { stop-color: #A89F91; }
 .footer-wordmark__glow-edge { stop-color: currentColor; }
 
 /* F3 · Support pages (Size Guide, Contact, FAQ): one readable hierarchy */
