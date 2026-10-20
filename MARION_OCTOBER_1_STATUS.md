@@ -181,3 +181,11 @@ Left untagged on purpose: pale blue set (Long Pants 1, 4), dark brown set (The S
 Going forward: a colour in the file name (e.g. `long-pants_pine-grove_01.jpg`) links the photo automatically (`main-product.liquid`); alt text and variant images also work. See CLIENT_CONTENT_EDITOR_GUIDE.md.
 
 Also fixed: after picking only a colour, the product button said "Unavailable"; it now says "Select a size" until a size is chosen.
+
+### Markets (October 20, 2026)
+
+- Marion: Switzerland first, then the UK and some EU countries; she wants to manage this herself.
+- **Done (approved by Kira):** created the market **"Switzerland"** (Admin → Markets, ID 112194093429), Active, region Switzerland, currency CHF. The existing market "SLG" (United Kingdom) is unchanged and still prices in CHF.
+- Theme: the country/currency selector is hidden while only one country exists (`header.liquid`). It now shows "Switzerland — CHF" and "United Kingdom — CHF" in the preview.
+- **Still needed before Swiss customers can check out:** a shipping zone and rate for Switzerland (Settings → Shipping and delivery; the market shows "Not shipping"), plus taxes/duties and returns rules (both show as not set).
+- Store business address is London, UK (Settings → General). Marion should confirm with her accountant whether that's correct for a Swiss-led business.
