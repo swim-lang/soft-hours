@@ -251,7 +251,7 @@
 .founder-video video { width: 100%; height: 100%; object-fit: cover; }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-hero-video, .founder-video, .shop-campaign-media video { display: none; }
+  .home-hero-video, .shop-campaign-media video { display: none; }
 }
 
 @media (min-width: 761px) and (max-width: 1099px) {
@@ -440,3 +440,9 @@
   .nav-right .nav-favourites { width: 44px; height: 44px; }
   .main-cart .cart-line { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
 }
+
+/* Founder video: play button for the version with sound (mirrors the pre-launch site) */
+.founder-video__play { position: absolute; left: 50%; top: 50%; z-index: 2; width: 64px; height: 64px; padding: 0; display: grid; place-items: center; border: 1px solid rgba(242,235,221,.7); border-radius: 50%; background: rgba(38,36,26,.35); color: var(--cream); cursor: pointer; transform: translate(-50%, -50%); transition: background-color .2s ease, transform .2s ease; -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.founder-video__play:hover { background: rgba(38,36,26,.55); transform: translate(-50%, -50%) scale(1.06); }
+.founder-video__play svg { width: 24px; height: 24px; margin-left: 3px; }
+.founder-video__play[hidden] { display: none; }

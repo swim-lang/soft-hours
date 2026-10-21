@@ -785,7 +785,33 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const syncMotionVideos = () => qsa('.home-hero-video video, .founder-video video, .shop-campaign-media video').forEach((video) => {
+    if (video.dataset.withSound === 'true') return; // A visitor started it with sound; leave it alone.
     if (reducedMotion.matches) video.pause(); else video.play().catch(() => {});
+  });
+
+  // Founder video: plays as a silent loop; the play button restarts it with sound and controls.
+  qsa('[data-founder-play]').forEach((button) => {
+    const video = qs('video', button.closest('.founder-video'));
+    if (!video) return;
+    const backToAmbient = () => {
+      video.dataset.withSound = 'false';
+      video.controls = false;
+      video.muted = true;
+      video.loop = true;
+      button.hidden = false;
+      if (reducedMotion.matches) video.pause(); else video.play().catch(() => {});
+    };
+    button.addEventListener('click', () => {
+      video.dataset.withSound = 'true';
+      video.loop = false;
+      video.currentTime = 0;
+      video.muted = false;
+      video.controls = true;
+      button.hidden = true;
+      video.play().catch(() => backToAmbient());
+      video.focus({ preventScroll: true });
+    });
+    video.addEventListener('ended', () => { if (video.dataset.withSound === 'true') backToAmbient(); });
   });
   syncMotionVideos();
   reducedMotion.addEventListener?.('change', syncMotionVideos);
