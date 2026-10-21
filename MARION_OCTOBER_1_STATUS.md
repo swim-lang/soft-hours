@@ -217,3 +217,8 @@ Also fixed: after picking only a colour, the product button said "Unavailable"; 
 - Size Guide link and header Cart link: 44px tall.
 
 An unused legacy search drawer still has tiny text, but it is never opened.
+
+### Founder video sound and Safari sorting (October 21, 2026)
+
+- **Founder video with sound:** the founder video (31 s, stereo, Marion speaking) played only as a muted loop, so the voice was never heard. It now keeps the silent loop, with a centred play button like the pre-launch site; clicking restarts it with sound and controls, and when it ends it returns to the silent loop. Under reduced motion it stays paused until played. Recommendation to Sean: keep this combination; add captions or a transcript before launch (needs the transcript text from Marion).
+- **Sorting in Safari:** Marion's recording (Safari 18.6 on macOS) showed the Sort menu never visibly opening. In Safari the menu rendered behind the product grid (same cream background, so invisible) and clicks went to the grid. Fix: the filter/sort row now has its own stacking layer above the grid (`.collection-v2 .shop-filter { position: relative; z-index: 40 }`). Confirmed working in Safari by a team member on October 21.
