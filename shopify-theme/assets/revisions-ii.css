@@ -313,7 +313,8 @@
 .product-v2 .pdp-related-title { font-weight: 400; }
 
 /* #15 · Sort opens from the whole control, as a brand-styled menu */
-.collection-v2 .shop-sort { position: relative; padding: 0; }
+.collection-v2 .shop-filter { position: relative; z-index: 40; }
+.collection-v2 .shop-sort { position: relative; z-index: 2; padding: 0; }
 .collection-v2 .shop-sort::after { content: none; }
 .shop-sort-toggle { min-height: 44px; padding: 0; display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--ink); font: var(--type-control)/17px var(--label); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
 .shop-sort-toggle .shop-sort-prefix { color: var(--muted); }
